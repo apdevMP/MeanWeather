@@ -10,9 +10,18 @@
 	<string name="edit_city_hint">Example: Rome, IT</string>
 	<string name="button_add_city">Add</string>
 	<string name="city_list">Favorite Cities</string>
-	<string name="prova">yguyguyfuf</string>
 	
 	
 	<!-- Mean Activity -->
+	<string name="text_city">City</string>
+	<string name="text_temperature">Temperature</string>
+	<string name="text_forecast">Forecast</string>
+	<string name="table_title">Other Information</string>
+	<string name="table_description">Description</string>
+	<string name="table_wind">Wind</string>
+	<string name="table_wetness">Wetness</string>
+	<string name="table_pressure">Pressure</string>
+	<string name="not_available">NA</string>
 	<string name="details_button">View Details</string>
+	
 </resources>
