@@ -1,6 +1,6 @@
 /**
  * La classe SplashScreenActivity serve a gestire l'activity dello SplashScreen che recupera i dati 
- * della posizione attuale dalla quale calcolare il meteo e recupera i dati delle città salavate nel db delle preferenze
+ * della posizione attuale dalla quale calcolare il meteo e recupera i dati delle cittï¿½ salavate nel db delle preferenze
  */
 package it.apdev.weathermean.presentation;
 
@@ -25,6 +25,8 @@ public class SplashScreenActivity extends Activity {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splashscreen);
+		
+		/* commento di prova*/
 	}
 
 }

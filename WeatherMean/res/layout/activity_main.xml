@@ -11,7 +11,8 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Large Text"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/add_city"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
@@ -25,6 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"
+            android:hint="@string/edit_city_hint"
             android:ems="10" >
 
             <requestFocus />
@@ -35,14 +37,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="@string/button_add_city" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Large Text"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/city_list"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ListView
