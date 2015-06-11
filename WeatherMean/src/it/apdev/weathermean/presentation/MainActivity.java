@@ -42,22 +42,13 @@ public class MainActivity extends ActionBarActivity
 		}
 
 		dbManager = new DBManager(this);
-		Log.v("dmanager", "="+dbManager);
-		
-		
+
 		Intent intent = getIntent();
 		String currentCityNameString = intent.getStringExtra("city_name");
 		String currentCountryCodeString = intent.getStringExtra("country_code");
 
 		//retrieve the views 
 		cityListView = (ListView) findViewById(R.id.listViewCities);
-		
-		
-		//stop location manager
-	//	SplashScreenActivity.locationManager.removeUpdates(SplashScreenActivity.locationListener);
-	//	SplashScreenActivity.locationManager = null;
-		
-		
 
 		Cursor crs = dbManager.query();
 		adapter = new CursorAdapter(this, crs, 0) {
@@ -155,5 +146,16 @@ public class MainActivity extends ActionBarActivity
 			View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 			return rootView;
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onBackPressed()
+	 */
+	@Override
+	public void onBackPressed()
+	{
+		// TODO Auto-generated method stub
+		finish();
+		System.exit(0);
 	}
 }

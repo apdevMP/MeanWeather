@@ -5,15 +5,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="it.apdev.weathermean.presentation.MainActivity"
-    android:background="@drawable/gradient_1"
+    android:background="@drawable/radial_gradient"
     tools:ignore="MergeRootFrame" >
 
     <TextView
         android:id="@+id/textViewTitleEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:gravity="center"
         android:text="@string/add_city"
+        android:background="@color/logo"
+        android:padding="5dp"
+        android:layout_marginBottom="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
@@ -43,9 +47,13 @@
 
     <TextView
         android:id="@+id/textViewTitleCityList"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:padding="5dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/logo"
         android:text="@string/city_list"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

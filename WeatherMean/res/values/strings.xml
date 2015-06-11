@@ -4,12 +4,14 @@
     <string name="app_name">Mean Weather</string>
     <string name="action_settings">Settings</string>
     
+    <!-- Splash Screen -->
+    <string name="progressbar_text">Retrieving current location</string>
     
     <!-- Main Activity -->
 	<string name="add_city">Add a new city</string>
 	<string name="edit_city_hint">Example: Rome, IT</string>
 	<string name="button_add_city">Add</string>
-	<string name="city_list">Favorite Cities</string>
+	<string name="city_list">Recent Cities</string>
 	
 	
 	<!-- Mean Activity -->
