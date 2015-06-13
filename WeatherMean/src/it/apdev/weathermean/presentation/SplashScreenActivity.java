@@ -5,6 +5,10 @@
 package it.apdev.weathermean.presentation;
 
 import it.apdev.weathermean.R;
+import it.apdev.weathermean.logic.OpenWeatherMapHttpService;
+import it.apdev.weathermean.logic.Weather;
+import it.apdev.weathermean.logic.WorldWeatherOnlineHttpService;
+import it.apdev.weathermean.logic.YahooHttpService;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
@@ -25,6 +29,7 @@ public class SplashScreenActivity extends Activity {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splashscreen);
+		
 	}
 
 }
