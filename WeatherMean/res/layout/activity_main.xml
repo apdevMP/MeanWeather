@@ -5,48 +5,52 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="it.apdev.weathermean.presentation.MainActivity"
+    android:background="@drawable/gradient_1"
     tools:ignore="MergeRootFrame" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textViewTitleEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Large Text"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/add_city"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
-        android:id="@+id/edit"
+        android:id="@+id/editTextLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/editTextCity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"
+            android:hint="@string/edit_city_hint"
             android:ems="10" >
 
             <requestFocus />
         </EditText>
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/buttonAddCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="@string/button_add_city" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewTitleCityList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Large Text"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/city_list"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/listViewCities"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </ListView>

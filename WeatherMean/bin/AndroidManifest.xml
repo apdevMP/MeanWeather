@@ -8,6 +8,8 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="21" />
     
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     
@@ -17,8 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".presentation.SplashScreenActivity"
-            android:label="@string/app_name" >
+            android:name=".presentation.SplashScreenActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,7 +29,6 @@
         <activity
             android:name=".presentation.MainActivity"
             android:label="@string/app_name"/>
-       
     </application>
 
 </manifest>

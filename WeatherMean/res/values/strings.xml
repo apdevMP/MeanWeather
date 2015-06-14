@@ -3,5 +3,25 @@
 
     <string name="app_name">Mean Weather</string>
     <string name="action_settings">Settings</string>
-
+    
+    
+    <!-- Main Activity -->
+	<string name="add_city">Add a new city</string>
+	<string name="edit_city_hint">Example: Rome, IT</string>
+	<string name="button_add_city">Add</string>
+	<string name="city_list">Favorite Cities</string>
+	
+	
+	<!-- Mean Activity -->
+	<string name="text_city">City</string>
+	<string name="text_temperature">Temperature</string>
+	<string name="text_forecast">Forecast</string>
+	<string name="table_title">Other Information</string>
+	<string name="table_description">Description</string>
+	<string name="table_wind">Wind</string>
+	<string name="table_wetness">Wetness</string>
+	<string name="table_pressure">Pressure</string>
+	<string name="not_available">NA</string>
+	<string name="details_button">View Details</string>
+	
 </resources>
