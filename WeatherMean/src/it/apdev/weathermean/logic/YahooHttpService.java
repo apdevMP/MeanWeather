@@ -50,7 +50,8 @@ public class YahooHttpService extends HttpService {
 				.getJSONObject("results").getJSONObject("channel");
 
 		JSONObject wind = results.getJSONObject("wind");
-		weather.setWind(wind.getDouble("speed"));
+		double speedKmh = Utils.fromMphToKmh(wind.getDouble("speed"));
+		weather.setWind(speedKmh);
 
 		JSONObject atmosphere = results.getJSONObject("atmosphere");
 		Log.v(TAG, atmosphere.toString());
@@ -59,7 +60,9 @@ public class YahooHttpService extends HttpService {
 
 		JSONObject condition = results.getJSONObject("item").getJSONObject(
 				"condition");
-		weather.setTemperature(condition.getDouble("temp"));
+		double tempCelsius = Utils.fromFahrenheitToCelsius(condition.getDouble("temp"));
+		weather.setTemperature(tempCelsius);
+		
 		weather.setDescription(condition.getString("text"));
 
 		Log.v(TAG, weather.toString());

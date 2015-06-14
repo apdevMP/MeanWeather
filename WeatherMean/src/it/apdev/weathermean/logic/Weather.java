@@ -1,5 +1,7 @@
 package it.apdev.weathermean.logic;
 
+import java.util.List;
+
 /**
  * Classe weather che gestisce tutte le caratteristiche del meteo
  * @author Andrea
@@ -17,6 +19,10 @@ public class Weather {
 	 * Costruttore di default
 	 */
 	public Weather(){
+		temperature = 0.0;
+		pressure = 0.0;
+		wind = 0.0;
+		humidity = 0.0;
 		
 	}
 	/**
@@ -105,6 +111,26 @@ public class Weather {
 		String weather = "Weather[Description: "+ this.description +" Temperature: " + 
 				this.temperature +" Wind: "+ this.wind +" Pressure: "+ this.pressure +" Humidity: "+this.humidity+"]";
 		return weather;
+	}
+	
+	/**
+	 * Questo metodo realizza
+	 * @param list
+	 */
+	public void mergeWeather(List<Weather> list){
+		double sumHumidity = 0;
+		double sumSpeed = 0;
+		double sumTemp = 0;
+		
+		for(Weather i : list){
+			sumHumidity = sumHumidity + i.getHumidity();
+			sumSpeed = sumSpeed + i.wind;
+			sumTemp = sumTemp + i.getTemperature();
+		}
+		
+		this.humidity = sumHumidity/list.size();
+		this.wind = sumSpeed/list.size();
+		this.temperature = sumTemp/list.size();
 	}
 	
 	

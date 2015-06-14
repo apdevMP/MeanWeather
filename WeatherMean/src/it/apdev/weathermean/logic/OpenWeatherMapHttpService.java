@@ -56,13 +56,16 @@ public class OpenWeatherMapHttpService extends HttpService{
 		
 		//Imposta i campi della classe Weather con i valori recuperati dal JSON
 		JSONObject wind = result.getJSONObject(WIND);
-		weather.setWind(wind.getDouble(SPEED));
+		double windKmh = Utils.fromMsToKmh(wind.getDouble(SPEED));
+		weather.setWind(windKmh);
 		
 		JSONObject main = result.getJSONObject(MAIN);
 		
 		weather.setHumidity(main.getDouble(HUMIDITY));
 		weather.setPressure(main.getDouble(PRESSURE));
-		weather.setTemperature(main.getDouble(TEMP));
+		
+		double tempKelvin = Utils.fromKelvinToCelsius(main.getDouble(TEMP));
+		weather.setTemperature(tempKelvin);
 		
 		JSONArray condition = result.getJSONArray(WEATHER);
 		JSONObject description = condition.getJSONObject(0);
