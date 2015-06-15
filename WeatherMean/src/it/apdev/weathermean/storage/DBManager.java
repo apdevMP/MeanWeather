@@ -15,13 +15,14 @@ public class DBManager
 		dbhelper = new DBHelper(ctx, DBHelper.DBNAME, null, 1);
 	}
 
-	public void save(String city, String ccode)
+	public void save(String city, String ccode, Integer isCurrent)
 	{
 		SQLiteDatabase db = dbhelper.getWritableDatabase();
 
 		ContentValues cv = new ContentValues();
 		cv.put(DBStrings.FIELD_CITY, city);
 		cv.put(DBStrings.FIELD_COUNTRY, ccode);
+		cv.put(DBStrings.FIELD_CURRENT, isCurrent);
 		try
 		{
 			db.insert(DBStrings.TBL_NAME, null, cv);

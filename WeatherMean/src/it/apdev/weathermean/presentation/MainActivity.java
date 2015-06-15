@@ -14,22 +14,28 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity
 {
 
-	private EditText		cityEditText;
-	private ListView		cityListView;
-	private ImageButton		deleteImageButton;
+	private EditText			cityEditText, countryCodeEditText;
+	private Button				addCityButton;
+	private ListView			cityListView;
+	private ImageButton			deleteImageButton;
 
-	private DBManager		dbManager	= null;
-	private CursorAdapter	adapter;
+	private DBManager			dbManager	= null;
+	private CursorAdapter		adapter;
+
+	private static final String	TAG			= "MainActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -49,6 +55,9 @@ public class MainActivity extends ActionBarActivity
 
 		//retrieve the views 
 		cityListView = (ListView) findViewById(R.id.listViewCities);
+		cityEditText = (EditText) findViewById(R.id.editTextCity);
+		countryCodeEditText = (EditText) findViewById(R.id.editTextCountry);
+		addCityButton = (Button) findViewById(R.id.buttonAddCity);
 
 		Cursor crs = dbManager.query();
 		adapter = new CursorAdapter(this, crs, 0) {
@@ -64,8 +73,9 @@ public class MainActivity extends ActionBarActivity
 			{
 				String cityNameString = crs.getString(crs.getColumnIndex(DBStrings.FIELD_CITY));
 				String countryCodeString = crs.getString(crs.getColumnIndex(DBStrings.FIELD_COUNTRY));
+				Integer isCurrentLocationInteger = crs.getInt(crs.getColumnIndex(DBStrings.FIELD_CURRENT));
 				TextView cityTextView = (TextView) v.findViewById(R.id.textViewCity);
-				cityTextView.setText(cityNameString);
+				cityTextView.setText(cityNameString + (isCurrentLocationInteger == 1 ? " (Current Location)" : " "));
 				TextView countryTextView = (TextView) v.findViewById(R.id.textViewCountry);
 				countryTextView.setText(countryCodeString);
 
@@ -96,15 +106,48 @@ public class MainActivity extends ActionBarActivity
 		};
 
 		cityListView.setAdapter(adapter);
-		addRecordToDB(currentCityNameString, currentCountryCodeString);
-		addRecordToDB("Rome", "IT");
+		addRecordToDB(currentCityNameString, currentCountryCodeString, 1);
+		addRecordToDB("Milano", "IT", 0);
+		addRecordToDB("Torino", "IT", 0);
+		addRecordToDB("Bari", "IT", 0);
+
+		//listener addCityButton 
+		addCityButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v)
+			{
+				String cityString = cityEditText.getText().toString();
+				String countryCodeString = countryCodeEditText.getText().toString();
+				Log.v(TAG, "length:" + countryCodeString.length());
+
+				//verify that the edittext have been filled
+				if (cityString.length() > 0 && countryCodeString.length() > 0)
+				{
+					//add city to db
+					if (countryCodeString.length() == 2)
+					{
+						addRecordToDB(cityString, countryCodeString, 0);
+					} else
+					{
+						Toast.makeText(MainActivity.this, R.string.warning_edit_contry_length, Toast.LENGTH_LONG).show();
+					}
+				} else
+				{
+
+					//display a toast to the user
+					Toast.makeText(MainActivity.this, R.string.warning_edit_text, Toast.LENGTH_LONG).show();
+				}
+
+			}
+		});
 
 	}
 
-	public void addRecordToDB(String cityName, String countryCode)
+	public void addRecordToDB(String cityName, String countryCode, Integer isCurrent)
 	{
 
-		dbManager.save(cityName, countryCode);
+		dbManager.save(cityName, countryCode, isCurrent);
 		adapter.changeCursor(dbManager.query());
 	}
 
@@ -148,7 +191,9 @@ public class MainActivity extends ActionBarActivity
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.support.v7.app.ActionBarActivity#onBackPressed()
 	 */
 	@Override
@@ -157,5 +202,6 @@ public class MainActivity extends ActionBarActivity
 		// TODO Auto-generated method stub
 		finish();
 		System.exit(0);
+		super.onBackPressed();
 	}
 }

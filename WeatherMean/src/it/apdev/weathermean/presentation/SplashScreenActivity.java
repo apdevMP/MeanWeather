@@ -10,18 +10,25 @@ import java.util.Locale;
 
 import it.apdev.weathermean.R;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.nfc.Tag;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 /**
  * @author Vanessa
@@ -32,7 +39,6 @@ public class SplashScreenActivity extends Activity implements LocationListener
 
 	static LocationManager		locationManager;
 	static LocationListener		locationListener;
-	private Context				context;
 
 	private static final String	TAG	= "SplashScreenActivity";
 
@@ -47,15 +53,38 @@ public class SplashScreenActivity extends Activity implements LocationListener
 		setContentView(R.layout.splashscreen);
 
 		//retrieving of current position
-		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+		if (isNetworkAvailable())
+		{
+			locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+
+		} else
+		{
+			//show an alert dialog to the user
+			new AlertDialog.Builder(this).setTitle(R.string.alert_dialog_title).setMessage(R.string.network_message)
+					.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which)
+						{
+							dialog.cancel();
+
+							//create an intent filter to detect changes in network connection
+							IntentFilter intentFilter = new IntentFilter();
+							intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+							intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+							registerReceiver(broadcastReceiver, intentFilter);
+
+						}
+					}).setIcon(android.R.drawable.ic_dialog_alert).show();
+
+		}
 
 	}
 
 	@Override
 	public void onLocationChanged(Location location)
 	{
-		// TODO Auto-generated method stub
+		Log.v(TAG, "onLocationChanged");
+
 		if (location != null)
 		{
 			double latitude = location.getLatitude();
@@ -76,7 +105,7 @@ public class SplashScreenActivity extends Activity implements LocationListener
 			{
 				String city_name = addresses.get(0).getLocality();
 				String country_code = addresses.get(0).getCountryCode();
-				Log.v(TAG, city_name + ", stato: " + country_code );
+				Log.v(TAG, city_name + ", stato: " + country_code);
 				locationManager.removeUpdates(this);
 				Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
 				intent.putExtra("city_name", city_name.trim());
@@ -108,8 +137,75 @@ public class SplashScreenActivity extends Activity implements LocationListener
 	@Override
 	public void onProviderDisabled(String provider)
 	{
-		// TODO Auto-generated method stub
+		// TODO aggiungere visualizzazione alert dialog
 		Log.v(TAG, "onProviderDisabled");
+
+		//show an alert dialog to the user
+		new AlertDialog.Builder(this).setTitle(R.string.alert_dialog_title).setMessage(R.string.alert_message)
+				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which)
+					{
+
+						//kill the application
+						finish();
+						System.exit(0);
+
+					}
+				}).setIcon(android.R.drawable.ic_dialog_alert).show();
 	}
+
+	private boolean isNetworkAvailable()
+	{
+		ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+	}
+
+	final BroadcastReceiver	broadcastReceiver	= new BroadcastReceiver() {
+
+													@Override
+													public void onReceive(Context context, Intent intent)
+													{
+														// TODO Auto-generated method stub
+														if (isNetworkAvailable())
+														{
+															Toast.makeText(context, "Network Available Do operations", Toast.LENGTH_LONG).show();
+															locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+															locationManager
+																	.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, SplashScreenActivity.this);
+														}
+
+													}
+
+													//													@Override
+													//													public void onReceive(Context context, Intent intent)
+													//													{
+													//														final String action = intent.getAction();
+													//														if (action.equals(WifiManager.NETWORK_STATE_CHANGED_ACTION))
+													//														{
+													//															NetworkInfo info = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+													//															if (info != null)
+													//															{
+													//																if (info.isConnected())
+													//																{
+													//
+													//																	//when connected, create a new location management
+													//																	Log.v(TAG, "Connected to the network");
+													//																	locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+													//																	locationManager
+													//																			.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, SplashScreenActivity.this);
+													//
+													//																}
+													//															} else
+													//															{
+													//																// wifi connection was lost
+													//																Log.v(TAG, "Disconnected from the network");
+													//																Toast.makeText(SplashScreenActivity.this, R.string.connection_lost, Toast.LENGTH_LONG)
+													//																		.show();
+													//															}
+													//														}
+													//
+													//													}
+												};
 
 }

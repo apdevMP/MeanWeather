@@ -3,9 +3,9 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/radial_gradient"
     android:orientation="vertical"
     tools:context="it.apdev.weathermean.presentation.MainActivity"
-    android:background="@drawable/radial_gradient"
     tools:ignore="MergeRootFrame" >
 
     <TextView
@@ -13,11 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:text="@string/add_city"
-        android:background="@color/logo"
-        android:padding="5dp"
         android:layout_marginBottom="10dp"
+        android:background="@color/light_blue"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/add_city"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
@@ -26,21 +26,39 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <EditText
-            android:id="@+id/editTextCity"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/linearLayoutEditTexts"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:hint="@string/edit_city_hint"
-            android:ems="10" >
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
-            <requestFocus />
-        </EditText>
+            <EditText
+                android:id="@+id/editTextCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textCapSentences"
+                android:hint="@string/edit_city_hint" >
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/editTextCountry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapCharacters"
+                android:ems="10"
+                android:hint="@string/edit_country_hint"
+                android:maxLength="2" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/buttonAddCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:text="@string/button_add_city" />
     </LinearLayout>
@@ -50,10 +68,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@color/light_blue"
         android:gravity="center"
         android:padding="5dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/logo"
         android:text="@string/city_list"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
