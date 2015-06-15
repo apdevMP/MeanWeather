@@ -28,7 +28,7 @@
 	<string name="table_title">Other Information</string>
 	<string name="table_description">Description</string>
 	<string name="table_wind">Wind</string>
-	<string name="table_wetness">Wetness</string>
+	<string name="table_humidity">Humidity</string>
 	<string name="table_pressure">Pressure</string>
 	<string name="not_available">NA</string>
 	<string name="details_button">View Details</string>

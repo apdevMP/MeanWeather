@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
@@ -142,6 +144,27 @@ public class MainActivity extends ActionBarActivity
 			}
 		});
 
+		
+		cityListView.setOnItemClickListener(new OnItemClickListener() {
+			
+						@Override
+						public void onItemClick(AdapterView<?> parent, View view,
+								int position, long id) {
+							Log.v(TAG, "Start onItemClick");
+							TextView  tvCity = (TextView) view.findViewById(R.id.textViewCity);
+							String city = (String) tvCity.getText();
+							TextView tvCountryCode = (TextView)view.findViewById(R.id.textViewCountry);
+							String countryCode= (String) tvCountryCode.getText();
+							
+							Intent intent = new Intent(MainActivity.this, MeanActivity.class);
+							intent.putExtra("city_name",city.trim());
+							intent.putExtra("country_code", countryCode.trim());
+							
+							startActivity(intent);
+							finish();
+							
+						}
+					});
 	}
 
 	public void addRecordToDB(String cityName, String countryCode, Integer isCurrent)
