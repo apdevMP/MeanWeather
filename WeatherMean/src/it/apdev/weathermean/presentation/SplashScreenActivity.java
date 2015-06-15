@@ -83,6 +83,7 @@ public class SplashScreenActivity extends Activity implements LocationListener
 				intent.putExtra("city_name", city_name.trim());
 				intent.putExtra("country_code", country_code.trim());
 				startActivity(intent);
+				finish();
 
 				//	SplashScreenActivity.locationManager.removeUpdates(SplashScreenActivity.locationListener);
 				//insert the current city in the database

@@ -17,6 +17,7 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 
 	private static final String TAG = "WorldWeatherOnlineHttpService";
 	private static final String KEY = "814fd964b982ee94f2aac331b673a";
+	private static final String SOURCE = "World Weather Online";
 
 	private static final String DATA = "data";
 	private static final String CURRENT_CONDITION = "current_condition";
@@ -72,6 +73,8 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 
 		weather.setDescription(description.getString(VALUE));
 
+		weather.setSource(SOURCE);
+		
 		Log.v(TAG, weather.toString());
 		return weather;
 	}

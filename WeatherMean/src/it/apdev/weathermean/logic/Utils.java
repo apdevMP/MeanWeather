@@ -1,9 +1,14 @@
 package it.apdev.weathermean.logic;
 
-
+/**
+ * This class ...
+ * @author Andrea
+ *
+ */
 public class Utils {
 	
 	private static final double ZERO_CELSIUS_IN_KELVIN  = 273.15;
+	private static final int DECIMAL_PLACES = 2;
 	
 	/**
 	 * Metodo che converte i gradi Fahrenehit in gradi Celsius
@@ -36,7 +41,7 @@ public class Utils {
 	 */
 	public static double fromMphToKmh(double mph){
 		double kmh;
-		kmh = mph * 1.609344;
+		kmh = (mph * 1.609344);
 		
 		return kmh;
 	}
@@ -50,6 +55,20 @@ public class Utils {
 		double kmh;
 		kmh = ms * 3.6;
 		return kmh;
+	}
+	
+	/*public static double roundMeasure(double measure){
+		double round;
+		String rString = ""+measure;
+		for(int i=0;i<rString.length();i++){
+			if(rString.charAt(i)=='.')
+		}
+		round = Double.parseDouble(rString);
+		return round;
+	}*/
+	
+	public static double roundMeasure( double measure){
+	    return Math.round( measure * Math.pow( 10, DECIMAL_PLACES ) )/Math.pow( 10, DECIMAL_PLACES );
 	}
 
 }

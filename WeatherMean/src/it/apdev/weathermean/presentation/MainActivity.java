@@ -15,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -27,10 +29,11 @@ public class MainActivity extends ActionBarActivity
 	private EditText		cityEditText;
 	private ListView		cityListView;
 	private ImageButton		deleteImageButton;
-
+	
 	private DBManager		dbManager	= null;
 	private CursorAdapter	adapter;
 
+	private static final String TAG = "MainActivity";
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -107,6 +110,27 @@ public class MainActivity extends ActionBarActivity
 		cityListView.setAdapter(adapter);
 		addRecordToDB(currentCityNameString, currentCountryCodeString);
 		addRecordToDB("Rome", "IT");
+		
+		cityListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Log.v(TAG, "Start onItemClick");
+				TextView  tvCity = (TextView) view.findViewById(R.id.textViewCity);
+				String city = (String) tvCity.getText();
+				TextView tvCountryCode = (TextView)view.findViewById(R.id.textViewCountry);
+				String countryCode= (String) tvCountryCode.getText();
+				
+				Intent intent = new Intent(MainActivity.this, MeanActivity.class);
+				intent.putExtra("city_name",city);
+				intent.putExtra("country_code", countryCode);
+				
+				startActivity(intent);
+				finish();
+				
+			}
+		});
 
 	}
 

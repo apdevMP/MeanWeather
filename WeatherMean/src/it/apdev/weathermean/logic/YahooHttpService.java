@@ -13,7 +13,21 @@ import android.util.Log;
 public class YahooHttpService extends HttpService {
 
 	private static final String TAG = "YahooHttpService";
-
+	private static final String SOURCE ="Yahoo";
+	
+	private static final String QUERY ="query";
+	private static final String RESULTS = "results";
+	private static final String CHANNEL = "channel";
+	private static final String WIND = "wind";
+	private static final String SPEED = "speed";
+	private static final String ATMOSPHERE = "atmosphere";
+	private static final String HUMIDITY = "humidity";
+	private static final String PRESSURE = "pressure";
+	private static final String ITEM = "item";
+	private static final String CONDITION = "condition";
+	private static final String TEMP = "temp";
+	private static final String TEXT = "text";
+	
 	/**
 	 * Costruttore che imposta la città e il codice della nazione, costruendo
 	 * l'url
@@ -46,25 +60,24 @@ public class YahooHttpService extends HttpService {
 		JSONObject object = retrieve.get();
 
 		// Imposta i campi della classe Weather con i valori recuperati dal JSON
-		JSONObject results = object.getJSONObject("query")
-				.getJSONObject("results").getJSONObject("channel");
+		JSONObject results = object.getJSONObject(QUERY)
+				.getJSONObject(RESULTS).getJSONObject(CHANNEL);
 
-		JSONObject wind = results.getJSONObject("wind");
-		double speedKmh = Utils.fromMphToKmh(wind.getDouble("speed"));
-		weather.setWind(speedKmh);
+		JSONObject wind = results.getJSONObject(WIND);
+		double speedKmh = Utils.fromMphToKmh(wind.getDouble(SPEED));
+		weather.setWind(Utils.roundMeasure(speedKmh));
 
-		JSONObject atmosphere = results.getJSONObject("atmosphere");
-		Log.v(TAG, atmosphere.toString());
-		weather.setHumidity(atmosphere.getDouble("humidity"));
-		weather.setPressure(atmosphere.getDouble("pressure"));
+		JSONObject atmosphere = results.getJSONObject(ATMOSPHERE);
+		weather.setHumidity(atmosphere.getDouble(HUMIDITY));
+		weather.setPressure(atmosphere.getDouble(PRESSURE));
 
-		JSONObject condition = results.getJSONObject("item").getJSONObject(
-				"condition");
-		double tempCelsius = Utils.fromFahrenheitToCelsius(condition.getDouble("temp"));
-		weather.setTemperature(tempCelsius);
+		JSONObject condition = results.getJSONObject(ITEM).getJSONObject(CONDITION);
+		double tempCelsius = Utils.fromFahrenheitToCelsius(condition.getDouble(TEMP));
+		weather.setTemperature(Utils.roundMeasure(tempCelsius));
 		
-		weather.setDescription(condition.getString("text"));
-
+		weather.setDescription(condition.getString(TEXT));
+		weather.setSource(SOURCE);
+		
 		Log.v(TAG, weather.toString());
 		return weather;
 	}

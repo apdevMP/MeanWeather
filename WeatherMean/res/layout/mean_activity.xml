@@ -77,30 +77,6 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/tableRowDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_gravity="center_horizontal" >
-
-            <TextView
-                android:id="@+id/textViewDescriptionLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/table_description" />
-
-            <TextView
-                android:id="@+id/textViewDescriptionValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="@string/not_available" />
-        </TableRow>
-
-        <TableRow
             android:id="@+id/tableRowWind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -125,22 +101,22 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/tableRowWetness"
+            android:id="@+id/tableRowHumidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_gravity="center_horizontal" >
 
             <TextView
-                android:id="@+id/textViewWetnessLabel"
+                android:id="@+id/textViewHumidityLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="@string/table_wetness" />
+                android:text="@string/table_humidity" />
 
             <TextView
-                android:id="@+id/textViewWetnessValue"
+                android:id="@+id/textViewHumidityValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

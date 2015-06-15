@@ -2,13 +2,20 @@ package it.apdev.weathermean.logic;
 
 import java.util.List;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
+
 /**
  * Classe weather che gestisce tutte le caratteristiche del meteo
  * @author Andrea
  *
  */
-public class Weather {
+public class Weather implements Parcelable {
 	
+	private static final String TAG = "Weather";
+	
+	private String source;
 	private String description;
 	private double temperature;
 	private double pressure;
@@ -25,8 +32,25 @@ public class Weather {
 		humidity = 0.0;
 		
 	}
+	
 	/**
-	 * Restituisce la descrizione
+	 * Get the source
+	 * @return
+	 */
+	public String getSource() {
+		return source;
+	}
+	
+	/**
+	 * Set the source
+	 * @param source
+	 */
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	/**
+	 * Get the description
 	 * @return
 	 */
 	public String getDescription() {
@@ -118,6 +142,7 @@ public class Weather {
 	 * @param list
 	 */
 	public void mergeWeather(List<Weather> list){
+		Log.v(TAG, "Start to merge Weather");
 		double sumHumidity = 0;
 		double sumSpeed = 0;
 		double sumTemp = 0;
@@ -128,12 +153,46 @@ public class Weather {
 			sumTemp = sumTemp + i.getTemperature();
 		}
 		
-		this.humidity = sumHumidity/list.size();
-		this.wind = sumSpeed/list.size();
-		this.temperature = sumTemp/list.size();
+		this.humidity = Utils.roundMeasure(sumHumidity/list.size());
+		this.wind = Utils.roundMeasure(sumSpeed/list.size());
+		this.temperature = Utils.roundMeasure(sumTemp/list.size());
 	}
 	
-	
-	
+	protected Weather(Parcel in) {
+        source = in.readString();
+        description = in.readString();
+        temperature = in.readDouble();
+        pressure = in.readDouble();
+        wind = in.readDouble();
+        humidity = in.readDouble();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(source);
+        dest.writeString(description);
+        dest.writeDouble(temperature);
+        dest.writeDouble(pressure);
+        dest.writeDouble(wind);
+        dest.writeDouble(humidity);
+    }
+
+    public static final Parcelable.Creator<Weather> CREATOR = new Parcelable.Creator<Weather>() {
+        @Override
+        public Weather createFromParcel(Parcel in) {
+            return new Weather(in);
+        }
+
+        @Override
+        public Weather[] newArray(int size) {
+            return new Weather[size];
+        }
+    };
+		
 
 }

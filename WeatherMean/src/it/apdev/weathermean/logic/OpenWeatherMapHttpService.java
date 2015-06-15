@@ -13,6 +13,8 @@ import android.util.Log;
 public class OpenWeatherMapHttpService extends HttpService{
 
 	private static final String TAG = "OpenWeatherMapHttpService";
+	private static final String SOURCE = "Open Weather Map";
+	
 	private static final String WIND = "wind";
 	private static final String SPEED ="speed";
 	private static final String MAIN = "main";
@@ -57,7 +59,7 @@ public class OpenWeatherMapHttpService extends HttpService{
 		//Imposta i campi della classe Weather con i valori recuperati dal JSON
 		JSONObject wind = result.getJSONObject(WIND);
 		double windKmh = Utils.fromMsToKmh(wind.getDouble(SPEED));
-		weather.setWind(windKmh);
+		weather.setWind(Utils.roundMeasure(windKmh));
 		
 		JSONObject main = result.getJSONObject(MAIN);
 		
@@ -65,13 +67,13 @@ public class OpenWeatherMapHttpService extends HttpService{
 		weather.setPressure(main.getDouble(PRESSURE));
 		
 		double tempKelvin = Utils.fromKelvinToCelsius(main.getDouble(TEMP));
-		weather.setTemperature(tempKelvin);
+		weather.setTemperature(Utils.roundMeasure(tempKelvin));
 		
 		JSONArray condition = result.getJSONArray(WEATHER);
 		JSONObject description = condition.getJSONObject(0);
-
 		weather.setDescription(description.getString(MAIN));
 		
+		weather.setSource(SOURCE);
 		Log.v(TAG, weather.toString());
 		return weather;
 	}

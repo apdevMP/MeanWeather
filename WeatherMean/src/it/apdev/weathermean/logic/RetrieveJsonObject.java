@@ -27,7 +27,7 @@ public class RetrieveJsonObject extends AsyncTask<String, Void, JSONObject> {
 			return null;
 		}
 		
-		Log.v(TAG, params[0]);
+		//Log.v(TAG, params[0]);
 		JSONObject object;
 
 		try {
@@ -50,7 +50,7 @@ public class RetrieveJsonObject extends AsyncTask<String, Void, JSONObject> {
 			
 			//Dalla stringa costruisco un JSONObject
 			object = new JSONObject(stringBuilder.toString());
-			Log.v(TAG, object.toString());
+			//Log.v(TAG, object.toString());
 			
 			return object;
 
