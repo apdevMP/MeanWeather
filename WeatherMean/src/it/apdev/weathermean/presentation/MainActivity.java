@@ -78,7 +78,7 @@ public class MainActivity extends ActionBarActivity
 				Integer isCurrentLocationInteger = crs.getInt(crs.getColumnIndex(DBStrings.FIELD_CURRENT));
 				TextView cityTextView = (TextView) v.findViewById(R.id.textViewCity);
 				cityTextView.setText(cityNameString);
-				TextView currentTextView =(TextView)v.findViewById(R.id.textViewCurrentLocation);
+				TextView currentTextView = (TextView) v.findViewById(R.id.textViewCurrentLocation);
 				currentTextView.setText(isCurrentLocationInteger == 1 ? getString(R.string.current_location) : " ");
 				TextView countryTextView = (TextView) v.findViewById(R.id.textViewCountry);
 				countryTextView.setText(countryCodeString);
@@ -146,34 +146,35 @@ public class MainActivity extends ActionBarActivity
 			}
 		});
 
-		
 		cityListView.setOnItemClickListener(new OnItemClickListener() {
-			
-						@Override
-						public void onItemClick(AdapterView<?> parent, View view,
-								int position, long id) {
-							Log.v(TAG, "Start onItemClick");
-							TextView  tvCity = (TextView) view.findViewById(R.id.textViewCity);
-							String city = (String) tvCity.getText();
-							TextView tvCountryCode = (TextView)view.findViewById(R.id.textViewCountry);
-							String countryCode= (String) tvCountryCode.getText();
-							
-							Intent intent = new Intent(MainActivity.this, MeanActivity.class);
-							intent.putExtra("city_name",city.trim());
-							intent.putExtra("country_code", countryCode.trim());
-							
-							startActivity(intent);
-							finish();
-							
-						}
-					});
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+			{
+				Log.v(TAG, "Start onItemClick");
+				TextView tvCity = (TextView) view.findViewById(R.id.textViewCity);
+				String city = (String) tvCity.getText();
+				TextView tvCountryCode = (TextView) view.findViewById(R.id.textViewCountry);
+				String countryCode = (String) tvCountryCode.getText();
+
+				Intent intent = new Intent(MainActivity.this, MeanActivity.class);
+				intent.putExtra("city_name", city.trim());
+				intent.putExtra("country_code", countryCode.trim());
+
+				startActivity(intent);
+				finish();
+
+			}
+		});
 	}
 
 	public void addRecordToDB(String cityName, String countryCode, Integer isCurrent)
 	{
 
+		if(!(dbManager.isDuplicate(cityName, countryCode))){
 		dbManager.save(cityName, countryCode, isCurrent);
 		adapter.changeCursor(dbManager.query());
+		}
 	}
 
 	@Override

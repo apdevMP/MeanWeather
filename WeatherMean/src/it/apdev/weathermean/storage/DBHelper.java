@@ -36,7 +36,7 @@ public class DBHelper extends SQLiteOpenHelper
 	{
 		// TODO Auto-generated method stub
 
-		String q = "CREATE TABLE " + DBStrings.TBL_NAME + " ( _id INTEGER PRIMARY KEY AUTOINCREMENT," + DBStrings.FIELD_CITY + " TEXT UNIQUE," + DBStrings.FIELD_COUNTRY + " TEXT," + DBStrings.FIELD_CURRENT+ " INTEGER)";
+		String q = "CREATE TABLE if not exists " + DBStrings.TBL_NAME + " ( _id INTEGER," + DBStrings.FIELD_CITY + " TEXT," + DBStrings.FIELD_COUNTRY + " TEXT," + DBStrings.FIELD_CURRENT+ " INTEGER," +" PRIMARY KEY ("+DBStrings.FIELD_CITY+", "+ DBStrings.FIELD_COUNTRY+"))";
 		db.execSQL(q);
 
 	}

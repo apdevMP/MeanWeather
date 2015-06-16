@@ -60,4 +60,20 @@ public class DBManager
 		}
 		return crs;
 	}
+
+	public boolean isDuplicate(String cityName, String countryCode)
+	{
+		SQLiteDatabase sqldb = dbhelper.getReadableDatabase();
+		String Query = "Select * from " + DBStrings.TBL_NAME + " where " + DBStrings.FIELD_CITY + "=" +"\""+ cityName+"\"" + " AND " + DBStrings.FIELD_COUNTRY + "=" +"\""+countryCode+"\"";
+		Cursor cursor = sqldb.rawQuery(Query, null);
+		
+		//Cursor cursor = db.query("sku_table", columns, "owner=? and price=?", new String[] { owner, price }, null, null, null);
+		if (cursor.getCount() <= 0)
+		{
+			cursor.close();
+			return false;
+		}
+		cursor.close();
+		return true;
+	}
 }
