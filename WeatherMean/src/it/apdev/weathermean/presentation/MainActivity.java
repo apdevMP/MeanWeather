@@ -77,7 +77,9 @@ public class MainActivity extends ActionBarActivity
 				String countryCodeString = crs.getString(crs.getColumnIndex(DBStrings.FIELD_COUNTRY));
 				Integer isCurrentLocationInteger = crs.getInt(crs.getColumnIndex(DBStrings.FIELD_CURRENT));
 				TextView cityTextView = (TextView) v.findViewById(R.id.textViewCity);
-				cityTextView.setText(cityNameString + (isCurrentLocationInteger == 1 ? " (Current Location)" : " "));
+				cityTextView.setText(cityNameString);
+				TextView currentTextView =(TextView)v.findViewById(R.id.textViewCurrentLocation);
+				currentTextView.setText(isCurrentLocationInteger == 1 ? getString(R.string.current_location) : " ");
 				TextView countryTextView = (TextView) v.findViewById(R.id.textViewCountry);
 				countryTextView.setText(countryCodeString);
 

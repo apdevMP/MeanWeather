@@ -14,7 +14,11 @@
     <!-- Main Activity -->
 	<string name="add_city">Add a new city</string>
 	<string name="edit_city_hint">Example: Rome</string>
+	<string name="city_name">City</string>
+	<string name="country_code">Country code</string>
 	<string name="edit_country_hint">Example: IT</string>
+	<string name="current_textview"> </string>
+	<string name="current_location"> (Current Location)</string>
 	<string name="button_add_city">Add</string>
 	<string name="city_list">Recent Cities</string>
 	<string name="warning_edit_text">Insert all values before adding a new city</string>
