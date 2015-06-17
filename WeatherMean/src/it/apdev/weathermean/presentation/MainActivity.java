@@ -245,6 +245,12 @@ public class MainActivity extends ActionBarActivity {
 		super.onBackPressed();
 	}
 	
+	/**
+	 * 
+	 * @param city
+	 * @param codeNation
+	 * @return
+	 */
 	private ArrayList<Weather> startServices(String city,String codeNation) {
 
 		Log.v(TAG, "Start Services for"+city +","+codeNation);

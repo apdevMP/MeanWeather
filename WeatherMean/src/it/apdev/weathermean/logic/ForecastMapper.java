@@ -12,6 +12,9 @@ public class ForecastMapper {
 	private static final String[] forecastMap = {"Not Available","Sunny","Cloudy","Rain","Storm","Snow"};
 	private static ForecastMapper forecastMapper= null;
 	
+	/**
+	 * Default constructor
+	 */
 	private ForecastMapper(){
 	
 	}
