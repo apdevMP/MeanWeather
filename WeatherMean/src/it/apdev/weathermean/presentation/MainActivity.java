@@ -3,6 +3,7 @@ package it.apdev.weathermean.presentation;
 import it.apdev.weathermean.R;
 import it.apdev.weathermean.storage.DBManager;
 import it.apdev.weathermean.storage.DBStrings;
+import android.R.bool;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.content.Context;
@@ -111,12 +112,12 @@ public class MainActivity extends ActionBarActivity
 		};
 
 		cityListView.setAdapter(adapter);
-		addRecordToDB(currentCityNameString, currentCountryCodeString, 1);
-		addRecordToDB("Milano", "IT", 0);
-		addRecordToDB("Torino", "IT", 0);
-		addRecordToDB("Bari", "IT", 0);
-		addRecordToDB("Veroli", "IT", 0);
-		addRecordToDB("Ripi", "IT", 0);
+		addRecordToDB(currentCityNameString, currentCountryCodeString, 1, false);
+		addRecordToDB("Milano", "IT", 0, false);
+		addRecordToDB("Torino", "IT", 0, false);
+		addRecordToDB("Bari", "IT", 0, false);
+		addRecordToDB("Veroli", "IT", 0, false);
+		addRecordToDB("Ripi", "IT", 0, false);
 
 		//listener addCityButton 
 		addCityButton.setOnClickListener(new OnClickListener() {
@@ -128,13 +129,13 @@ public class MainActivity extends ActionBarActivity
 				String countryCodeString = countryCodeEditText.getText().toString();
 				Log.v(TAG, "length:" + countryCodeString.length());
 
-				//verify that the edittext have been filled
+				//verify that the edittext has been filled
 				if (cityString.length() > 0 && countryCodeString.length() > 0)
 				{
 					//add city to db
 					if (countryCodeString.length() == 2)
 					{
-						addRecordToDB(cityString, countryCodeString, 0);
+						addRecordToDB(cityString, countryCodeString, 0, true);
 					} else
 					{
 						Toast.makeText(MainActivity.this, R.string.warning_edit_contry_length, Toast.LENGTH_LONG).show();
@@ -171,7 +172,7 @@ public class MainActivity extends ActionBarActivity
 		});
 	}
 
-	public void addRecordToDB(String cityName, String countryCode, Integer isCurrent)
+	public void addRecordToDB(String cityName, String countryCode, Integer isCurrent, boolean debug)
 	{
 
 		if (!(dbManager.isAlreadyPresent(cityName, countryCode, isCurrent)))
@@ -182,7 +183,13 @@ public class MainActivity extends ActionBarActivity
 			
 		}
 		
-		else System.out.println(cityName +" già presente");
+		else {
+			if(debug)
+				Toast.makeText(MainActivity.this, R.string.toast_already_present, Toast.LENGTH_LONG).show();
+			System.out.println(cityName +" già presente");
+		} 
+			
+			
 		adapter.changeCursor(dbManager.query());
 	}
 

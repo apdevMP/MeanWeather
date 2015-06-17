@@ -13,6 +13,7 @@
     
     <!-- Main Activity -->
 	<string name="add_city">Add a new city</string>
+	<string name="toast_already_present">City already present in the list!</string>
 	<string name="edit_city_hint">Example: Rome</string>
 	<string name="city_name">City</string>
 	<string name="country_code">Country code</string>
