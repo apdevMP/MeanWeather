@@ -2,6 +2,11 @@ package it.apdev.weathermean.logic;
 
 import java.util.Arrays;
 
+/**
+ * ForecastMapper è una classe singleton
+ * @author Andrea
+ *
+ */
 public class ForecastMapper {
 	
 	private static final String[] forecastMap = {"Not Available","Sunny","Cloudy","Rain","Storm","Snow"};
