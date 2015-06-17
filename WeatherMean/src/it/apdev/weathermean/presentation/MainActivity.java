@@ -90,14 +90,7 @@ public class MainActivity extends ActionBarActivity
 					@Override
 					public void onClick(View v)
 					{
-						// TODO Auto-generated method stub
 						Log.v(TAG, "Deleting record");
-//						int position = cityListView.getPositionForView(v);
-//						TextView tvCity = (TextView) v.findViewById(R.id.textViewCity);
-//						String city = (String) tvCity.getText();
-//						TextView tvCountryCode = (TextView) v.findViewById(R.id.textViewCountry);
-//						String countryCode = (String) tvCountryCode.getText();
-//						long id = adapter.getItemId(position);
 						if (dbManager.delete(cityNameString, countryCodeString))
 							adapter.changeCursor(dbManager.query());
 
@@ -123,6 +116,7 @@ public class MainActivity extends ActionBarActivity
 		addRecordToDB("Torino", "IT", 0);
 		addRecordToDB("Bari", "IT", 0);
 		addRecordToDB("Veroli", "IT", 0);
+		addRecordToDB("Ripi", "IT", 0);
 
 		//listener addCityButton 
 		addCityButton.setOnClickListener(new OnClickListener() {
@@ -180,14 +174,16 @@ public class MainActivity extends ActionBarActivity
 	public void addRecordToDB(String cityName, String countryCode, Integer isCurrent)
 	{
 
-		if (!(dbManager.isDuplicate(cityName, countryCode, isCurrent)))
+		if (!(dbManager.isAlreadyPresent(cityName, countryCode, isCurrent)))
 		{
 
 			Log.v(TAG, "Adding record: "+cityName+" "+countryCode+" "+isCurrent);
 			dbManager.save(cityName, countryCode, isCurrent);
-			adapter.changeCursor(dbManager.query());
+			
 		}
+		
 		else System.out.println(cityName +" già presente");
+		adapter.changeCursor(dbManager.query());
 	}
 
 	@Override

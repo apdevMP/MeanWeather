@@ -5,10 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.nfc.Tag;
+import android.util.Log;
 
 public class DBManager
 {
-	private DBHelper	dbhelper;
+	private DBHelper			dbhelper;
+	private static final String	TAG	= "DBManager";
 
 	public DBManager(Context ctx)
 	{
@@ -37,7 +40,7 @@ public class DBManager
 		SQLiteDatabase db = dbhelper.getWritableDatabase();
 		try
 		{
-			if (db.delete(DBStrings.TBL_NAME, DBStrings.FIELD_CITY + "=?"+" AND "+ DBStrings.FIELD_COUNTRY + "=?", new String[] { city, country }) > 0)
+			if (db.delete(DBStrings.TBL_NAME, DBStrings.FIELD_CITY + "=?" + " AND " + DBStrings.FIELD_COUNTRY + "=?", new String[] { city, country }) > 0)
 				return true;
 			return false;
 		} catch (SQLiteException sqle)
@@ -53,7 +56,7 @@ public class DBManager
 		try
 		{
 			SQLiteDatabase db = dbhelper.getReadableDatabase();
-			crs = db.query(DBStrings.TBL_NAME, null, null, null, null, null, null, null);
+			crs = db.query(DBStrings.TBL_NAME, null, null, null, null, null, DBStrings.FIELD_CITY, null);
 		} catch (SQLiteException sqle)
 		{
 			return null;
@@ -61,49 +64,60 @@ public class DBManager
 		return crs;
 	}
 
+
 	/**
 	 * Verify if the record with the given fields already exists within the DB
 	 * 
-	 * @param cityName
-	 * @param countryCode
+	 * @param city
+	 * @param ccode
+	 * @param isCurrent
 	 * @return true if the record already exists, false otherwise
 	 */
-	public boolean isDuplicate(String cityName, String countryCode, Integer isCurrent)
+	public boolean isAlreadyPresent(String city, String ccode, Integer isCurrent)
 	{
+
 		SQLiteDatabase sqldb = dbhelper.getReadableDatabase();
 		Cursor cursor;
-		//se si tratta della posizione corrente, e il record è già presente, aggiorna il campo e ritorna true
-		if (isCurrent == 1)
+
+		//cerca il record in base al nome e al ccode
+		String Query = "Select * from " + DBStrings.TBL_NAME + " where " + DBStrings.FIELD_CITY + "=" + "\"" + city + "\"" + " AND "
+				+ DBStrings.FIELD_COUNTRY + "=" + "\"" + ccode + "\"";
+		cursor = sqldb.rawQuery(Query, null);
+
+		//se non ci sono record corrispondenti alla ricerca, allora il record corrente non è un duplicato
+		if (cursor.getCount() <= 0)
 		{
-			//String Query = "Select * from " + DBStrings.TBL_NAME + " where " + DBStrings.FIELD_CITY + "=" + "\"" + cityName + "\"" + " AND "
-			//		+ DBStrings.FIELD_COUNTRY + "=" + "\"" + countryCode + "\"" + " AND " + DBStrings.FIELD_CURRENT + "=" + "\"" + isCurrent + "\"";
-			//cursor = sqldb.rawQuery(Query, null);
-			ContentValues cv = new ContentValues();
-			cv.put(DBStrings.FIELD_CURRENT, 1);
-			
-			sqldb.update(DBStrings.TBL_NAME, cv, DBStrings.FIELD_CITY +"="+"\""+cityName+"\""+" AND "+ DBStrings.FIELD_COUNTRY+"="+"\""+countryCode+"\"", null);
-			
-			return true;
-			
-		} else
+			cursor.close();
+			return false;
+		} 
+		//se invece c'è un record corrispondente alla ricerca, allora controlla il campo current
+		else
 		{
-			//se invece si tratta di un record qualsiasi, non inserirlo se già presente
-			String Query = "Select * from " + DBStrings.TBL_NAME + " where " + DBStrings.FIELD_CITY + "=" + "\"" + cityName + "\"" + " AND "
-					+ DBStrings.FIELD_COUNTRY + "=" + "\"" + countryCode + "\"" + " AND " + DBStrings.FIELD_CURRENT + "=" + "\"" + isCurrent + "\"";
-			cursor = sqldb.rawQuery(Query, null);
-			
-			if (cursor.getCount() <= 0)
-			{
-				cursor.close();
-				return false;
+			//se isCUrrent è 1 allora devo fare un update sul campo isCurrent
+			cursor.moveToFirst();
+			Log.v(TAG, city+",iscurrent vale="+isCurrent);
+			if(isCurrent == 1){
+				
+				Log.v(TAG, "updating FIELD_CURRENT for "+city);
+				ContentValues cv = new ContentValues();
+				cv.put(DBStrings.FIELD_CURRENT, 1);
+
+				sqldb.update(DBStrings.TBL_NAME, cv, DBStrings.FIELD_CITY + "=" + "\"" + city + "\"" + " AND " + DBStrings.FIELD_COUNTRY + "=" + "\""
+						+ ccode + "\"", null);
 			}
+			//altrimenti si tratta di un semplice duplicato e non aggiorno nulla
+			
 			cursor.close();
 			return true;
 		}
 
-		
 	}
 
+	
+	/**
+	 * Reset all FIELD_CURRENT to 0 if they are set to 1
+	 * in order to clear the current position for the next usage
+	 */
 	public void updateCurrentField()
 	{
 
