@@ -86,5 +86,5 @@ public abstract class HttpService {
 	 * @throws Exception
 	 */
 	public abstract Weather retrieveWeather() throws Exception;
-
+	public abstract int getForecastCodeForService(String forecastDescription);
 }

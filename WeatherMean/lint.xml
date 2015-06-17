@@ -3,4 +3,9 @@
     <issue id="ContentDescription">
         <ignore path="res/layout/mean_activity.xml" />
     </issue>
+    <issue id="DefaultLocale">
+        <ignore path="src/it/apdev/weathermean/logic/OpenWeatherMapHttpService.java" />
+        <ignore path="src/it/apdev/weathermean/logic/WorldWeatherOnlineHttpService.java" />
+        <ignore path="src/it/apdev/weathermean/logic/YahooHttpService.java" />
+    </issue>
 </lint>

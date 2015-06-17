@@ -1,6 +1,7 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="match_parent"
+    android:background="@drawable/linear_gradient" >
 
     <TableRow
         android:id="@+id/tableRowSources"
@@ -15,7 +16,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Text" />
+            android:text="@string/not_available" />
 
         <TextView
             android:id="@+id/textViewSource2"
@@ -24,7 +25,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/not_available" />
 
         <TextView
             android:id="@+id/textViewSource3"
@@ -32,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/not_available" />
     </TableRow>
 
     <TableRow
@@ -78,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/not_available" />
 
         <TextView
             android:id="@+id/textViewTemp2"
@@ -86,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/not_available" />
 
         <TextView
             android:id="@+id/textViewTemp3"
@@ -94,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/not_available" />
     </TableRow>
 
     <TableRow
@@ -109,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/not_available" />
 
         <TextView
             android:id="@+id/textViewDescr2"
@@ -117,7 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/not_available" />
 
         <TextView
             android:id="@+id/textViewDescr3"
@@ -125,7 +126,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/not_available" />
     </TableRow>
 
     <TableRow
@@ -140,7 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/not_available" />
 
         <TextView
             android:id="@+id/textViewWind2"
@@ -148,7 +149,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/not_available" />
 
         <TextView
             android:id="@+id/textViewWind3"
@@ -156,7 +157,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/not_available" />
     </TableRow>
 
     <TableRow
@@ -171,7 +172,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/not_available" />
 
         <TextView
             android:id="@+id/textViewHumidity2"
@@ -179,7 +180,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/not_available" />
 
         <TextView
             android:id="@+id/textViewHumidity3"
@@ -187,7 +188,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/not_available" />
     </TableRow>
 
     <TableRow
@@ -202,7 +203,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/not_available" />
 
         <TextView
             android:id="@+id/textViewPressure2"
@@ -210,7 +211,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/not_available" />
 
         <TextView
             android:id="@+id/textViewPressure3"
@@ -218,7 +219,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/not_available" />
     </TableRow>
 
 </TableLayout>

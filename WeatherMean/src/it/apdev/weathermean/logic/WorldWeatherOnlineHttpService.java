@@ -24,10 +24,10 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 	private static final String HUMIDITY = "humidity";
 	private static final String PRESSURE = "pressure";
 	private static final String TEMP_C = "temp_C";
-	private static final String WEATHER_DESC ="weatherDesc";
+	private static final String WEATHER_DESC = "weatherDesc";
 	private static final String WINDSPEED = "windspeedKmph";
 	private static final String VALUE = "value";
-	
+
 	/**
 	 * Costruttore che imposta la città e il codice della nazione, costruendo
 	 * l'url
@@ -70,13 +70,38 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 
 		JSONArray condition = currentCondition.getJSONArray(WEATHER_DESC);
 		JSONObject description = condition.getJSONObject(0);
-
-		weather.setDescription(description.getString(VALUE));
+		String descriptionText = description.getString(VALUE);
+		weather.setDescription(descriptionText);
+		weather.setForecastCode(getForecastCodeForService(descriptionText));
 
 		weather.setSource(SOURCE);
-		
+
 		Log.v(TAG, weather.toString());
 		return weather;
+	}
+
+	@Override
+	public int getForecastCodeForService(String forecastDescription) {
+		ForecastMapper mapper = ForecastMapper.getIstance();
+		String desc = forecastDescription.toLowerCase();
+		
+		if(desc.contains("ice") || desc.contains("thunder") || desc.contains("torrential")){
+			return mapper.getForecastCode("Storm");
+		}
+		else if(desc.contains("rain") || desc.contains("drizzle") || desc.contains("shower")){
+			return mapper.getForecastCode("Rain");
+		}
+		else if (desc.contains("snow") || desc.contains("blizzard") || desc.contains("sleet")) {
+			return mapper.getForecastCode("Snow");
+		}
+		else if(desc.contains("clear")||desc.contains("sunny")){
+			return mapper.getForecastCode("Sunny");
+		}
+		else if(desc.contains("cloudy") || desc.contains("overcast")){
+			return mapper.getForecastCode("Cloudy");
+		}
+		return 0;
+		
 	}
 
 }

@@ -69,17 +69,46 @@ public class YahooHttpService extends HttpService {
 
 		JSONObject atmosphere = results.getJSONObject(ATMOSPHERE);
 		weather.setHumidity(atmosphere.getDouble(HUMIDITY));
-		weather.setPressure(atmosphere.getDouble(PRESSURE));
+		double hpaPressure = Utils.fromInhgToHpa(atmosphere.getDouble(PRESSURE));
+		weather.setPressure(Utils.roundMeasure(hpaPressure));
 
 		JSONObject condition = results.getJSONObject(ITEM).getJSONObject(CONDITION);
 		double tempCelsius = Utils.fromFahrenheitToCelsius(condition.getDouble(TEMP));
 		weather.setTemperature(Utils.roundMeasure(tempCelsius));
 		
-		weather.setDescription(condition.getString(TEXT));
+		String conditionText = condition.getString(TEXT);
+		weather.setDescription(conditionText);
+		weather.setForecastCode(getForecastCodeForService(conditionText));
+		
 		weather.setSource(SOURCE);
 		
 		Log.v(TAG, weather.toString());
 		return weather;
+	}
+	
+	@Override
+	public int getForecastCodeForService(String forecastDescription){
+		ForecastMapper mapper = ForecastMapper.getIstance();
+		
+		String desc = forecastDescription.toLowerCase();
+		if(desc.contains("fair") || desc.contains("clear") || desc.contains("sunny")){
+			return mapper.getForecastCode("Sunny");
+		}
+		else if(desc.contains("cloudy")){
+			return mapper.getForecastCode("Cloudy");
+		}
+		else if (desc.contains("rain")  || desc.contains("showers")|| desc.contains("drizzle")) {
+			return mapper.getForecastCode("Rain");
+		}
+		else if(desc.contains("thunder") || desc.contains("storm") || desc.contains("hurricane") || desc.contains("tornado")){
+			return mapper.getForecastCode("Storm");
+		}
+		else if(desc.contains("snow")){
+			return mapper.getForecastCode("Snow");
+		}
+		
+		return 0;
+		
 	}
 
 }
