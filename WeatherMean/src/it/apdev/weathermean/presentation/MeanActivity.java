@@ -17,16 +17,17 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MeanActivity extends Activity {
+public class MeanActivity extends Activity
+{
 
-	private String city, codeNation;
-	private TextView tvCity, tvTemp, tvForecast, tvWind, tvHumidity,
-			tvPressure;
-	private Button btnDetails;
-	private static final String TAG = "MeanActivity";
+	private String				city, codeNation;
+	private TextView			tvCity, tvTemp, tvForecast, tvWind, tvHumidity, tvPressure;
+	private Button				btnDetails;
+	private static final String	TAG	= "MeanActivity";
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mean_activity);
@@ -52,7 +53,7 @@ public class MeanActivity extends Activity {
 		Weather meanWeather = new Weather();
 		meanWeather.mergeWeather(list);
 		tvCity.setText(city + "," + codeNation);
-		tvTemp.setText("" + meanWeather.getTemperature() + " °C");
+		tvTemp.setText("" + meanWeather.getTemperature() + " ï¿½C");
 		tvHumidity.setText("" + meanWeather.getHumidity() + "%");
 		tvWind.setText("" + meanWeather.getWind() + " km/h");
 
@@ -60,7 +61,8 @@ public class MeanActivity extends Activity {
 		btnDetails.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v)
+			{
 				Intent i = new Intent(MeanActivity.this, DetailsActivity.class);
 				i.putExtra("weather_list", list);
 				startActivity(i);
@@ -70,21 +72,22 @@ public class MeanActivity extends Activity {
 
 	}
 
-	private ArrayList<Weather> startServices() {
+	private ArrayList<Weather> startServices()
+	{
 
 		ArrayList<Weather> list = new ArrayList<Weather>();
 
 		YahooHttpService yahooService = new YahooHttpService(city, codeNation);
-		OpenWeatherMapHttpService openWeatherService = new OpenWeatherMapHttpService(
-				city, codeNation);
-		WorldWeatherOnlineHttpService worldWeatherService = new WorldWeatherOnlineHttpService(
-				city, codeNation);
+		OpenWeatherMapHttpService openWeatherService = new OpenWeatherMapHttpService(city, codeNation);
+		WorldWeatherOnlineHttpService worldWeatherService = new WorldWeatherOnlineHttpService(city, codeNation);
 
-		try {
+		try
+		{
 			list.add(yahooService.retrieveWeather());
 			list.add(openWeatherService.retrieveWeather());
 			list.add(worldWeatherService.retrieveWeather());
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

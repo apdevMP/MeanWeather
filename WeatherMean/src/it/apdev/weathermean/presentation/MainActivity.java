@@ -50,6 +50,7 @@ public class MainActivity extends ActionBarActivity
 		}
 
 		dbManager = new DBManager(this);
+		dbManager.updateCurrentField();
 
 		Intent intent = getIntent();
 		String currentCityNameString = intent.getStringExtra("city_name");
@@ -73,8 +74,8 @@ public class MainActivity extends ActionBarActivity
 			@Override
 			public void bindView(View v, Context arg1, Cursor crs)
 			{
-				String cityNameString = crs.getString(crs.getColumnIndex(DBStrings.FIELD_CITY));
-				String countryCodeString = crs.getString(crs.getColumnIndex(DBStrings.FIELD_COUNTRY));
+				final String cityNameString = crs.getString(crs.getColumnIndex(DBStrings.FIELD_CITY));
+				final String countryCodeString = crs.getString(crs.getColumnIndex(DBStrings.FIELD_COUNTRY));
 				Integer isCurrentLocationInteger = crs.getInt(crs.getColumnIndex(DBStrings.FIELD_CURRENT));
 				TextView cityTextView = (TextView) v.findViewById(R.id.textViewCity);
 				cityTextView.setText(cityNameString);
@@ -90,9 +91,14 @@ public class MainActivity extends ActionBarActivity
 					public void onClick(View v)
 					{
 						// TODO Auto-generated method stub
-						int position = cityListView.getPositionForView(v);
-						long id = adapter.getItemId(position);
-						if (dbManager.delete(id))
+						Log.v(TAG, "Deleting record");
+//						int position = cityListView.getPositionForView(v);
+//						TextView tvCity = (TextView) v.findViewById(R.id.textViewCity);
+//						String city = (String) tvCity.getText();
+//						TextView tvCountryCode = (TextView) v.findViewById(R.id.textViewCountry);
+//						String countryCode = (String) tvCountryCode.getText();
+//						long id = adapter.getItemId(position);
+						if (dbManager.delete(cityNameString, countryCodeString))
 							adapter.changeCursor(dbManager.query());
 
 					}
@@ -107,6 +113,8 @@ public class MainActivity extends ActionBarActivity
 				crs.moveToPosition(position);
 				return crs.getLong(crs.getColumnIndex(DBStrings.FIELD_ID));
 			}
+			
+			
 		};
 
 		cityListView.setAdapter(adapter);
@@ -114,6 +122,7 @@ public class MainActivity extends ActionBarActivity
 		addRecordToDB("Milano", "IT", 0);
 		addRecordToDB("Torino", "IT", 0);
 		addRecordToDB("Bari", "IT", 0);
+		addRecordToDB("Veroli", "IT", 0);
 
 		//listener addCityButton 
 		addCityButton.setOnClickListener(new OnClickListener() {
@@ -171,10 +180,14 @@ public class MainActivity extends ActionBarActivity
 	public void addRecordToDB(String cityName, String countryCode, Integer isCurrent)
 	{
 
-		if(!(dbManager.isDuplicate(cityName, countryCode))){
-		dbManager.save(cityName, countryCode, isCurrent);
-		adapter.changeCursor(dbManager.query());
+		if (!(dbManager.isDuplicate(cityName, countryCode, isCurrent)))
+		{
+
+			Log.v(TAG, "Adding record: "+cityName+" "+countryCode+" "+isCurrent);
+			dbManager.save(cityName, countryCode, isCurrent);
+			adapter.changeCursor(dbManager.query());
 		}
+		else System.out.println(cityName +" già presente");
 	}
 
 	@Override

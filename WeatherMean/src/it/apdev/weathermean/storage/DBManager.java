@@ -32,12 +32,12 @@ public class DBManager
 		}
 	}
 
-	public boolean delete(long id)
+	public boolean delete(String city, String country)
 	{
 		SQLiteDatabase db = dbhelper.getWritableDatabase();
 		try
 		{
-			if (db.delete(DBStrings.TBL_NAME, DBStrings.FIELD_ID + "=?", new String[] { Long.toString(id) }) > 0)
+			if (db.delete(DBStrings.TBL_NAME, DBStrings.FIELD_CITY + "=?"+" AND "+ DBStrings.FIELD_COUNTRY + "=?", new String[] { city, country }) > 0)
 				return true;
 			return false;
 		} catch (SQLiteException sqle)
@@ -61,19 +61,55 @@ public class DBManager
 		return crs;
 	}
 
-	public boolean isDuplicate(String cityName, String countryCode)
+	/**
+	 * Verify if the record with the given fields already exists within the DB
+	 * 
+	 * @param cityName
+	 * @param countryCode
+	 * @return true if the record already exists, false otherwise
+	 */
+	public boolean isDuplicate(String cityName, String countryCode, Integer isCurrent)
 	{
 		SQLiteDatabase sqldb = dbhelper.getReadableDatabase();
-		String Query = "Select * from " + DBStrings.TBL_NAME + " where " + DBStrings.FIELD_CITY + "=" +"\""+ cityName+"\"" + " AND " + DBStrings.FIELD_COUNTRY + "=" +"\""+countryCode+"\"";
-		Cursor cursor = sqldb.rawQuery(Query, null);
-		
-		//Cursor cursor = db.query("sku_table", columns, "owner=? and price=?", new String[] { owner, price }, null, null, null);
-		if (cursor.getCount() <= 0)
+		Cursor cursor;
+		//se si tratta della posizione corrente, e il record è già presente, aggiorna il campo e ritorna true
+		if (isCurrent == 1)
 		{
+			//String Query = "Select * from " + DBStrings.TBL_NAME + " where " + DBStrings.FIELD_CITY + "=" + "\"" + cityName + "\"" + " AND "
+			//		+ DBStrings.FIELD_COUNTRY + "=" + "\"" + countryCode + "\"" + " AND " + DBStrings.FIELD_CURRENT + "=" + "\"" + isCurrent + "\"";
+			//cursor = sqldb.rawQuery(Query, null);
+			ContentValues cv = new ContentValues();
+			cv.put(DBStrings.FIELD_CURRENT, 1);
+			
+			sqldb.update(DBStrings.TBL_NAME, cv, DBStrings.FIELD_CITY +"="+"\""+cityName+"\""+" AND "+ DBStrings.FIELD_COUNTRY+"="+"\""+countryCode+"\"", null);
+			
+			return true;
+			
+		} else
+		{
+			//se invece si tratta di un record qualsiasi, non inserirlo se già presente
+			String Query = "Select * from " + DBStrings.TBL_NAME + " where " + DBStrings.FIELD_CITY + "=" + "\"" + cityName + "\"" + " AND "
+					+ DBStrings.FIELD_COUNTRY + "=" + "\"" + countryCode + "\"" + " AND " + DBStrings.FIELD_CURRENT + "=" + "\"" + isCurrent + "\"";
+			cursor = sqldb.rawQuery(Query, null);
+			
+			if (cursor.getCount() <= 0)
+			{
+				cursor.close();
+				return false;
+			}
 			cursor.close();
-			return false;
+			return true;
 		}
-		cursor.close();
-		return true;
+
+		
+	}
+
+	public void updateCurrentField()
+	{
+
+		SQLiteDatabase db = dbhelper.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(DBStrings.FIELD_CURRENT, 0);
+		db.update(DBStrings.TBL_NAME, cv, DBStrings.FIELD_CURRENT + "=1", null);
 	}
 }
