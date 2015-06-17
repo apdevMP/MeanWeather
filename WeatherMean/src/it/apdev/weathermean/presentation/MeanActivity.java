@@ -1,7 +1,6 @@
 package it.apdev.weathermean.presentation;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import it.apdev.weathermean.R;
 import it.apdev.weathermean.logic.OpenWeatherMapHttpService;
@@ -17,14 +16,21 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MeanActivity extends Activity
-{
+/**
+ * 
+ * @author Andrea
+ *
+ */
+public class MeanActivity extends Activity {
 
 	private String				city, codeNation;
 	private TextView			tvCity, tvTemp, tvForecast, tvWind, tvHumidity, tvPressure;
 	private Button				btnDetails;
 	private static final String	TAG	= "MeanActivity";
-
+	
+	private Weather meanWeather;
+	private ArrayList<Weather> list;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -45,54 +51,34 @@ public class MeanActivity extends Activity
 		Intent intent = getIntent();
 		city = intent.getStringExtra("city_name");
 		codeNation = intent.getStringExtra("country_code");
-
-		final ArrayList<Weather> list;
-
-		list = startServices();
-
-		Weather meanWeather = new Weather();
-		meanWeather.mergeWeather(list);
+		list = intent.getParcelableArrayListExtra("weather_list");
+		meanWeather = intent.getParcelableExtra("weather_mean");
+		
 		tvCity.setText(city + "," + codeNation);
-		tvTemp.setText("" + meanWeather.getTemperature() + " �C");
-		tvHumidity.setText("" + meanWeather.getHumidity() + "%");
-		tvWind.setText("" + meanWeather.getWind() + " km/h");
+		tvTemp.setText(meanWeather.getTemperature() + " �C");
+		tvHumidity.setText(meanWeather.getHumidity() + "%");
+		tvWind.setText(meanWeather.getWind() + " km/h");
+		tvPressure.setText(meanWeather.getPressure() + " hPa");
+		tvForecast.setText(meanWeather.getDescription());
+		
 
-		// fare listener btnDetails
 		btnDetails.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v)
-			{
-				Intent i = new Intent(MeanActivity.this, DetailsActivity.class);
-				i.putExtra("weather_list", list);
-				startActivity(i);
+			public void onClick(View v) {
+				Intent intent = new Intent(MeanActivity.this, DetailsActivity.class);
+				intent.putParcelableArrayListExtra("weather_list", list);
+				intent.putExtra("weather_mean", meanWeather);
+				intent.putExtra("city_name", city);
+				intent.putExtra("country_code", codeNation);
+				
+				startActivity(intent);
 				finish();
 			}
 		});
 
 	}
 
-	private ArrayList<Weather> startServices()
-	{
 
-		ArrayList<Weather> list = new ArrayList<Weather>();
-
-		YahooHttpService yahooService = new YahooHttpService(city, codeNation);
-		OpenWeatherMapHttpService openWeatherService = new OpenWeatherMapHttpService(city, codeNation);
-		WorldWeatherOnlineHttpService worldWeatherService = new WorldWeatherOnlineHttpService(city, codeNation);
-
-		try
-		{
-			list.add(yahooService.retrieveWeather());
-			list.add(openWeatherService.retrieveWeather());
-			list.add(worldWeatherService.retrieveWeather());
-		} catch (Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return list;
-	}
 
 }

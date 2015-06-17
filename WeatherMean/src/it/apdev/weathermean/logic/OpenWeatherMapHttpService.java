@@ -42,7 +42,8 @@ public class OpenWeatherMapHttpService extends HttpService{
 		this.urlString = "http://api.openweathermap.org/data/2.5/weather?q="
 				+ this.city
 				+ ","
-				+ this.codeNation;
+				+ this.codeNation
+				+"&units=metric";
 	}
 
 	@Override
@@ -66,15 +67,41 @@ public class OpenWeatherMapHttpService extends HttpService{
 		weather.setHumidity(main.getDouble(HUMIDITY));
 		weather.setPressure(main.getDouble(PRESSURE));
 		
-		double tempKelvin = Utils.fromKelvinToCelsius(main.getDouble(TEMP));
-		weather.setTemperature(Utils.roundMeasure(tempKelvin));
+		//double tempKelvin = Utils.fromKelvinToCelsius(main.getDouble(TEMP));
+		//weather.setTemperature(Utils.roundMeasure(tempKelvin));
+		weather.setTemperature(main.getDouble(TEMP));
 		
 		JSONArray condition = result.getJSONArray(WEATHER);
 		JSONObject description = condition.getJSONObject(0);
-		weather.setDescription(description.getString(MAIN));
+		String descrptionText = description.getString(MAIN); 
+		weather.setDescription(descrptionText);
+		weather.setForecastCode(getForecastCodeForService(descrptionText));
 		
 		weather.setSource(SOURCE);
 		Log.v(TAG, weather.toString());
 		return weather;
+	}
+	@Override
+	public int getForecastCodeForService(String forecastDescription) {
+		
+		ForecastMapper mapper = ForecastMapper.getIstance();
+		String desc = forecastDescription.toLowerCase(); 
+		
+		if(desc.contains("thunderstorm")){
+			return mapper.getForecastCode("Storm");
+		}
+		else if(desc.contains("drizzle") || desc.contains("rain")){
+			return mapper.getForecastCode("Rain");
+		}
+		else if(desc.contains("snow")){
+			return mapper.getForecastCode("Snow");
+		}
+		else if (desc.contains("cloud")){
+			return mapper.getForecastCode("Cloudy");
+		}
+		else if (desc.contains("clear")) {
+			return mapper.getForecastCode("Sunny");
+		}
+		return 0;
 	}
 }

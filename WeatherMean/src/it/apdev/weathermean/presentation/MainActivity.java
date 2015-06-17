@@ -1,6 +1,12 @@
 package it.apdev.weathermean.presentation;
 
+import java.util.ArrayList;
+
 import it.apdev.weathermean.R;
+import it.apdev.weathermean.logic.OpenWeatherMapHttpService;
+import it.apdev.weathermean.logic.Weather;
+import it.apdev.weathermean.logic.WorldWeatherOnlineHttpService;
+import it.apdev.weathermean.logic.YahooHttpService;
 import it.apdev.weathermean.storage.DBManager;
 import it.apdev.weathermean.storage.DBStrings;
 import android.R.bool;
@@ -57,7 +63,7 @@ public class MainActivity extends ActionBarActivity
 		String currentCityNameString = intent.getStringExtra("city_name");
 		String currentCountryCodeString = intent.getStringExtra("country_code");
 
-		//retrieve the views 
+		// retrieve the views
 		cityListView = (ListView) findViewById(R.id.listViewCities);
 		cityEditText = (EditText) findViewById(R.id.editTextCity);
 		countryCodeEditText = (EditText) findViewById(R.id.editTextCountry);
@@ -107,8 +113,7 @@ public class MainActivity extends ActionBarActivity
 				crs.moveToPosition(position);
 				return crs.getLong(crs.getColumnIndex(DBStrings.FIELD_ID));
 			}
-			
-			
+
 		};
 
 		cityListView.setAdapter(adapter);
@@ -119,7 +124,7 @@ public class MainActivity extends ActionBarActivity
 		addRecordToDB("Veroli", "IT", 0, false);
 		addRecordToDB("Ripi", "IT", 0, false);
 
-		//listener addCityButton 
+		// listener addCityButton
 		addCityButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -139,11 +144,12 @@ public class MainActivity extends ActionBarActivity
 					} else
 					{
 						Toast.makeText(MainActivity.this, R.string.warning_edit_contry_length, Toast.LENGTH_LONG).show();
+
 					}
 				} else
 				{
 
-					//display a toast to the user
+					// display a toast to the user
 					Toast.makeText(MainActivity.this, R.string.warning_edit_text, Toast.LENGTH_LONG).show();
 				}
 
@@ -161,9 +167,18 @@ public class MainActivity extends ActionBarActivity
 				TextView tvCountryCode = (TextView) view.findViewById(R.id.textViewCountry);
 				String countryCode = (String) tvCountryCode.getText();
 
+				ArrayList<Weather> list;
+
+				list = startServices(city.trim(), countryCode.trim());
+				Log.v(TAG, "" + list.size());
+				Weather meanWeather = new Weather();
+				meanWeather.mergeWeather(list);
+
 				Intent intent = new Intent(MainActivity.this, MeanActivity.class);
 				intent.putExtra("city_name", city.trim());
 				intent.putExtra("country_code", countryCode.trim());
+				intent.putParcelableArrayListExtra("weather_list", list);
+				intent.putExtra("weather_mean", meanWeather);
 
 				startActivity(intent);
 				finish();
@@ -178,18 +193,18 @@ public class MainActivity extends ActionBarActivity
 		if (!(dbManager.isAlreadyPresent(cityName, countryCode, isCurrent)))
 		{
 
-			Log.v(TAG, "Adding record: "+cityName+" "+countryCode+" "+isCurrent);
+			Log.v(TAG, "Adding record: " + cityName + " " + countryCode + " " + isCurrent);
 			dbManager.save(cityName, countryCode, isCurrent);
-			
+
 		}
-		
-		else {
-			if(debug)
+
+		else
+		{
+			if (debug)
 				Toast.makeText(MainActivity.this, R.string.toast_already_present, Toast.LENGTH_LONG).show();
-			System.out.println(cityName +" già presente");
-		} 
-			
-			
+			System.out.println(cityName + " già presente");
+		}
+
 		adapter.changeCursor(dbManager.query());
 	}
 
@@ -245,5 +260,35 @@ public class MainActivity extends ActionBarActivity
 		finish();
 		System.exit(0);
 		super.onBackPressed();
+	}
+
+	/**
+	 * 
+	 * @param city
+	 * @param codeNation
+	 * @return
+	 */
+	private ArrayList<Weather> startServices(String city, String codeNation)
+	{
+
+		Log.v(TAG, "Start Services for" + city + "," + codeNation);
+		ArrayList<Weather> list = new ArrayList<Weather>();
+
+		YahooHttpService yahooService = new YahooHttpService(city, codeNation);
+		OpenWeatherMapHttpService openWeatherService = new OpenWeatherMapHttpService(city, codeNation);
+		WorldWeatherOnlineHttpService worldWeatherService = new WorldWeatherOnlineHttpService(city, codeNation);
+
+		try
+		{
+			list.add(yahooService.retrieveWeather());
+			list.add(openWeatherService.retrieveWeather());
+			list.add(worldWeatherService.retrieveWeather());
+		} catch (Exception e)
+		{
+
+			e.printStackTrace();
+		}
+
+		return list;
 	}
 }

@@ -9,7 +9,7 @@ public class Utils {
 	
 	private static final double ZERO_CELSIUS_IN_KELVIN  = 273.15;
 	private static final int DECIMAL_PLACES = 2;
-	
+	private static final double ONE_HPA_IN_INHG =  0.0296133971008484;
 	/**
 	 * Metodo che converte i gradi Fahrenehit in gradi Celsius
 	 * @param fahrenehit
@@ -57,15 +57,15 @@ public class Utils {
 		return kmh;
 	}
 	
-	/*public static double roundMeasure(double measure){
-		double round;
-		String rString = ""+measure;
-		for(int i=0;i<rString.length();i++){
-			if(rString.charAt(i)=='.')
-		}
-		round = Double.parseDouble(rString);
-		return round;
-	}*/
+	/**
+	 * Converte i pollici di mercurio in hectopascal
+	 * @param inhg
+	 * @return
+	 */
+	public static double fromInhgToHpa(double inhg){
+		double hpa = inhg/ONE_HPA_IN_INHG;
+		return hpa;
+	}
 	
 	public static double roundMeasure( double measure){
 	    return Math.round( measure * Math.pow( 10, DECIMAL_PLACES ) )/Math.pow( 10, DECIMAL_PLACES );
