@@ -1,6 +1,9 @@
 package it.apdev.weathermean.presentation;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
+import org.json.JSONException;
 
 import it.apdev.weathermean.R;
 import it.apdev.weathermean.logic.OpenWeatherMapHttpService;
@@ -33,27 +36,25 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends ActionBarActivity
-{
+public class MainActivity extends ActionBarActivity {
 
-	private EditText			cityEditText, countryCodeEditText;
-	private Button				addCityButton;
-	private ListView			cityListView;
-	private ImageButton			deleteImageButton;
+	private EditText cityEditText, countryCodeEditText;
+	private Button addCityButton;
+	private ListView cityListView;
+	private ImageButton deleteImageButton;
 
-	private DBManager			dbManager	= null;
-	private CursorAdapter		adapter;
+	private DBManager dbManager = null;
+	private CursorAdapter adapter;
 
-	private static final String	TAG			= "MainActivity";
+	private static final String TAG = "MainActivity";
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		if (savedInstanceState == null)
-		{
-			getSupportFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
+		if (savedInstanceState == null) {
+			getSupportFragmentManager().beginTransaction()
+					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 
 		dbManager = new DBManager(this);
@@ -72,43 +73,50 @@ public class MainActivity extends ActionBarActivity
 		Cursor crs = dbManager.query();
 		adapter = new CursorAdapter(this, crs, 0) {
 			@Override
-			public View newView(Context ctx, Cursor arg1, ViewGroup arg2)
-			{
+			public View newView(Context ctx, Cursor arg1, ViewGroup arg2) {
 				View v = getLayoutInflater().inflate(R.layout.list_item, null);
 				return v;
 			}
 
 			@Override
-			public void bindView(View v, Context arg1, Cursor crs)
-			{
-				final String cityNameString = crs.getString(crs.getColumnIndex(DBStrings.FIELD_CITY));
-				final String countryCodeString = crs.getString(crs.getColumnIndex(DBStrings.FIELD_COUNTRY));
-				Integer isCurrentLocationInteger = crs.getInt(crs.getColumnIndex(DBStrings.FIELD_CURRENT));
-				TextView cityTextView = (TextView) v.findViewById(R.id.textViewCity);
+			public void bindView(View v, Context arg1, Cursor crs) {
+				final String cityNameString = crs.getString(crs
+						.getColumnIndex(DBStrings.FIELD_CITY));
+				final String countryCodeString = crs.getString(crs
+						.getColumnIndex(DBStrings.FIELD_COUNTRY));
+				Integer isCurrentLocationInteger = crs.getInt(crs
+						.getColumnIndex(DBStrings.FIELD_CURRENT));
+				TextView cityTextView = (TextView) v
+						.findViewById(R.id.textViewCity);
 				cityTextView.setText(cityNameString);
-				TextView currentTextView = (TextView) v.findViewById(R.id.textViewCurrentLocation);
-				currentTextView.setText(isCurrentLocationInteger == 1 ? getString(R.string.current_location) : " ");
-				TextView countryTextView = (TextView) v.findViewById(R.id.textViewCountry);
+				TextView currentTextView = (TextView) v
+						.findViewById(R.id.textViewCurrentLocation);
+				currentTextView
+						.setText(isCurrentLocationInteger == 1 ? getString(R.string.current_location)
+								: " ");
+				TextView countryTextView = (TextView) v
+						.findViewById(R.id.textViewCountry);
 				countryTextView.setText(countryCodeString);
 
-				deleteImageButton = (ImageButton) v.findViewById(R.id.imageButtonDelete);
-				deleteImageButton.setOnClickListener(new View.OnClickListener() {
+				deleteImageButton = (ImageButton) v
+						.findViewById(R.id.imageButtonDelete);
+				deleteImageButton
+						.setOnClickListener(new View.OnClickListener() {
 
-					@Override
-					public void onClick(View v)
-					{
-						Log.v(TAG, "Deleting record");
-						if (dbManager.delete(cityNameString, countryCodeString))
-							adapter.changeCursor(dbManager.query());
+							@Override
+							public void onClick(View v) {
+								Log.v(TAG, "Deleting record");
+								if (dbManager.delete(cityNameString,
+										countryCodeString))
+									adapter.changeCursor(dbManager.query());
 
-					}
-				});
+							}
+						});
 
 			}
 
 			@Override
-			public long getItemId(int position)
-			{
+			public long getItemId(int position) {
 				Cursor crs = adapter.getCursor();
 				crs.moveToPosition(position);
 				return crs.getLong(crs.getColumnIndex(DBStrings.FIELD_ID));
@@ -128,29 +136,29 @@ public class MainActivity extends ActionBarActivity
 		addCityButton.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v)
-			{
+			public void onClick(View v) {
 				String cityString = cityEditText.getText().toString();
-				String countryCodeString = countryCodeEditText.getText().toString();
+				String countryCodeString = countryCodeEditText.getText()
+						.toString();
 				Log.v(TAG, "length:" + countryCodeString.length());
 
-				//verify that the edittext has been filled
-				if (cityString.length() > 0 && countryCodeString.length() > 0)
-				{
-					//add city to db
-					if (countryCodeString.length() == 2)
-					{
+				// verify that the edittext has been filled
+				if (cityString.length() > 0 && countryCodeString.length() > 0) {
+					// add city to db
+					if (countryCodeString.length() == 2) {
 						addRecordToDB(cityString, countryCodeString, 0, true);
-					} else
-					{
-						Toast.makeText(MainActivity.this, R.string.warning_edit_contry_length, Toast.LENGTH_LONG).show();
+					} else {
+						Toast.makeText(MainActivity.this,
+								R.string.warning_edit_contry_length,
+								Toast.LENGTH_LONG).show();
 
 					}
-				} else
-				{
+				} else {
 
 					// display a toast to the user
-					Toast.makeText(MainActivity.this, R.string.warning_edit_text, Toast.LENGTH_LONG).show();
+					Toast.makeText(MainActivity.this,
+							R.string.warning_edit_text, Toast.LENGTH_LONG)
+							.show();
 				}
 
 			}
@@ -159,49 +167,56 @@ public class MainActivity extends ActionBarActivity
 		cityListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-			{
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				Log.v(TAG, "Start onItemClick");
-				TextView tvCity = (TextView) view.findViewById(R.id.textViewCity);
+				TextView tvCity = (TextView) view
+						.findViewById(R.id.textViewCity);
 				String city = (String) tvCity.getText();
-				TextView tvCountryCode = (TextView) view.findViewById(R.id.textViewCountry);
+				TextView tvCountryCode = (TextView) view
+						.findViewById(R.id.textViewCountry);
 				String countryCode = (String) tvCountryCode.getText();
 
-				ArrayList<Weather> list;
-
-				list = startServices(city.trim(), countryCode.trim());
+				ArrayList<Weather> list = startServices(city.trim(),
+						countryCode.trim());
 				Log.v(TAG, "" + list.size());
-				Weather meanWeather = new Weather();
-				meanWeather.mergeWeather(list);
+				if (list.size() == 3) {
+					Weather meanWeather = new Weather();
+					meanWeather.mergeWeather(list);
 
-				Intent intent = new Intent(MainActivity.this, MeanActivity.class);
-				intent.putExtra("city_name", city.trim());
-				intent.putExtra("country_code", countryCode.trim());
-				intent.putParcelableArrayListExtra("weather_list", list);
-				intent.putExtra("weather_mean", meanWeather);
+					Intent intent = new Intent(MainActivity.this,
+							MeanActivity.class);
+					intent.putExtra("city_name", city.trim());
+					intent.putExtra("country_code", countryCode.trim());
+					intent.putParcelableArrayListExtra("weather_list", list);
+					intent.putExtra("weather_mean", meanWeather);
 
-				startActivity(intent);
-				finish();
-
+					startActivity(intent);
+					finish();
+				}
+				else {
+					Toast.makeText(MainActivity.this, "It's impossible to retrieve all weathers from websites", Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 	}
 
-	public void addRecordToDB(String cityName, String countryCode, Integer isCurrent, boolean debug)
-	{
+	public void addRecordToDB(String cityName, String countryCode,
+			Integer isCurrent, boolean debug) {
 
-		if (!(dbManager.isAlreadyPresent(cityName, countryCode, isCurrent)))
-		{
+		if (!(dbManager.isAlreadyPresent(cityName, countryCode, isCurrent))) {
 
-			Log.v(TAG, "Adding record: " + cityName + " " + countryCode + " " + isCurrent);
+			Log.v(TAG, "Adding record: " + cityName + " " + countryCode + " "
+					+ isCurrent);
 			dbManager.save(cityName, countryCode, isCurrent);
 
 		}
 
-		else
-		{
+		else {
 			if (debug)
-				Toast.makeText(MainActivity.this, R.string.toast_already_present, Toast.LENGTH_LONG).show();
+				Toast.makeText(MainActivity.this,
+						R.string.toast_already_present, Toast.LENGTH_LONG)
+						.show();
 			System.out.println(cityName + " già presente");
 		}
 
@@ -209,22 +224,19 @@ public class MainActivity extends ActionBarActivity
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
+	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
+	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings)
-		{
+		if (id == R.id.action_settings) {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -233,17 +245,16 @@ public class MainActivity extends ActionBarActivity
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-	public static class PlaceholderFragment extends Fragment
-	{
+	public static class PlaceholderFragment extends Fragment {
 
-		public PlaceholderFragment()
-		{
+		public PlaceholderFragment() {
 		}
 
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-		{
-			View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_main, container,
+					false);
 			return rootView;
 		}
 	}
@@ -254,8 +265,7 @@ public class MainActivity extends ActionBarActivity
 	 * @see android.support.v7.app.ActionBarActivity#onBackPressed()
 	 */
 	@Override
-	public void onBackPressed()
-	{
+	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		finish();
 		System.exit(0);
@@ -268,24 +278,38 @@ public class MainActivity extends ActionBarActivity
 	 * @param codeNation
 	 * @return
 	 */
-	private ArrayList<Weather> startServices(String city, String codeNation)
-	{
+	private ArrayList<Weather> startServices(String city, String codeNation) {
 
 		Log.v(TAG, "Start Services for" + city + "," + codeNation);
 		ArrayList<Weather> list = new ArrayList<Weather>();
 
 		YahooHttpService yahooService = new YahooHttpService(city, codeNation);
-		OpenWeatherMapHttpService openWeatherService = new OpenWeatherMapHttpService(city, codeNation);
-		WorldWeatherOnlineHttpService worldWeatherService = new WorldWeatherOnlineHttpService(city, codeNation);
+		OpenWeatherMapHttpService openWeatherService = new OpenWeatherMapHttpService(
+				city, codeNation);
+		WorldWeatherOnlineHttpService worldWeatherService = new WorldWeatherOnlineHttpService(
+				city, codeNation);
 
-		try
-		{
-			list.add(yahooService.retrieveWeather());
-			list.add(openWeatherService.retrieveWeather());
-			list.add(worldWeatherService.retrieveWeather());
-		} catch (Exception e)
-		{
-
+		try {
+			Weather fromYahoo = yahooService.retrieveWeather();
+			if (fromYahoo != null) {
+				list.add(fromYahoo);
+			}
+			Weather fromOpenWeather = openWeatherService.retrieveWeather();
+			if (fromOpenWeather != null) {
+				list.add(fromOpenWeather);
+			}
+			Weather worldWeather = worldWeatherService.retrieveWeather();
+			if (worldWeather != null) {
+				list.add(worldWeather);
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
