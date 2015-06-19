@@ -2,6 +2,7 @@ package it.apdev.weathermean.logic;
 
 import java.util.List;
 
+import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
@@ -23,6 +24,7 @@ public class Weather implements Parcelable {
 	private double wind;
 	private double humidity;
 	private int forecastCode;
+	private Drawable icon;
 
 	/**
 	 * Costruttore di default
@@ -109,7 +111,7 @@ public class Weather implements Parcelable {
 	}
 
 	/**
-	 * Restituisce la velocità del vento
+	 * Restituisce la velocitï¿½ del vento
 	 * 
 	 * @return
 	 */
@@ -118,7 +120,7 @@ public class Weather implements Parcelable {
 	}
 
 	/**
-	 * Imposta la velocità del vento
+	 * Imposta la velocitï¿½ del vento
 	 * 
 	 * @param wind
 	 */
@@ -127,7 +129,7 @@ public class Weather implements Parcelable {
 	}
 
 	/**
-	 * Restituisce l'umidità
+	 * Restituisce l'umiditï¿½
 	 * 
 	 * @return
 	 */
@@ -136,7 +138,7 @@ public class Weather implements Parcelable {
 	}
 
 	/**
-	 * Imposta l'umidità
+	 * Imposta l'umiditï¿½
 	 * 
 	 * @param humidity
 	 */
@@ -157,6 +159,16 @@ public class Weather implements Parcelable {
 	 */
 	public void setForecastCode(int forecastCode) {
 		this.forecastCode = forecastCode;
+	}
+
+	public Drawable getIcon()
+	{
+		return icon;
+	}
+
+	public void setIcon(Drawable icon)
+	{
+		this.icon = icon;
 	}
 
 	@Override

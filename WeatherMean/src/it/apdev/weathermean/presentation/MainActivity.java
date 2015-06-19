@@ -9,7 +9,6 @@ import it.apdev.weathermean.logic.WorldWeatherOnlineHttpService;
 import it.apdev.weathermean.logic.YahooHttpService;
 import it.apdev.weathermean.storage.DBManager;
 import it.apdev.weathermean.storage.DBStrings;
-import android.R.bool;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.content.Context;
@@ -274,9 +273,9 @@ public class MainActivity extends ActionBarActivity
 		Log.v(TAG, "Start Services for" + city + "," + codeNation);
 		ArrayList<Weather> list = new ArrayList<Weather>();
 
-		YahooHttpService yahooService = new YahooHttpService(city, codeNation);
-		OpenWeatherMapHttpService openWeatherService = new OpenWeatherMapHttpService(city, codeNation);
-		WorldWeatherOnlineHttpService worldWeatherService = new WorldWeatherOnlineHttpService(city, codeNation);
+		YahooHttpService yahooService = new YahooHttpService(city, codeNation, MainActivity.this);
+		OpenWeatherMapHttpService openWeatherService = new OpenWeatherMapHttpService(city, codeNation, MainActivity.this);
+		WorldWeatherOnlineHttpService worldWeatherService = new WorldWeatherOnlineHttpService(city, codeNation, MainActivity.this);
 
 		try
 		{

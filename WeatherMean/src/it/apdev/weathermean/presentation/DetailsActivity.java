@@ -3,10 +3,15 @@ package it.apdev.weathermean.presentation;
 import java.util.ArrayList;
 
 import it.apdev.weathermean.R;
+import it.apdev.weathermean.logic.OpenWeatherMapHttpService;
 import it.apdev.weathermean.logic.Weather;
+import it.apdev.weathermean.logic.WorldWeatherOnlineHttpService;
+import it.apdev.weathermean.logic.YahooHttpService;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class DetailsActivity extends Activity {
@@ -17,6 +22,7 @@ public class DetailsActivity extends Activity {
 	private TextView tvHumidity1,tvHumidity2,tvHumidity3;
 	private TextView tvPressure1,tvPressure2,tvPressure3;
 	private TextView tvWind1,tvWind2,tvWind3;
+	private ImageView imgView1, imgView2, imgView3;
 	
 	private ArrayList<Weather> list;
 	private Weather meanWeather;
@@ -57,6 +63,11 @@ public class DetailsActivity extends Activity {
 		tvWind2 = (TextView) findViewById(R.id.textViewWind2);
 		tvWind3 = (TextView) findViewById(R.id.textViewWind3);
 		
+		imgView1 = (ImageView) findViewById(R.id.imageView1);
+		imgView2 = (ImageView) findViewById(R.id.imageView2);
+		imgView3 = (ImageView) findViewById(R.id.imageView3);
+		
+		
 		tvSource1.setText(list.get(0).getSource());
 		tvSource2.setText(list.get(1).getSource());
 		tvSource3.setText(list.get(2).getSource());
@@ -65,9 +76,9 @@ public class DetailsActivity extends Activity {
 		tvDesc2.setText(list.get(1).getDescription());
 		tvDesc3.setText(list.get(2).getDescription());
 		
-		tvTemp1.setText(list.get(0).getTemperature()+" °C");
-		tvTemp2.setText(list.get(1).getTemperature()+" °C");
-		tvTemp3.setText(list.get(2).getTemperature()+" °C");
+		tvTemp1.setText(list.get(0).getTemperature()+" ï¿½C");
+		tvTemp2.setText(list.get(1).getTemperature()+" ï¿½C");
+		tvTemp3.setText(list.get(2).getTemperature()+" ï¿½C");
 		
 		tvHumidity1.setText(list.get(0).getHumidity()+"%");
 		tvHumidity2.setText(list.get(1).getHumidity()+"%");
@@ -80,6 +91,10 @@ public class DetailsActivity extends Activity {
 		tvWind1.setText(list.get(0).getWind()+" Km/h");
 		tvWind2.setText(list.get(1).getWind()+" Km/h");
 		tvWind3.setText(list.get(2).getWind()+" Km/h");
+		
+		imgView1.setImageDrawable(YahooHttpService.getIcon());
+		imgView2.setImageDrawable(OpenWeatherMapHttpService.getIcon());
+		imgView3.setImageDrawable(WorldWeatherOnlineHttpService.getIcon());
 	}
 
 	@Override

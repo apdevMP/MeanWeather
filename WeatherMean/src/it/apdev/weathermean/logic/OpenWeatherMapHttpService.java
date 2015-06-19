@@ -1,8 +1,12 @@
 package it.apdev.weathermean.logic;
 
+import it.apdev.weathermean.R;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 /**
@@ -22,6 +26,9 @@ public class OpenWeatherMapHttpService extends HttpService{
 	private static final String PRESSURE = "pressure";
 	private static final String TEMP = "temp";
 	private static final String WEATHER = "weather";
+	private static Drawable icon = null;
+	
+	private Context context;
 	
 	/**
 	 * Costruttore di default
@@ -30,13 +37,14 @@ public class OpenWeatherMapHttpService extends HttpService{
 		
 	}
 	/**
-	 * Costruttore che imposta la città e il codice della nazione, costruendo l'url relativo alla piattaforma
+	 * Costruttore che imposta la cittï¿½ e il codice della nazione, costruendo l'url relativo alla piattaforma
 	 * @param city
 	 * @param codeNation
 	 */
-	public OpenWeatherMapHttpService(String city, String codeNation) {
+	public OpenWeatherMapHttpService(String city, String codeNation, Context context) {
 		this.city = city;
 		this.codeNation = codeNation;
+		this.context = context;
 
 		//costruisce l'url per openWeatherMap
 		this.urlString = "http://api.openweathermap.org/data/2.5/weather?q="
@@ -81,6 +89,14 @@ public class OpenWeatherMapHttpService extends HttpService{
 		Log.v(TAG, weather.toString());
 		return weather;
 	}
+	public static Drawable getIcon()
+	{
+		return icon;
+	}
+	public static void setIcon(Drawable icon)
+	{
+		OpenWeatherMapHttpService.icon = icon;
+	}
 	@Override
 	public int getForecastCodeForService(String forecastDescription) {
 		
@@ -88,18 +104,23 @@ public class OpenWeatherMapHttpService extends HttpService{
 		String desc = forecastDescription.toLowerCase(); 
 		
 		if(desc.contains("thunderstorm")){
+			setIcon(context.getResources().getDrawable(R.drawable.storm));
 			return mapper.getForecastCode("Storm");
 		}
 		else if(desc.contains("drizzle") || desc.contains("rain")){
+			setIcon(context.getResources().getDrawable(R.drawable.rain));
 			return mapper.getForecastCode("Rain");
 		}
 		else if(desc.contains("snow")){
+			setIcon(context.getResources().getDrawable(R.drawable.snow));
 			return mapper.getForecastCode("Snow");
 		}
 		else if (desc.contains("cloud")){
+			setIcon(context.getResources().getDrawable(R.drawable.cloudy));
 			return mapper.getForecastCode("Cloudy");
 		}
 		else if (desc.contains("clear")) {
+			setIcon(context.getResources().getDrawable(R.drawable.sunny));
 			return mapper.getForecastCode("Sunny");
 		}
 		return 0;
