@@ -60,7 +60,7 @@ public class MeanActivity extends Activity
 		meanWeather = intent.getParcelableExtra("weather_mean");
 
 		tvCity.setText(city + "," + codeNation);
-		tvTemp.setText(meanWeather.getTemperature() + " �C");
+		tvTemp.setText(meanWeather.getTemperature() + " °C");
 		tvHumidity.setText(meanWeather.getHumidity() + "%");
 		tvWind.setText(meanWeather.getWind() + " km/h");
 		tvPressure.setText(meanWeather.getPressure() + " hPa");

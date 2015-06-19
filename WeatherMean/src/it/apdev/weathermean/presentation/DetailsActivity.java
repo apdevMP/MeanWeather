@@ -76,9 +76,9 @@ public class DetailsActivity extends Activity {
 		tvDesc2.setText(list.get(1).getDescription());
 		tvDesc3.setText(list.get(2).getDescription());
 		
-		tvTemp1.setText(list.get(0).getTemperature()+" �C");
-		tvTemp2.setText(list.get(1).getTemperature()+" �C");
-		tvTemp3.setText(list.get(2).getTemperature()+" �C");
+		tvTemp1.setText(list.get(0).getTemperature()+" °C");
+		tvTemp2.setText(list.get(1).getTemperature()+" °C");
+		tvTemp3.setText(list.get(2).getTemperature()+" °C");
 		
 		tvHumidity1.setText(list.get(0).getHumidity()+"%");
 		tvHumidity2.setText(list.get(1).getHumidity()+"%");

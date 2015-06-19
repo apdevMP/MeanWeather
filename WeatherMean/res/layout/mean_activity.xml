@@ -23,6 +23,7 @@
             android:id="@+id/linearLayoutCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:orientation="vertical" >
 
             <TextView
@@ -80,7 +81,7 @@
             android:id="@+id/tableRowWind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal" >
 
             <TextView
@@ -104,7 +105,7 @@
             android:id="@+id/tableRowHumidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal" >
 
             <TextView
@@ -128,8 +129,8 @@
             android:id="@+id/tableRowPressure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_gravity="center_horizontal" >
 
             <TextView
