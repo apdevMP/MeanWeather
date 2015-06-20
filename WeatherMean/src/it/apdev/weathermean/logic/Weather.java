@@ -221,13 +221,16 @@ public class Weather implements Parcelable {
 		String weather2 = list.get(1).getDescription();
 		String weather3 = list.get(2).getDescription();
 
-		// if 2/3 description are the same
+		// if 2/3 description are the same,choose these
 		if (weather1.equalsIgnoreCase(weather2)) {
 			merge = weather1;
+			this.forecastCode = list.get(0).getForecastCode();
 		} else if (weather1.equalsIgnoreCase(weather3)) {
 			merge = weather1;
+			this.forecastCode = list.get(0).getForecastCode();
 		} else if (weather2.equalsIgnoreCase(weather3)) {
 			merge = weather2;
+			this.forecastCode = list.get(1).getForecastCode();
 		}
 
 		// mean of the forecast code
@@ -243,13 +246,16 @@ public class Weather implements Parcelable {
 				sumDesc = sumDesc + w.getForecastCode();
 			}
 
-			if (sumDesc == 0)
+			if (sumDesc == 0) {
 				// if sumDesc is zero,it means that merge description is not
 				// avaliable
+				this.forecastCode = 0;
 				merge = mapper.getForecastDescription(sumDesc);
-			else {
+			} else {
 				// mean of the forecast code
-				this.forecastCode = sumDesc / count;
+				double mean = sumDesc / count;
+				
+				this.forecastCode =(int) Math.round(mean);
 				merge = mapper.getForecastDescription(forecastCode);
 			}
 		}

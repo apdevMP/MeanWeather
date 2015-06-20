@@ -3,17 +3,18 @@ package it.apdev.weathermean.presentation;
 import java.util.ArrayList;
 
 import it.apdev.weathermean.R;
-import it.apdev.weathermean.logic.OpenWeatherMapHttpService;
+import it.apdev.weathermean.logic.ForecastMapper;
 import it.apdev.weathermean.logic.Weather;
-import it.apdev.weathermean.logic.WorldWeatherOnlineHttpService;
-import it.apdev.weathermean.logic.YahooHttpService;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -23,10 +24,14 @@ import android.widget.TextView;
  */
 public class MeanActivity extends Activity {
 
+	private static final int ADD_DRAWABLE_ID = 2130837503;
+	private static final String	TAG	= "MeanActivity";
+	
+	
 	private String				city, codeNation;
 	private TextView			tvCity, tvTemp, tvForecast, tvWind, tvHumidity, tvPressure;
 	private Button				btnDetails;
-	private static final String	TAG	= "MeanActivity";
+	private ImageView           ivMean;
 	
 	private Weather meanWeather;
 	private ArrayList<Weather> list;
@@ -47,7 +52,8 @@ public class MeanActivity extends Activity {
 		tvHumidity = (TextView) findViewById(R.id.textViewHumidityValue);
 		tvPressure = (TextView) findViewById(R.id.textViewPressureValue);
 		btnDetails = (Button) findViewById(R.id.buttonDetails);
-
+		ivMean = (ImageView) findViewById(R.id.imageViewWeather);
+		
 		Intent intent = getIntent();
 		city = intent.getStringExtra("city_name");
 		codeNation = intent.getStringExtra("country_code");
@@ -60,8 +66,16 @@ public class MeanActivity extends Activity {
 		tvWind.setText(meanWeather.getWind() + " km/h");
 		tvPressure.setText(meanWeather.getPressure() + " hPa");
 		tvForecast.setText(meanWeather.getDescription());
+		int code = meanWeather.getForecastCode() + ADD_DRAWABLE_ID;
 		
-
+		Log.v(TAG, "Sunny: "+R.drawable.aaa_sunny );
+		Log.v(TAG, "Cloudy: "+R.drawable.aab_cloudy );
+		Log.v(TAG, "Rain: "+R.drawable.aac_rain );
+		Log.v(TAG, "Storm: "+R.drawable.aad_rain );
+		Log.v(TAG, "Snow: "+R.drawable.aaf_snow );
+		
+		ivMean.setImageResource(code);
+		
 		btnDetails.setOnClickListener(new OnClickListener() {
 
 			@Override
