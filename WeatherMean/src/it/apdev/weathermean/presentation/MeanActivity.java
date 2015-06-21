@@ -23,21 +23,23 @@ import android.widget.TextView;
  *
  */
 
-
-public class MeanActivity extends Activity {
+public class MeanActivity extends Activity
+{
 
 	private static final String	TAG	= "MeanActivity";
-	
-	
+
 	private String				city, codeNation;
 	private TextView			tvCity, tvTemp, tvForecast, tvWind, tvHumidity, tvPressure;
 	private Button				btnDetails;
 
 	private ImageView			imgViewIcon;
-	
-	private Weather meanWeather;
-	private ArrayList<Weather> list;
-	
+
+	private Weather				meanWeather;
+	private ArrayList<Weather>	list;
+
+	private String				currentCity;
+
+	private String				currentCcode;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -58,12 +60,15 @@ public class MeanActivity extends Activity {
 
 		imgViewIcon = (ImageView) findViewById(R.id.imageViewWeather);
 
-
 		Intent intent = getIntent();
 		city = intent.getStringExtra("city_name");
+		getActionBar().setTitle(getString(R.string.mean_action_bar_title) + " " + city);
 		codeNation = intent.getStringExtra("country_code");
 		list = intent.getParcelableArrayListExtra("weather_list");
 		meanWeather = intent.getParcelableExtra("weather_mean");
+
+		currentCity = intent.getStringExtra("current_city");
+		currentCcode = intent.getStringExtra("current_ccode");
 
 		tvCity.setText(city + "," + codeNation);
 		tvTemp.setText(meanWeather.getTemperature() + " °C");
@@ -71,10 +76,10 @@ public class MeanActivity extends Activity {
 		tvWind.setText(meanWeather.getWind() + " km/h");
 		tvPressure.setText(meanWeather.getPressure() + " hPa");
 		tvForecast.setText(meanWeather.getDescription());
-		
+
 		String meanForecastDescription = meanWeather.getDescription();
 		tvForecast.setText(meanForecastDescription);
-		
+
 		//retrieve the right icon based on the forecast description
 		imgViewIcon.setImageDrawable(retrieveIcon(meanForecastDescription));
 
@@ -88,6 +93,8 @@ public class MeanActivity extends Activity {
 				intent.putExtra("weather_mean", meanWeather);
 				intent.putExtra("city_name", city);
 				intent.putExtra("country_code", codeNation);
+				intent.putExtra("current_city", currentCity);
+				intent.putExtra("current_ccode", currentCcode);
 
 				startActivity(intent);
 				finish();
@@ -96,20 +103,37 @@ public class MeanActivity extends Activity {
 
 	}
 
+	@Override
+	public void onBackPressed()
+	{
+		// TODO Auto-generated method stub
+		Log.v(TAG, "onBackPressed");
+		Intent intent = new Intent(MeanActivity.this, MainActivity.class);
+		intent.putExtra("current_city", currentCity);
+		intent.putExtra("current_ccode", currentCcode);
+
+		Log.v(TAG, "current city:" + currentCity);
+		Log.v(TAG, "current ccode:" + currentCcode);
+
+		startActivity(intent);
+
+		super.onBackPressed();
+	}
+
 	private Drawable retrieveIcon(String meanForecastDescription)
 	{
 		// TODO Auto-generated method stub
-		if(meanForecastDescription.contains("Storm"))
+		if (meanForecastDescription.contains("Storm"))
 			return MeanActivity.this.getResources().getDrawable(R.drawable.storm);
 		else if (meanForecastDescription.contains("Sunny"))
 			return MeanActivity.this.getResources().getDrawable(R.drawable.sunny);
-		else if(meanForecastDescription.contains("Cloudy"))
+		else if (meanForecastDescription.contains("Cloudy"))
 			return MeanActivity.this.getResources().getDrawable(R.drawable.cloudy);
-		else if(meanForecastDescription.contains("Rain"))
+		else if (meanForecastDescription.contains("Rain"))
 			return MeanActivity.this.getResources().getDrawable(R.drawable.rain);
-		else if(meanForecastDescription.contains("Snow"))
+		else if (meanForecastDescription.contains("Snow"))
 			return MeanActivity.this.getResources().getDrawable(R.drawable.snow);
-		else	
+		else
 			return MeanActivity.this.getResources().getDrawable(R.drawable.not_available);
 	}
 

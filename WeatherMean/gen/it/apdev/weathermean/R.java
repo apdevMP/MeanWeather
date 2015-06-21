@@ -1344,24 +1344,28 @@ containing a value of this type.
         public static final int country_code=0x7f0a0018;
         public static final int current_location=0x7f0a001b;
         public static final int current_textview=0x7f0a001a;
-        public static final int details_button=0x7f0a0029;
+        /**  Details Activity 
+         */
+        public static final int details_action_bar_title=0x7f0a002b;
+        public static final int details_button=0x7f0a002a;
         public static final int edit_city_hint=0x7f0a0016;
         public static final int edit_country_hint=0x7f0a0019;
+        /**  Mean Activity 
+         */
+        public static final int mean_action_bar_title=0x7f0a0020;
         public static final int network_message=0x7f0a0012;
-        public static final int not_available=0x7f0a0028;
+        public static final int not_available=0x7f0a0029;
         /**  Splash Screen 
          */
         public static final int progressbar_text=0x7f0a000f;
-        public static final int table_description=0x7f0a0024;
-        public static final int table_humidity=0x7f0a0026;
-        public static final int table_pressure=0x7f0a0027;
-        public static final int table_title=0x7f0a0023;
-        public static final int table_wind=0x7f0a0025;
-        /**  Mean Activity 
-         */
-        public static final int text_city=0x7f0a0020;
-        public static final int text_forecast=0x7f0a0022;
-        public static final int text_temperature=0x7f0a0021;
+        public static final int table_description=0x7f0a0025;
+        public static final int table_humidity=0x7f0a0027;
+        public static final int table_pressure=0x7f0a0028;
+        public static final int table_title=0x7f0a0024;
+        public static final int table_wind=0x7f0a0026;
+        public static final int text_city=0x7f0a0021;
+        public static final int text_forecast=0x7f0a0023;
+        public static final int text_temperature=0x7f0a0022;
         public static final int toast_already_present=0x7f0a0015;
         public static final int warning_edit_contry_length=0x7f0a001f;
         public static final int warning_edit_text=0x7f0a001e;

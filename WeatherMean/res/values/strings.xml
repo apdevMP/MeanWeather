@@ -27,6 +27,7 @@
 	
 	
 	<!-- Mean Activity -->
+	<string name="mean_action_bar_title">Weather for</string>
 	<string name="text_city">City</string>
 	<string name="text_temperature">Temperature</string>
 	<string name="text_forecast">Forecast</string>
@@ -38,4 +39,6 @@
 	<string name="not_available">NA</string>
 	<string name="details_button">View Details</string>
 	
+	<!-- Details Activity -->
+	<string name="details_action_bar_title">Details for</string>
 </resources>

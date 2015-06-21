@@ -22,16 +22,19 @@ public class DBManager
 	{
 		SQLiteDatabase db = dbhelper.getWritableDatabase();
 
-		ContentValues cv = new ContentValues();
-		cv.put(DBStrings.FIELD_CITY, city);
-		cv.put(DBStrings.FIELD_COUNTRY, ccode);
-		cv.put(DBStrings.FIELD_CURRENT, isCurrent);
-		try
+		if (city != null && ccode != null && isCurrent != null)
 		{
-			db.insert(DBStrings.TBL_NAME, null, cv);
-		} catch (SQLiteException sqle)
-		{
-			sqle.printStackTrace();
+			ContentValues cv = new ContentValues();
+			cv.put(DBStrings.FIELD_CITY, city);
+			cv.put(DBStrings.FIELD_COUNTRY, ccode);
+			cv.put(DBStrings.FIELD_CURRENT, isCurrent);
+			try
+			{
+				db.insert(DBStrings.TBL_NAME, null, cv);
+			} catch (SQLiteException sqle)
+			{
+				sqle.printStackTrace();
+			}
 		}
 	}
 
@@ -64,7 +67,6 @@ public class DBManager
 		return crs;
 	}
 
-
 	/**
 	 * Verify if the record with the given fields already exists within the DB
 	 * 
@@ -89,16 +91,17 @@ public class DBManager
 		{
 			cursor.close();
 			return false;
-		} 
+		}
 		//se invece c'è un record corrispondente alla ricerca, allora controlla il campo current
 		else
 		{
 			//se isCUrrent è 1 allora devo fare un update sul campo isCurrent
 			cursor.moveToFirst();
-			Log.v(TAG, city+",iscurrent vale="+isCurrent);
-			if(isCurrent == 1){
-				
-				Log.v(TAG, "updating FIELD_CURRENT for "+city);
+			Log.v(TAG, city + ",iscurrent vale=" + isCurrent);
+			if (isCurrent == 1)
+			{
+
+				Log.v(TAG, "updating FIELD_CURRENT for " + city);
 				ContentValues cv = new ContentValues();
 				cv.put(DBStrings.FIELD_CURRENT, 1);
 
@@ -106,17 +109,16 @@ public class DBManager
 						+ ccode + "\"", null);
 			}
 			//altrimenti si tratta di un semplice duplicato e non aggiorno nulla
-			
+
 			cursor.close();
 			return true;
 		}
 
 	}
 
-	
 	/**
-	 * Reset all FIELD_CURRENT to 0 if they are set to 1
-	 * in order to clear the current position for the next usage
+	 * Reset all FIELD_CURRENT to 0 if they are set to 1 in order to clear the
+	 * current position for the next usage
 	 */
 	public void updateCurrentField()
 	{

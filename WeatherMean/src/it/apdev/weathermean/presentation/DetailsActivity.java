@@ -15,34 +15,40 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class DetailsActivity extends Activity {
+public class DetailsActivity extends Activity
+{
 
+	private TextView			tvSource1, tvSource2, tvSource3;
+	private TextView			tvDesc1, tvDesc2, tvDesc3;
+	private TextView			tvTemp1, tvTemp2, tvTemp3;
+	private TextView			tvHumidity1, tvHumidity2, tvHumidity3;
+	private TextView			tvPressure1, tvPressure2, tvPressure3;
+	private TextView			tvWind1, tvWind2, tvWind3;
+	private ImageView			imgView1, imgView2, imgView3;
 
-	private TextView tvSource1,tvSource2,tvSource3;
-	private TextView tvDesc1,tvDesc2,tvDesc3;
-	private TextView tvTemp1,tvTemp2,tvTemp3;
-	private TextView tvHumidity1,tvHumidity2,tvHumidity3;
-	private TextView tvPressure1,tvPressure2,tvPressure3;
-	private TextView tvWind1,tvWind2,tvWind3;
-	private ImageView imgView1, imgView2, imgView3;
+	private static final String	TAG	= "DetailsActivity";
 
-	private static final String TAG = "DetailsActivity";
-
-	private ArrayList<Weather> list;
-	private Weather meanWeather;
-	private String city, codeNation;
+	private ArrayList<Weather>	list;
+	private Weather				meanWeather;
+	private String				city, countryCode, currentCity, currentCcode;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.details_activity);
+		
 
 		Intent intent = getIntent();
 		list = intent.getParcelableArrayListExtra("weather_list");
 		meanWeather = intent.getParcelableExtra("weather_mean");
 		city = intent.getStringExtra("city_name");
-		codeNation = intent.getStringExtra("country_code");
+		getActionBar().setTitle(getString(R.string.details_action_bar_title) + " " + city);
+		countryCode = intent.getStringExtra("country_code");
+		currentCity = intent.getStringExtra("current_city");
+		currentCcode = intent.getStringExtra("current_ccode");
+		
 
 		tvSource1 = (TextView) findViewById(R.id.textViewSource1);
 		tvSource2 = (TextView) findViewById(R.id.textViewSource2);
@@ -71,7 +77,7 @@ public class DetailsActivity extends Activity {
 		imgView1 = (ImageView) findViewById(R.id.imageView1);
 		imgView2 = (ImageView) findViewById(R.id.imageView2);
 		imgView3 = (ImageView) findViewById(R.id.imageView3);
-		
+
 		tvSource1.setText(list.get(0).getSource());
 		tvSource2.setText(list.get(1).getSource());
 		tvSource3.setText(list.get(2).getSource());
@@ -96,22 +102,24 @@ public class DetailsActivity extends Activity {
 		tvWind2.setText(list.get(1).getWind() + " Km/h");
 		tvWind3.setText(list.get(2).getWind() + " Km/h");
 
-		
 		imgView1.setImageDrawable(YahooHttpService.getIcon());
 		imgView2.setImageDrawable(OpenWeatherMapHttpService.getIcon());
 		imgView3.setImageDrawable(WorldWeatherOnlineHttpService.getIcon());
 	}
 
 	@Override
-	public void onBackPressed() {
-		
-		Log.v(TAG,"OnBackPressed");
+	public void onBackPressed()
+	{
+
+		Log.v(TAG, "OnBackPressed");
 		Intent intent = new Intent(DetailsActivity.this, MeanActivity.class);
 
 		intent.putParcelableArrayListExtra("weather_list", list);
 		intent.putExtra("weather_mean", meanWeather);
 		intent.putExtra("city_name", city);
-		intent.putExtra("country_code", codeNation);
+		intent.putExtra("country_code", countryCode);
+		intent.putExtra("current_city", currentCity);
+		intent.putExtra("current_ccode", currentCcode);
 
 		startActivity(intent);
 		finish();

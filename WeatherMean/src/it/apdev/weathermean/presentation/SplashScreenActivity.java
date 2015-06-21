@@ -109,8 +109,8 @@ public class SplashScreenActivity extends Activity implements LocationListener
 				Log.v(TAG, city_name + ", stato: " + country_code);
 				locationManager.removeUpdates(this);
 				Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
-				intent.putExtra("city_name", city_name.trim());
-				intent.putExtra("country_code", country_code.trim());
+				intent.putExtra("current_city", city_name.trim());
+				intent.putExtra("current_ccode", country_code.trim());
 				startActivity(intent);
 				finish();
 
