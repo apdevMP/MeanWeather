@@ -3,37 +3,55 @@ package it.apdev.weathermean.logic;
 import java.util.Arrays;
 
 /**
- * ForecastMapper è una classe singleton
+ * This class is a Singleton and its scope is to map forecast from website to
+ * forecast of this application
+ * 
  * @author Andrea
- *
+ * 
  */
 public class ForecastMapper {
+
 	
-	private static final String[] forecastMap = {"Not Available","Sunny","Cloudy","Rain","Storm","Snow"};
-	private static ForecastMapper forecastMapper= null;
-	
+	private static final String[] forecastMap = { "Not Available", "Sunny",
+			"Cloudy", "Rain", "Storm", "Snow" };
+	private static ForecastMapper forecastMapper = null;
+
 	/**
 	 * Default constructor
 	 */
-	private ForecastMapper(){
-	
+	private ForecastMapper() {
+
 	}
 	
-	public static ForecastMapper getIstance(){
-		if(forecastMapper == null){
+	/**
+	 * Returns an istance of ForecastMapper
+	 * @return
+	 */
+	public static ForecastMapper getIstance() {
+		if (forecastMapper == null) {
 			forecastMapper = new ForecastMapper();
 		}
-			
+
 		return forecastMapper;
 	}
-	
-	public int getForecastCode(String description){
+
+	/**
+	 * Returns a code(index of array) related to description
+	 * @param description
+	 * @return
+	 */
+	public int getForecastCode(String description) {
 		int forecastCode;
 		forecastCode = Arrays.asList(forecastMap).indexOf(description);
 		return forecastCode;
 	}
 
-	public String getForecastDescription(int forecastCode){
+	/**
+	 * Returns a description from forecast code(index of array) 
+	 * @param forecastCode
+	 * @return
+	 */
+	public String getForecastDescription(int forecastCode) {
 		String forecastDescription;
 		forecastDescription = forecastMap[forecastCode];
 		return forecastDescription;

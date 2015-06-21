@@ -1,10 +1,14 @@
 package it.apdev.weathermean.logic;
 
+import java.util.concurrent.ExecutionException;
+
+import org.json.JSONException;
+
 /**
  * Classe astratta relativa al servizio di richiesta HTTP per il recupero del
  * meteo da una data piattaforma Per estendere tale classe occorre indicare un
  * url specifico in base alla piattaforma scelta e occorre effettuare l'override
- * del metodo retireveWeather()
+ * del metodo retrieveWeather()
  * 
  * @author Andrea
  * 
@@ -85,6 +89,12 @@ public abstract class HttpService {
 	 * @return
 	 * @throws Exception
 	 */
-	public abstract Weather retrieveWeather() throws Exception;
+	public abstract Weather retrieveWeather() throws InterruptedException, ExecutionException, JSONException ;
+	
+	/**
+	 * 
+	 * @param forecastDescription
+	 * @return
+	 */
 	public abstract int getForecastCodeForService(String forecastDescription);
 }

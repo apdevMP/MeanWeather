@@ -3,13 +3,12 @@ package it.apdev.weathermean.presentation;
 import java.util.ArrayList;
 
 import it.apdev.weathermean.R;
-import it.apdev.weathermean.logic.OpenWeatherMapHttpService;
+import it.apdev.weathermean.logic.ForecastMapper;
 import it.apdev.weathermean.logic.Weather;
-import it.apdev.weathermean.logic.WorldWeatherOnlineHttpService;
-import it.apdev.weathermean.logic.YahooHttpService;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,17 +22,22 @@ import android.widget.TextView;
  * @author Andrea
  *
  */
-public class MeanActivity extends Activity
-{
 
+
+public class MeanActivity extends Activity {
+
+	private static final String	TAG	= "MeanActivity";
+	
+	
 	private String				city, codeNation;
 	private TextView			tvCity, tvTemp, tvForecast, tvWind, tvHumidity, tvPressure;
 	private Button				btnDetails;
-	private ImageView			imgViewIcon;
-	private static final String	TAG	= "MeanActivity";
 
-	private Weather				meanWeather;
-	private ArrayList<Weather>	list;
+	private ImageView			imgViewIcon;
+	
+	private Weather meanWeather;
+	private ArrayList<Weather> list;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -51,7 +55,9 @@ public class MeanActivity extends Activity
 		tvHumidity = (TextView) findViewById(R.id.textViewHumidityValue);
 		tvPressure = (TextView) findViewById(R.id.textViewPressureValue);
 		btnDetails = (Button) findViewById(R.id.buttonDetails);
+
 		imgViewIcon = (ImageView) findViewById(R.id.imageViewWeather);
+
 
 		Intent intent = getIntent();
 		city = intent.getStringExtra("city_name");
@@ -64,6 +70,7 @@ public class MeanActivity extends Activity
 		tvHumidity.setText(meanWeather.getHumidity() + "%");
 		tvWind.setText(meanWeather.getWind() + " km/h");
 		tvPressure.setText(meanWeather.getPressure() + " hPa");
+		tvForecast.setText(meanWeather.getDescription());
 		
 		String meanForecastDescription = meanWeather.getDescription();
 		tvForecast.setText(meanForecastDescription);

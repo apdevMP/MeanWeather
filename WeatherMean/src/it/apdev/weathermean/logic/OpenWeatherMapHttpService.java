@@ -1,8 +1,9 @@
 package it.apdev.weathermean.logic;
-
 import it.apdev.weathermean.R;
+import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -55,7 +56,7 @@ public class OpenWeatherMapHttpService extends HttpService{
 	}
 
 	@Override
-	public Weather retrieveWeather() throws Exception {
+	public Weather retrieveWeather() throws InterruptedException, ExecutionException,JSONException {
 		
 		//Istanzia l'asyncTask relativo al recupero del JSON dalla piattaforma e lo avvia
 		RetrieveJsonObject retrieve = new RetrieveJsonObject();
@@ -64,6 +65,10 @@ public class OpenWeatherMapHttpService extends HttpService{
 		//Istanzia la classe weather e recupera il JSON dall'asyncTask
 		Weather weather = new Weather();
 		JSONObject result = retrieve.get();
+		if(result == null){
+			Log.v(TAG,"Error while retrieving weather");
+			return null;
+		}
 		
 		//Imposta i campi della classe Weather con i valori recuperati dal JSON
 		JSONObject wind = result.getJSONObject(WIND);

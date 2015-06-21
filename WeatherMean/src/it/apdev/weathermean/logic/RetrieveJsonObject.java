@@ -1,19 +1,23 @@
 package it.apdev.weathermean.logic;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 
 /**
- * Classe che estende AsyncTask che, dato un url, recupera il JSON relativo
+ * This class extends AsyncTask and it retrieve a JSONObject from an url
+ * 
  * @author Andrea
- *
+ * 
  */
 public class RetrieveJsonObject extends AsyncTask<String, Void, JSONObject> {
 
@@ -21,46 +25,53 @@ public class RetrieveJsonObject extends AsyncTask<String, Void, JSONObject> {
 
 	@Override
 	protected JSONObject doInBackground(String... params) {
-		
-		//Occorre una sola stringa
+		Log.v(TAG, "Star retrieve JSONObject " + params[0]);
+		// Occurs one string(url)
 		if (params.length != 1) {
 			return null;
 		}
-		
-		//Log.v(TAG, params[0]);
+
 		JSONObject object;
 
 		try {
-			//Apro una connessione all'url specificato dalla stringa
+			// Open connection to URL specified from string passed
 			URL url = new URL(params[0]);
 			URLConnection connection = url.openConnection();
-
 			InputStream inputStream = connection.getInputStream();
 
-			//Leggo in un buffer
+			// Read from the buffer
 			BufferedReader bufferedReader = new BufferedReader(
 					new InputStreamReader(inputStream));
 
-			//Costruisco la stringa relativa al JSON
+			// Build string related to JSON
 			StringBuilder stringBuilder = new StringBuilder();
 			String line;
 			while ((line = bufferedReader.readLine()) != null) {
 				stringBuilder.append(line);
 			}
-			
-			//Dalla stringa costruisco un JSONObject
-			object = new JSONObject(stringBuilder.toString());
-			//Log.v(TAG, object.toString());
-			
-			return object;
 
-		} catch (Exception e) {
-			Log.v(TAG, "Excption: " + e.toString());
-			e.printStackTrace();
+			// Build JSONObject from stringBuilder
+			object = new JSONObject(stringBuilder.toString());
+
+			return object;
+			
+		} catch (MalformedURLException e) {
+			Log.v(TAG, "Malformed URL" + params[0]);
+			//e.printStackTrace();
+			return null;
+		}
+		 catch (IOException e) {
+			Log.v(TAG, "Error while opening connection");
+			//e.printStackTrace();
+			return null;
+		} catch (JSONException e) {
+			Log.v(TAG, "Error while parsing JSONObject");
+			//e.printStackTrace();
 			return null;
 		}
 
-	}
+		
 
+	}
 
 }
