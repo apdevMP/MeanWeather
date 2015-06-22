@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import it.apdev.weathermean.R;
 import it.apdev.weathermean.logic.ForecastMapper;
 import it.apdev.weathermean.logic.Weather;
+import android.R.integer;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -71,7 +72,7 @@ public class MeanActivity extends Activity
 		currentCcode = intent.getStringExtra("current_ccode");
 
 		tvCity.setText(city + "," + codeNation);
-		tvTemp.setText(meanWeather.getTemperature() + " Â°C");
+		tvTemp.setText(meanWeather.getTemperature() + " °C");
 		tvHumidity.setText(meanWeather.getHumidity() + "%");
 		tvWind.setText(meanWeather.getWind() + " km/h");
 		tvPressure.setText(meanWeather.getPressure() + " hPa");
@@ -81,7 +82,7 @@ public class MeanActivity extends Activity
 		tvForecast.setText(meanForecastDescription);
 
 		//retrieve the right icon based on the forecast description
-		imgViewIcon.setImageDrawable(retrieveIcon(meanForecastDescription));
+		imgViewIcon.setImageDrawable(retrieveIcon(meanWeather.getForecastCode()));
 
 		btnDetails.setOnClickListener(new OnClickListener() {
 
@@ -106,7 +107,6 @@ public class MeanActivity extends Activity
 	@Override
 	public void onBackPressed()
 	{
-		// TODO Auto-generated method stub
 		Log.v(TAG, "onBackPressed");
 		Intent intent = new Intent(MeanActivity.this, MainActivity.class);
 		intent.putExtra("current_city", currentCity);
@@ -120,18 +120,18 @@ public class MeanActivity extends Activity
 		super.onBackPressed();
 	}
 
-	private Drawable retrieveIcon(String meanForecastDescription)
+	private Drawable retrieveIcon(int forecastCode)
 	{
-		// TODO Auto-generated method stub
-		if (meanForecastDescription.contains("Storm"))
+		
+		if (forecastCode==4)
 			return MeanActivity.this.getResources().getDrawable(R.drawable.storm);
-		else if (meanForecastDescription.contains("Sunny"))
+		else if (forecastCode==1)
 			return MeanActivity.this.getResources().getDrawable(R.drawable.sunny);
-		else if (meanForecastDescription.contains("Cloudy"))
+		else if (forecastCode==2)
 			return MeanActivity.this.getResources().getDrawable(R.drawable.cloudy);
-		else if (meanForecastDescription.contains("Rain"))
+		else if (forecastCode==3)
 			return MeanActivity.this.getResources().getDrawable(R.drawable.rain);
-		else if (meanForecastDescription.contains("Snow"))
+		else if (forecastCode==5)
 			return MeanActivity.this.getResources().getDrawable(R.drawable.snow);
 		else
 			return MeanActivity.this.getResources().getDrawable(R.drawable.not_available);

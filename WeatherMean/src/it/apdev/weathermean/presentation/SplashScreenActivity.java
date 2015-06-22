@@ -28,7 +28,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 /**
  * @author Vanessa
@@ -151,8 +150,8 @@ public class SplashScreenActivity extends Activity implements LocationListener {
 									int which) {
 
 								// kill the application
-								finish();
-								System.exit(0);
+								//finish();
+								//System.exit(0);
 
 							}
 						}).setIcon(android.R.drawable.ic_dialog_alert).show();
