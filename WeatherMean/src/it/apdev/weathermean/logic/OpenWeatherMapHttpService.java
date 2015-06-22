@@ -46,10 +46,10 @@ public class OpenWeatherMapHttpService extends HttpService{
 		this.city = city;
 		this.codeNation = codeNation;
 		this.context = context;
-
+		String cityUrl = city.replaceAll(" ", "%20");
 		//costruisce l'url per openWeatherMap
 		this.urlString = "http://api.openweathermap.org/data/2.5/weather?q="
-				+ this.city
+				+ cityUrl
 				+ ","
 				+ this.codeNation
 				+"&units=metric";

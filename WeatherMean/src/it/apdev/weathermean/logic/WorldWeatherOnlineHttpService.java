@@ -49,10 +49,10 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 		this.city = city;
 		this.codeNation = codeNation;
 		this.context = context;
-
+		String cityUrl = city.replaceAll(" ", "%20");
 		// Costruisce l'url
 		this.urlString = "http://api.worldweatheronline.com/free/v2/weather.ashx?q="
-				+ this.city
+				+ cityUrl
 				+ "%2C"
 				+ this.codeNation
 				+ "&format=json&num_of_days=1&key=" + KEY;
