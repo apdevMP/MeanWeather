@@ -8,4 +8,7 @@
         <ignore path="src/it/apdev/weathermean/logic/WorldWeatherOnlineHttpService.java" />
         <ignore path="src/it/apdev/weathermean/logic/YahooHttpService.java" />
     </issue>
+    <issue id="InflateParams">
+        <ignore path="src/it/apdev/weathermean/presentation/MainActivity.java" />
+    </issue>
 </lint>
