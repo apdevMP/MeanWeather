@@ -8,7 +8,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textViewAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -17,7 +17,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/imageViewLogo"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_vertical"
@@ -28,7 +28,7 @@
         android:src="@drawable/logo" />
 
     <include
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBarSplashScreen"
         layout="@layout/custom_progress_bar" />
 
 </LinearLayout>

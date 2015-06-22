@@ -1108,7 +1108,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f090002;
         public static final int action_menu_presenter=0x7f090003;
         public static final int action_mode_close_button=0x7f090024;
-        public static final int action_settings=0x7f090081;
+        public static final int action_settings=0x7f090083;
         public static final int activity_chooser_view_content=0x7f090025;
         public static final int always=0x7f09000f;
         public static final int beginning=0x7f090016;
@@ -1138,6 +1138,7 @@ containing a value of this type.
         public static final int imageView1=0x7f09004d;
         public static final int imageView2=0x7f09004e;
         public static final int imageView3=0x7f09004f;
+        public static final int imageViewLogo=0x7f090081;
         public static final int imageViewWeather=0x7f09006f;
         public static final int linearLayoutCity=0x7f090070;
         public static final int linearLayoutCityName=0x7f090069;
@@ -1150,8 +1151,8 @@ containing a value of this type.
         public static final int never=0x7f090012;
         public static final int none=0x7f090019;
         public static final int normal=0x7f090007;
-        public static final int progressBar=0x7f090080;
-        public static final int progressBar1=0x7f090045;
+        public static final int progressBar=0x7f090045;
+        public static final int progressBarSplashScreen=0x7f090082;
         public static final int progress_circular=0x7f090004;
         public static final int progress_horizontal=0x7f090005;
         public static final int radio=0x7f09002f;
@@ -1184,7 +1185,7 @@ containing a value of this type.
         public static final int tableRowTitle=0x7f090073;
         public static final int tableRowWind=0x7f090075;
         public static final int tableRowWinds=0x7f09005a;
-        public static final int textView1=0x7f090046;
+        public static final int textViewAppName=0x7f090080;
         public static final int textViewCity=0x7f09006a;
         public static final int textViewCountry=0x7f09006c;
         public static final int textViewCurrentLocation=0x7f09006b;
@@ -1204,6 +1205,7 @@ containing a value of this type.
         public static final int textViewPressureLabel=0x7f09007c;
         public static final int textViewPressureValue=0x7f09007d;
         public static final int textViewPressures=0x7f090063;
+        public static final int textViewProgressBar=0x7f090046;
         public static final int textViewSource1=0x7f090049;
         public static final int textViewSource2=0x7f09004a;
         public static final int textViewSource3=0x7f09004b;
