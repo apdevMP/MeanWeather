@@ -3,13 +3,10 @@ package it.apdev.weathermean.presentation;
 import java.util.ArrayList;
 
 import it.apdev.weathermean.R;
-import it.apdev.weathermean.logic.ForecastMapper;
 import it.apdev.weathermean.logic.Weather;
-import android.R.integer;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -82,7 +79,8 @@ public class MeanActivity extends Activity
 		tvForecast.setText(meanForecastDescription);
 
 		//retrieve the right icon based on the forecast description
-		imgViewIcon.setImageDrawable(retrieveIcon(meanWeather.getForecastCode()));
+		Log.v(TAG, "ForecastCode: " + meanWeather.getForecastCode() + " Icon id: "+meanWeather.getIdIcon() );
+		imgViewIcon.setImageResource(meanWeather.getIdIcon());
 
 		btnDetails.setOnClickListener(new OnClickListener() {
 

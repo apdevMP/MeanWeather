@@ -1,5 +1,7 @@
 package it.apdev.weathermean.logic;
 
+import it.apdev.weathermean.R;
+
 import java.util.Arrays;
 
 /**
@@ -11,9 +13,13 @@ import java.util.Arrays;
  */
 public class ForecastMapper {
 
-	
 	private static final String[] forecastMap = { "Not Available", "Sunny",
 			"Cloudy", "Rain", "Storm", "Snow" };
+	
+	private static final int[] idIconMap = { R.drawable.not_available,
+			R.drawable.sunny, R.drawable.cloudy, R.drawable.storm,
+			R.drawable.snow };
+	
 	private static ForecastMapper forecastMapper = null;
 
 	/**
@@ -22,9 +28,10 @@ public class ForecastMapper {
 	private ForecastMapper() {
 
 	}
-	
+
 	/**
 	 * Returns an istance of ForecastMapper
+	 * 
 	 * @return
 	 */
 	public static ForecastMapper getIstance() {
@@ -37,6 +44,7 @@ public class ForecastMapper {
 
 	/**
 	 * Returns a code(index of array) related to description
+	 * 
 	 * @param description
 	 * @return
 	 */
@@ -47,7 +55,8 @@ public class ForecastMapper {
 	}
 
 	/**
-	 * Returns a description from forecast code(index of array) 
+	 * Returns a description from forecast code(index of array)
+	 * 
 	 * @param forecastCode
 	 * @return
 	 */
@@ -55,5 +64,14 @@ public class ForecastMapper {
 		String forecastDescription;
 		forecastDescription = forecastMap[forecastCode];
 		return forecastDescription;
+	}
+	
+	/**
+	 * 
+	 * @param forecastCode
+	 * @return
+	 */
+	public int getIconId(int forecastCode){
+		return idIconMap[forecastCode];
 	}
 }

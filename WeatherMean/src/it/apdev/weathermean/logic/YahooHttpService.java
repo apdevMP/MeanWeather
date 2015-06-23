@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 /**
@@ -33,8 +32,6 @@ public class YahooHttpService extends HttpService {
 	private static final String CONDITION = "condition";
 	private static final String TEMP = "temp";
 	private static final String TEXT = "text";
-	private static Drawable icon = null;
-	private Context context;
 	
 	/**
 	 * Costruttore che imposta la citta' e il codice della nazione, costruendo
@@ -46,7 +43,7 @@ public class YahooHttpService extends HttpService {
 	public YahooHttpService(String city, String codeNation, Context context) {
 		this.city = city;
 		this.codeNation = codeNation;
-		this.context = context;
+		
 		String cityUrl = city.replaceAll(" ", "%20");
 		// Costruisce l'url
 		this.urlString = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22"
@@ -91,9 +88,12 @@ public class YahooHttpService extends HttpService {
 		
 		String conditionText = condition.getString(TEXT);
 		weather.setDescription(conditionText);
-		weather.setForecastCode(getForecastCodeForService(conditionText));
-		Log.v(TAG, "icona="+getIcon().toString());
-		weather.setIcon(getIcon());
+		
+		int code = getForecastCodeForService(conditionText);
+		weather.setForecastCode(code);
+		ForecastMapper mapper = ForecastMapper.getIstance();
+		weather.setIdIcon(mapper.getIconId(code));
+		
 		weather.setSource(SOURCE);
 		
 		Log.v(TAG, weather.toString());
@@ -106,44 +106,23 @@ public class YahooHttpService extends HttpService {
 		
 		String desc = forecastDescription.toLowerCase();
 		if(desc.contains("fair") || desc.contains("clear") || desc.contains("sunny")){
-			setIcon(context.getResources().getDrawable(R.drawable.sunny));
 			return mapper.getForecastCode("Sunny");
 		}
 		else if(desc.contains("cloudy")){
-			setIcon(context.getResources().getDrawable(R.drawable.cloudy));
 			return mapper.getForecastCode("Cloudy");
 		}
-		else if (desc.contains("rain")  || desc.contains("showers")|| desc.contains("drizzle")) {
-			setIcon(context.getResources().getDrawable(R.drawable.rain));
+		else if (desc.contains("rain")  || desc.contains("shower")|| desc.contains("drizzle")) {
 			return mapper.getForecastCode("Rain");
 		}
 		else if(desc.contains("thunder") || desc.contains("storm") || desc.contains("hurricane") || desc.contains("tornado")){
-			setIcon(context.getResources().getDrawable(R.drawable.storm));
 			return mapper.getForecastCode("Storm");
 		}
 		else if(desc.contains("snow")){
-			setIcon(context.getResources().getDrawable(R.drawable.snow));
 			return mapper.getForecastCode("Snow");
 		}
 		
 		return 0;
 		
-	}
-
-	/**
-	 * @return the icon
-	 */
-	public static Drawable getIcon()
-	{
-		return icon;
-	}
-
-	/**
-	 * @param icon the icon to set
-	 */
-	public void setIcon(Drawable icon)
-	{
-		this.icon = icon;
 	}
 
 }
