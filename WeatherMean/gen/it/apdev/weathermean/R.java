@@ -1096,7 +1096,8 @@ containing a value of this type.
         public static final int table=0x7f020064;
     }
     public static final class id {
-        public static final int LinearLayout1=0x7f09007f;
+        public static final int LinearLayout1=0x7f09008b;
+        public static final int action_about=0x7f09008e;
         public static final int action_bar=0x7f09001c;
         public static final int action_bar_activity_content=0x7f090001;
         public static final int action_bar_container=0x7f09001b;
@@ -1108,23 +1109,22 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f090002;
         public static final int action_menu_presenter=0x7f090003;
         public static final int action_mode_close_button=0x7f090024;
-        public static final int action_settings=0x7f090083;
         public static final int activity_chooser_view_content=0x7f090025;
         public static final int always=0x7f09000f;
         public static final int beginning=0x7f090016;
-        public static final int buttonAddCity=0x7f090042;
-        public static final int buttonDetails=0x7f09007e;
+        public static final int buttonAddCity=0x7f09004e;
+        public static final int buttonDetails=0x7f09008a;
         public static final int checkbox=0x7f09002d;
         public static final int collapseActionView=0x7f090010;
-        public static final int container=0x7f09003c;
+        public static final int container=0x7f090048;
         public static final int default_activity_button=0x7f090028;
-        public static final int details=0x7f09006e;
+        public static final int details=0x7f09007a;
         public static final int dialog=0x7f090014;
         public static final int disableHome=0x7f090009;
         public static final int dropdown=0x7f090015;
-        public static final int editTextCity=0x7f090040;
-        public static final int editTextCountry=0x7f090041;
-        public static final int editTextLinearLayout=0x7f09003e;
+        public static final int editTextCity=0x7f09004c;
+        public static final int editTextCountry=0x7f09004d;
+        public static final int editTextLinearLayout=0x7f09004a;
         public static final int edit_query=0x7f090030;
         public static final int end=0x7f090017;
         public static final int expand_activities_button=0x7f090026;
@@ -1134,29 +1134,32 @@ containing a value of this type.
         public static final int icon=0x7f09002a;
         public static final int ifRoom=0x7f090011;
         public static final int image=0x7f090027;
-        public static final int imageButtonDelete=0x7f09006d;
-        public static final int imageView1=0x7f09004d;
-        public static final int imageView2=0x7f09004e;
-        public static final int imageView3=0x7f09004f;
-        public static final int imageViewLogo=0x7f090081;
-        public static final int imageViewWeather=0x7f09006f;
-        public static final int linearLayoutCity=0x7f090070;
-        public static final int linearLayoutCityName=0x7f090069;
-        public static final int linearLayoutEditTexts=0x7f09003f;
-        public static final int linearLayoutName=0x7f090068;
+        public static final int imageButtonDelete=0x7f090079;
+        public static final int imageView1=0x7f090059;
+        public static final int imageView2=0x7f09005a;
+        public static final int imageView3=0x7f09005b;
+        public static final int imageViewIcon=0x7f09003d;
+        public static final int imageViewLogo=0x7f09008c;
+        public static final int imageViewWeather=0x7f09007b;
+        public static final int linearLayoutCity=0x7f09007c;
+        public static final int linearLayoutCityName=0x7f090075;
+        public static final int linearLayoutEditTexts=0x7f09004b;
+        public static final int linearLayoutName=0x7f090074;
+        public static final int linearLayoutSubtitle=0x7f09003e;
+        public static final int linearLayoutTitle=0x7f09003c;
         public static final int listMode=0x7f090006;
-        public static final int listViewCities=0x7f090044;
+        public static final int listViewCities=0x7f090050;
         public static final int list_item=0x7f090029;
         public static final int middle=0x7f090018;
         public static final int never=0x7f090012;
         public static final int none=0x7f090019;
         public static final int normal=0x7f090007;
-        public static final int progressBar=0x7f090045;
-        public static final int progressBarSplashScreen=0x7f090082;
+        public static final int progressBar=0x7f090051;
+        public static final int progressBarSplashScreen=0x7f09008d;
         public static final int progress_circular=0x7f090004;
         public static final int progress_horizontal=0x7f090005;
         public static final int radio=0x7f09002f;
-        public static final int scrollView=0x7f090047;
+        public static final int scrollView=0x7f090053;
         public static final int search_badge=0x7f090032;
         public static final int search_bar=0x7f090031;
         public static final int search_button=0x7f090033;
@@ -1174,55 +1177,63 @@ containing a value of this type.
         public static final int split_action_bar=0x7f09001e;
         public static final int submit_area=0x7f090039;
         public static final int tabMode=0x7f090008;
-        public static final int tableRowDescriptions=0x7f090050;
-        public static final int tableRowHumidities=0x7f09005f;
-        public static final int tableRowHumidity=0x7f090078;
-        public static final int tableRowIcons=0x7f09004c;
-        public static final int tableRowPressure=0x7f09007b;
-        public static final int tableRowPressures=0x7f090064;
-        public static final int tableRowSources=0x7f090048;
-        public static final int tableRowTemperatures=0x7f090055;
-        public static final int tableRowTitle=0x7f090073;
-        public static final int tableRowWind=0x7f090075;
-        public static final int tableRowWinds=0x7f09005a;
-        public static final int textViewAppName=0x7f090080;
-        public static final int textViewCity=0x7f09006a;
-        public static final int textViewCountry=0x7f09006c;
-        public static final int textViewCurrentLocation=0x7f09006b;
-        public static final int textViewDescr1=0x7f090051;
-        public static final int textViewDescr2=0x7f090052;
-        public static final int textViewDescr3=0x7f090053;
-        public static final int textViewForecast=0x7f090072;
-        public static final int textViewHumidities=0x7f09005e;
-        public static final int textViewHumidity1=0x7f090060;
-        public static final int textViewHumidity2=0x7f090061;
-        public static final int textViewHumidity3=0x7f090062;
-        public static final int textViewHumidityLabel=0x7f090079;
-        public static final int textViewHumidityValue=0x7f09007a;
-        public static final int textViewPressure1=0x7f090065;
-        public static final int textViewPressure2=0x7f090066;
-        public static final int textViewPressure3=0x7f090067;
-        public static final int textViewPressureLabel=0x7f09007c;
-        public static final int textViewPressureValue=0x7f09007d;
-        public static final int textViewPressures=0x7f090063;
-        public static final int textViewProgressBar=0x7f090046;
-        public static final int textViewSource1=0x7f090049;
-        public static final int textViewSource2=0x7f09004a;
-        public static final int textViewSource3=0x7f09004b;
-        public static final int textViewTableTitle=0x7f090074;
-        public static final int textViewTemp1=0x7f090056;
-        public static final int textViewTemp2=0x7f090057;
-        public static final int textViewTemp3=0x7f090058;
-        public static final int textViewTemperature=0x7f090071;
-        public static final int textViewTemperatures=0x7f090054;
-        public static final int textViewTitleCityList=0x7f090043;
-        public static final int textViewTitleEditText=0x7f09003d;
-        public static final int textViewWind1=0x7f09005b;
-        public static final int textViewWind2=0x7f09005c;
-        public static final int textViewWind3=0x7f09005d;
-        public static final int textViewWindLabel=0x7f090076;
-        public static final int textViewWindValue=0x7f090077;
-        public static final int textViewWinds=0x7f090059;
+        public static final int tableRowDescriptions=0x7f09005c;
+        public static final int tableRowHumidities=0x7f09006b;
+        public static final int tableRowHumidity=0x7f090084;
+        public static final int tableRowIcons=0x7f090058;
+        public static final int tableRowPressure=0x7f090087;
+        public static final int tableRowPressures=0x7f090070;
+        public static final int tableRowSources=0x7f090054;
+        public static final int tableRowTemperatures=0x7f090061;
+        public static final int tableRowTitle=0x7f09007f;
+        public static final int tableRowWind=0x7f090081;
+        public static final int tableRowWinds=0x7f090066;
+        public static final int textViewAppName=0x7f09003f;
+        public static final int textViewCity=0x7f090076;
+        public static final int textViewCountry=0x7f090078;
+        public static final int textViewCurrentLocation=0x7f090077;
+        public static final int textViewDescr1=0x7f09005d;
+        public static final int textViewDescr2=0x7f09005e;
+        public static final int textViewDescr3=0x7f09005f;
+        public static final int textViewDev=0x7f090041;
+        public static final int textViewDev1=0x7f090043;
+        public static final int textViewDev2=0x7f090045;
+        public static final int textViewEmail1=0x7f090044;
+        public static final int textViewEmail2=0x7f090046;
+        public static final int textViewForecast=0x7f09007e;
+        public static final int textViewHumidities=0x7f09006a;
+        public static final int textViewHumidity1=0x7f09006c;
+        public static final int textViewHumidity2=0x7f09006d;
+        public static final int textViewHumidity3=0x7f09006e;
+        public static final int textViewHumidityLabel=0x7f090085;
+        public static final int textViewHumidityValue=0x7f090086;
+        public static final int textViewPressure1=0x7f090071;
+        public static final int textViewPressure2=0x7f090072;
+        public static final int textViewPressure3=0x7f090073;
+        public static final int textViewPressureLabel=0x7f090088;
+        public static final int textViewPressureValue=0x7f090089;
+        public static final int textViewPressures=0x7f09006f;
+        public static final int textViewProgressBar=0x7f090052;
+        public static final int textViewSource1=0x7f090055;
+        public static final int textViewSource2=0x7f090056;
+        public static final int textViewSource3=0x7f090057;
+        public static final int textViewTableTitle=0x7f090080;
+        public static final int textViewTeam=0x7f090042;
+        public static final int textViewTemp1=0x7f090062;
+        public static final int textViewTemp2=0x7f090063;
+        public static final int textViewTemp3=0x7f090064;
+        public static final int textViewTemperature=0x7f09007d;
+        public static final int textViewTemperatures=0x7f090060;
+        public static final int textViewTitleCityList=0x7f09004f;
+        public static final int textViewTitleEditText=0x7f090049;
+        public static final int textViewUniversity=0x7f090047;
+        public static final int textViewVersion=0x7f090040;
+        public static final int textViewWind1=0x7f090067;
+        public static final int textViewWind2=0x7f090068;
+        public static final int textViewWind3=0x7f090069;
+        public static final int textViewWindLabel=0x7f090082;
+        public static final int textViewWindValue=0x7f090083;
+        public static final int textViewWinds=0x7f090065;
         public static final int title=0x7f09002b;
         public static final int top_action_bar=0x7f090020;
         public static final int up=0x7f090021;
@@ -1279,14 +1290,15 @@ containing a value of this type.
         public static final int abc_search_dropdown_item_icons_2line=0x7f030015;
         public static final int abc_search_view=0x7f030016;
         public static final int abc_simple_decor=0x7f030017;
-        public static final int activity_main=0x7f030018;
-        public static final int custom_progress_bar=0x7f030019;
-        public static final int details_activity=0x7f03001a;
-        public static final int fragment_main=0x7f03001b;
-        public static final int list_item=0x7f03001c;
-        public static final int mean_activity=0x7f03001d;
-        public static final int splashscreen=0x7f03001e;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001f;
+        public static final int about_activity=0x7f030018;
+        public static final int activity_main=0x7f030019;
+        public static final int custom_progress_bar=0x7f03001a;
+        public static final int details_activity=0x7f03001b;
+        public static final int fragment_main=0x7f03001c;
+        public static final int list_item=0x7f03001d;
+        public static final int mean_activity=0x7f03001e;
+        public static final int splashscreen=0x7f03001f;
+        public static final int support_simple_spinner_dropdown_item=0x7f030020;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;
@@ -1332,8 +1344,9 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0a000b;
-        public static final int action_settings=0x7f0a000e;
-        /**  Main Activity 
+        public static final int action_about=0x7f0a000e;
+        public static final int action_settings=0x7f0a0034;
+        /**  MainActivity 
          */
         public static final int add_city=0x7f0a0014;
         public static final int alert_dialog_title=0x7f0a0010;
@@ -1346,18 +1359,18 @@ containing a value of this type.
         public static final int country_code=0x7f0a0018;
         public static final int current_location=0x7f0a001b;
         public static final int current_textview=0x7f0a001a;
-        /**  Details Activity 
+        /**  DetailsActivity 
          */
         public static final int details_action_bar_title=0x7f0a002b;
         public static final int details_button=0x7f0a002a;
         public static final int edit_city_hint=0x7f0a0016;
         public static final int edit_country_hint=0x7f0a0019;
-        /**  Mean Activity 
+        /**  MeanActivity 
          */
         public static final int mean_action_bar_title=0x7f0a0020;
         public static final int network_message=0x7f0a0012;
         public static final int not_available=0x7f0a0029;
-        /**  Splash Screen 
+        /**  SplashScreen 
          */
         public static final int progressbar_text=0x7f0a000f;
         public static final int table_description=0x7f0a0025;
@@ -1369,6 +1382,16 @@ containing a value of this type.
         public static final int text_forecast=0x7f0a0023;
         public static final int text_temperature=0x7f0a0022;
         public static final int toast_already_present=0x7f0a0015;
+        public static final int tv_dev1=0x7f0a002f;
+        public static final int tv_dev2=0x7f0a0030;
+        public static final int tv_developers=0x7f0a002d;
+        public static final int tv_email1=0x7f0a0031;
+        public static final int tv_email2=0x7f0a0032;
+        public static final int tv_team=0x7f0a002e;
+        public static final int tv_university=0x7f0a0033;
+        /**  AboutActivity 
+         */
+        public static final int tv_version=0x7f0a002c;
         public static final int warning_edit_contry_length=0x7f0a001f;
         public static final int warning_edit_text=0x7f0a001e;
     }
