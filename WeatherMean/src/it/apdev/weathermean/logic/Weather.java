@@ -2,7 +2,6 @@ package it.apdev.weathermean.logic;
 
 import java.util.List;
 
-import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
@@ -24,7 +23,7 @@ public class Weather implements Parcelable {
 	private double wind;
 	private double humidity;
 	private int forecastCode;
-	private Drawable icon;
+	private int idIcon;
 
 	/**
 	 * Default constructor
@@ -35,7 +34,7 @@ public class Weather implements Parcelable {
 		wind = 0.0;
 		humidity = 0.0;
 		forecastCode = 0;
-
+		idIcon = 0;
 	}
 
 	/**
@@ -164,14 +163,12 @@ public class Weather implements Parcelable {
 		this.forecastCode = forecastCode;
 	}
 
-	public Drawable getIcon()
-	{
-		return icon;
+	public int getIdIcon() {
+		return idIcon;
 	}
 
-	public void setIcon(Drawable icon)
-	{
-		this.icon = icon;
+	public void setIdIcon(int idIcon) {
+		this.idIcon = idIcon;
 	}
 
 	@Override
@@ -180,7 +177,7 @@ public class Weather implements Parcelable {
 		String weather = "Weather[Description: " + this.description
 				+ " Temperature: " + this.temperature + " Wind: " + this.wind
 				+ " Pressure: " + this.pressure + " Humidity: " + this.humidity
-				+ "]";
+				+ " ForecastCode: " + this.forecastCode + "idIcon: "+ this.idIcon +" ]";
 		return weather;
 	}
 
@@ -226,6 +223,8 @@ public class Weather implements Parcelable {
 	 * @return
 	 */
 	private String mergeDescription(List<Weather> list) {
+
+		ForecastMapper mapper = ForecastMapper.getIstance();
 		// Initialize merge string
 		String merge = "";
 
@@ -237,19 +236,23 @@ public class Weather implements Parcelable {
 		if (weather1.equalsIgnoreCase(weather2)) {
 			merge = weather1;
 			this.forecastCode = list.get(0).getForecastCode();
+			this.idIcon = mapper.getIconId(this.forecastCode);
+			
 		} else if (weather1.equalsIgnoreCase(weather3)) {
 			merge = weather1;
 			this.forecastCode = list.get(0).getForecastCode();
+			this.idIcon = mapper.getIconId(this.forecastCode);
 		} else if (weather2.equalsIgnoreCase(weather3)) {
 			merge = weather2;
 			this.forecastCode = list.get(1).getForecastCode();
+			this.idIcon = mapper.getIconId(this.forecastCode);
 		}
 
 		// mean of the forecast code
 		if (merge.equalsIgnoreCase("")) {
 			int count = 0;
 			int sumDesc = 0;
-			ForecastMapper mapper = ForecastMapper.getIstance();
+			
 			for (Weather w : list) {
 				// not sum if forecast code corresponds to "Not Available"
 				if (w.getForecastCode() != 0) {
@@ -263,12 +266,15 @@ public class Weather implements Parcelable {
 				// avaliable
 				this.forecastCode = 0;
 				merge = mapper.getForecastDescription(sumDesc);
+				this.idIcon = mapper.getIconId(this.forecastCode);
 			} else {
 				// mean of the forecast code
-				double mean = sumDesc / count;
-				
-				this.forecastCode =(int) Math.round(mean);
-				merge = mapper.getForecastDescription(forecastCode);
+				double mean = (double) sumDesc / (double) count;
+				Log.v(TAG, "mean: " + mean);
+				this.forecastCode = (int) Math.round(mean);
+				Log.v(TAG, "round: " + this.forecastCode);
+				merge = mapper.getForecastDescription(this.forecastCode);
+				this.idIcon = mapper.getIconId(this.forecastCode);
 			}
 		}
 
@@ -276,41 +282,42 @@ public class Weather implements Parcelable {
 	}
 
 	protected Weather(Parcel in) {
-		source = in.readString();
-		description = in.readString();
-		temperature = in.readDouble();
-		pressure = in.readDouble();
-		wind = in.readDouble();
-		humidity = in.readDouble();
-		forecastCode = in.readInt();
-	}
+        source = in.readString();
+        description = in.readString();
+        temperature = in.readDouble();
+        pressure = in.readDouble();
+        wind = in.readDouble();
+        humidity = in.readDouble();
+        forecastCode = in.readInt();
+        idIcon = in.readInt();
+    }
 
-	@Override
-	public int describeContents() {
-		return 0;
-	}
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeString(source);
-		dest.writeString(description);
-		dest.writeDouble(temperature);
-		dest.writeDouble(pressure);
-		dest.writeDouble(wind);
-		dest.writeDouble(humidity);
-		dest.writeInt(forecastCode);
-	}
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(source);
+        dest.writeString(description);
+        dest.writeDouble(temperature);
+        dest.writeDouble(pressure);
+        dest.writeDouble(wind);
+        dest.writeDouble(humidity);
+        dest.writeInt(forecastCode);
+        dest.writeInt(idIcon);
+    }
 
-	public static final Parcelable.Creator<Weather> CREATOR = new Parcelable.Creator<Weather>() {
-		@Override
-		public Weather createFromParcel(Parcel in) {
-			return new Weather(in);
-		}
+    public static final Parcelable.Creator<Weather> CREATOR = new Parcelable.Creator<Weather>() {
+        @Override
+        public Weather createFromParcel(Parcel in) {
+            return new Weather(in);
+        }
 
-		@Override
-		public Weather[] newArray(int size) {
-			return new Weather[size];
-		}
-	};
-
+        @Override
+        public Weather[] newArray(int size) {
+            return new Weather[size];
+        }
+    };
 }

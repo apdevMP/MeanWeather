@@ -25,7 +25,7 @@ public class RetrieveJsonObject extends AsyncTask<String, Void, JSONObject> {
 
 	@Override
 	protected JSONObject doInBackground(String... params) {
-		Log.v(TAG, "Star retrieve JSONObject " + params[0]);
+		//Log.v(TAG, "Star retrieve JSONObject " + params[0]);
 		// Occurs one string(url)
 		if (params.length != 1) {
 			return null;

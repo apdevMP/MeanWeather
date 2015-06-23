@@ -34,10 +34,7 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 	private static final String WEATHER_DESC = "weatherDesc";
 	private static final String WINDSPEED = "windspeedKmph";
 	private static final String VALUE = "value";
-	private static Drawable icon = null;
 	
-	private Context context;
-
 	/**
 	 * Costruttore che imposta la citt� e il codice della nazione, costruendo
 	 * l'url
@@ -48,7 +45,6 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 	public WorldWeatherOnlineHttpService(String city, String codeNation, Context context) {
 		this.city = city;
 		this.codeNation = codeNation;
-		this.context = context;
 		String cityUrl = city.replaceAll(" ", "%20");
 		// Costruisce l'url
 		this.urlString = "http://api.worldweatheronline.com/free/v2/weather.ashx?q="
@@ -87,22 +83,15 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 		JSONObject description = condition.getJSONObject(0);
 		String descriptionText = description.getString(VALUE);
 		weather.setDescription(descriptionText);
-		weather.setForecastCode(getForecastCodeForService(descriptionText));
-
+		int code = getForecastCodeForService(descriptionText);
+		weather.setForecastCode(code);
+		ForecastMapper mapper = ForecastMapper.getIstance();
+		weather.setIdIcon(mapper.getIconId(code));
+		
 		weather.setSource(SOURCE);
 
 		Log.v(TAG, weather.toString());
 		return weather;
-	}
-
-	public static Drawable getIcon()
-	{
-		return icon;
-	}
-
-	public static void setIcon(Drawable icon)
-	{
-		WorldWeatherOnlineHttpService.icon = icon;
 	}
 
 	@Override
@@ -111,23 +100,18 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 		String desc = forecastDescription.toLowerCase();
 		
 		if(desc.contains("ice") || desc.contains("thunder") || desc.contains("torrential")){
-			setIcon(context.getResources().getDrawable(R.drawable.storm));
 			return mapper.getForecastCode("Storm");
 		}
 		else if(desc.contains("rain") || desc.contains("drizzle") || desc.contains("shower")){
-			setIcon(context.getResources().getDrawable(R.drawable.rain));
 			return mapper.getForecastCode("Rain");
 		}
 		else if (desc.contains("snow") || desc.contains("blizzard") || desc.contains("sleet")) {
-			setIcon(context.getResources().getDrawable(R.drawable.snow));
 			return mapper.getForecastCode("Snow");
 		}
 		else if(desc.contains("clear")||desc.contains("sunny")){
-			setIcon(context.getResources().getDrawable(R.drawable.sunny));
 			return mapper.getForecastCode("Sunny");
 		}
 		else if(desc.contains("cloudy") || desc.contains("overcast")){
-			setIcon(context.getResources().getDrawable(R.drawable.cloudy));
 			return mapper.getForecastCode("Cloudy");
 		}
 		return 0;
