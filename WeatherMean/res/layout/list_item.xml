@@ -48,7 +48,14 @@
             android:layout_height="wrap_content"
             android:text="@string/country_code"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBarElement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:visibility="gone"/>
 
     <ImageButton
         android:id="@+id/imageButtonDelete"

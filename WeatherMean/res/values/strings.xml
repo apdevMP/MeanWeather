@@ -25,7 +25,6 @@
 	<string name="warning_edit_text">Insert all values before adding a new city</string>
 	<string name="warning_edit_contry_length">Country code length must be of 2 characters</string>
 	
-	
 	<!-- Mean Activity -->
 	<string name="mean_action_bar_title">Weather for</string>
 	<string name="text_city">City</string>

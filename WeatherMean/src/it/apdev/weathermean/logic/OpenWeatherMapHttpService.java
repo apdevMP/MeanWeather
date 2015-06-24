@@ -1,13 +1,11 @@
 package it.apdev.weathermean.logic;
-import it.apdev.weathermean.R;
+
 import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 /**
@@ -40,7 +38,7 @@ public class OpenWeatherMapHttpService extends HttpService{
 	 * @param city
 	 * @param codeNation
 	 */
-	public OpenWeatherMapHttpService(String city, String codeNation, Context context) {
+	public OpenWeatherMapHttpService(String city, String codeNation) {
 		this.city = city;
 		this.codeNation = codeNation;
 		

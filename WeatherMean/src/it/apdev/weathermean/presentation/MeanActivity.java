@@ -118,21 +118,4 @@ public class MeanActivity extends Activity
 		super.onBackPressed();
 	}
 
-	private Drawable retrieveIcon(int forecastCode)
-	{
-		
-		if (forecastCode==4)
-			return MeanActivity.this.getResources().getDrawable(R.drawable.storm);
-		else if (forecastCode==1)
-			return MeanActivity.this.getResources().getDrawable(R.drawable.sunny);
-		else if (forecastCode==2)
-			return MeanActivity.this.getResources().getDrawable(R.drawable.cloudy);
-		else if (forecastCode==3)
-			return MeanActivity.this.getResources().getDrawable(R.drawable.rain);
-		else if (forecastCode==5)
-			return MeanActivity.this.getResources().getDrawable(R.drawable.snow);
-		else
-			return MeanActivity.this.getResources().getDrawable(R.drawable.not_available);
-	}
-
 }

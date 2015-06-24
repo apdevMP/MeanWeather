@@ -1,15 +1,11 @@
 package it.apdev.weathermean.logic;
 
-
-import it.apdev.weathermean.R;
 import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 /**
@@ -42,7 +38,7 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 	 * @param city
 	 * @param codeNation
 	 */
-	public WorldWeatherOnlineHttpService(String city, String codeNation, Context context) {
+	public WorldWeatherOnlineHttpService(String city, String codeNation) {
 		this.city = city;
 		this.codeNation = codeNation;
 		String cityUrl = city.replaceAll(" ", "%20");
