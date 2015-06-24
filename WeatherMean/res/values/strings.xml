@@ -2,16 +2,16 @@
 <resources>
 
     <string name="app_name">Mean Weather</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_about">About</string>
     
-    <!-- Splash Screen -->
+    <!-- SplashScreen -->
     <string name="progressbar_text">Retrieving current location</string>
     <string name="alert_dialog_title">Warning</string>
     <string name="alert_message">Localization Provider disabled. Please enable it.</string>
     <string name="network_message">Network connection not available. Please enable it.</string>
     <string name="connection_lost">Wifi connection lost</string>
     
-    <!-- Main Activity -->
+    <!-- MainActivity -->
 	<string name="add_city">Add a new city</string>
 	<string name="toast_already_present">City already present in the list!</string>
 	<string name="edit_city_hint">Example: Rome</string>
@@ -25,7 +25,7 @@
 	<string name="warning_edit_text">Insert all values before adding a new city</string>
 	<string name="warning_edit_contry_length">Country code length must be of 2 characters</string>
 	
-	<!-- Mean Activity -->
+	<!-- MeanActivity -->
 	<string name="mean_action_bar_title">Weather for</string>
 	<string name="text_city">City</string>
 	<string name="text_temperature">Temperature</string>
@@ -38,6 +38,18 @@
 	<string name="not_available">NA</string>
 	<string name="details_button">View Details</string>
 	
-	<!-- Details Activity -->
+	<!-- DetailsActivity -->
 	<string name="details_action_bar_title">Details for</string>
+	
+	
+	<!-- AboutActivity -->
+	<string name="tv_version">Version 1.0</string>
+	<string name="tv_developers">Developers</string>
+	<string name="tv_team">Team: apdev</string>
+	<string name="tv_dev1">Andrea Alessandro</string>
+	<string name="tv_dev2">Vanessa Perciballi</string>
+	<string name="tv_email1">andrea.alessandro90@gmail.com</string>
+	<string name="tv_email2">v.perciballi@gmail.com</string>
+	<string name="tv_university">University of Rome Tor Vergata</string>
+	
 </resources>
