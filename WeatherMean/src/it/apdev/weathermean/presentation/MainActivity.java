@@ -77,7 +77,7 @@ public class MainActivity extends ActionBarActivity
 		cityEditText = (EditText) findViewById(R.id.editTextCity);
 		countryCodeEditText = (EditText) findViewById(R.id.editTextCountry);
 		addCityButton = (Button) findViewById(R.id.buttonAddCity);
-
+		
 		Cursor crs = dbManager.query();
 		adapter = new CursorAdapter(this, crs, 0) {
 			@Override
@@ -174,6 +174,7 @@ public class MainActivity extends ActionBarActivity
 				Log.v(TAG, "Start onItemClick");
 				progressBar = (ProgressBar) view.findViewById(R.id.progressBarElement);
 				progressBar.setVisibility(View.VISIBLE);
+				
 				TextView tvCity = (TextView) view.findViewById(R.id.textViewCity);
 				String city = (String) tvCity.getText();
 				TextView tvCountryCode = (TextView) view.findViewById(R.id.textViewCountry);
@@ -209,6 +210,7 @@ public class MainActivity extends ActionBarActivity
 					finish();
 				} else
 				{
+					progressBar.setVisibility(View.GONE);
 					Toast.makeText(MainActivity.this, "It's impossible to retrieve all weathers from websites", Toast.LENGTH_LONG).show();
 				}
 			}
