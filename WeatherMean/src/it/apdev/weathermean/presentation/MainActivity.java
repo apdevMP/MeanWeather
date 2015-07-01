@@ -15,7 +15,6 @@ import it.apdev.weathermean.storage.DBManager;
 import it.apdev.weathermean.storage.DBStrings;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
-import android.text.Layout;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -60,10 +59,10 @@ public class MainActivity extends ActionBarActivity
 		Log.v(TAG, "onCreate");
 		
 		setContentView(R.layout.activity_main);
-		if (savedInstanceState == null)
+		/*if (savedInstanceState == null)
 		{
 			getSupportFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
-		}
+		}*/
 
 		dbManager = new DBManager(this);
 		dbManager.updateCurrentField();
@@ -332,17 +331,14 @@ public class MainActivity extends ActionBarActivity
 			}
 		} catch (InterruptedException e)
 		{
-			// TODO Auto-generated catch block
 			Log.v(TAG, "Interrupted Exception");
 			e.printStackTrace();
 		} catch (ExecutionException e)
 		{
-			// TODO Auto-generated catch block
 			Log.v(TAG, "Execution Exception");
 			e.printStackTrace();
 		} catch (JSONException e)
 		{
-			// TODO Auto-generated catch block
 			Log.v(TAG, "JSON Exception");
 			e.printStackTrace();
 		}
