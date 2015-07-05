@@ -6,6 +6,8 @@ import it.apdev.weathermean.R;
 import it.apdev.weathermean.logic.Weather;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -61,6 +63,8 @@ public class MeanActivity extends Activity
 		Intent intent = getIntent();
 		city = intent.getStringExtra("city_name");
 		getActionBar().setTitle(getString(R.string.mean_action_bar_title) + " " + city);
+
+		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00a2ff")));
 		codeNation = intent.getStringExtra("country_code");
 		list = intent.getParcelableArrayListExtra("weather_list");
 		meanWeather = intent.getParcelableExtra("weather_mean");
@@ -69,7 +73,7 @@ public class MeanActivity extends Activity
 		currentCcode = intent.getStringExtra("current_ccode");
 
 		tvCity.setText(city + "," + codeNation);
-		tvTemp.setText(meanWeather.getTemperature() + " °C");
+		tvTemp.setText(meanWeather.getTemperature() + " ï¿½C");
 		tvHumidity.setText(meanWeather.getHumidity() + "%");
 		tvWind.setText(meanWeather.getWind() + " km/h");
 		tvPressure.setText(meanWeather.getPressure() + " hPa");

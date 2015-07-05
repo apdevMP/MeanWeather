@@ -6,7 +6,6 @@ import java.util.concurrent.ExecutionException;
 import org.json.JSONException;
 
 import it.apdev.weathermean.R;
-import it.apdev.weathermean.logic.MeanAsyncTask;
 import it.apdev.weathermean.logic.OpenWeatherMapHttpService;
 import it.apdev.weathermean.logic.Weather;
 import it.apdev.weathermean.logic.WorldWeatherOnlineHttpService;
@@ -15,9 +14,13 @@ import it.apdev.weathermean.storage.DBManager;
 import it.apdev.weathermean.storage.DBStrings;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,11 +36,10 @@ import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends ActionBarActivity
+public class MainActivity extends Activity
 {
 
 	private EditText			cityEditText, countryCodeEditText;
@@ -49,7 +51,7 @@ public class MainActivity extends ActionBarActivity
 	private CursorAdapter		adapter;
 	private String				currentCityNameString;
 	private String				currentCountryCodeString;
-	private ProgressBar 		progressBar;
+
 	private static final String	TAG			= "MainActivity";
 
 	@Override
@@ -57,13 +59,15 @@ public class MainActivity extends ActionBarActivity
 	{
 		super.onCreate(savedInstanceState);
 		Log.v(TAG, "onCreate");
-		
-		setContentView(R.layout.activity_main);
-		/*if (savedInstanceState == null)
-		{
-			getSupportFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
-		}*/
 
+		setContentView(R.layout.activity_main);
+//		if (savedInstanceState == null)
+//		{
+//			getSupportFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
+//		}
+
+		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00a2ff")));
+		
 		dbManager = new DBManager(this);
 		dbManager.updateCurrentField();
 
@@ -76,7 +80,7 @@ public class MainActivity extends ActionBarActivity
 		cityEditText = (EditText) findViewById(R.id.editTextCity);
 		countryCodeEditText = (EditText) findViewById(R.id.editTextCountry);
 		addCityButton = (Button) findViewById(R.id.buttonAddCity);
-		
+
 		Cursor crs = dbManager.query();
 		adapter = new CursorAdapter(this, crs, 0) {
 			@Override
@@ -130,7 +134,7 @@ public class MainActivity extends ActionBarActivity
 		addRecordToDB("Torino", "IT", 0, false);
 		addRecordToDB("Bari", "IT", 0, false);
 		addRecordToDB("Veroli", "IT", 0, false);
-		addRecordToDB("Palermo", "IT", 0, false);
+		addRecordToDB("Ripi", "IT", 0, false);
 
 		// listener addCityButton
 		addCityButton.setOnClickListener(new OnClickListener() {
@@ -166,14 +170,10 @@ public class MainActivity extends ActionBarActivity
 
 		cityListView.setOnItemClickListener(new OnItemClickListener() {
 
-			@SuppressWarnings("unchecked")
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{
 				Log.v(TAG, "Start onItemClick");
-				progressBar = (ProgressBar) view.findViewById(R.id.progressBarElement);
-				progressBar.setVisibility(View.VISIBLE);
-				
 				TextView tvCity = (TextView) view.findViewById(R.id.textViewCity);
 				String city = (String) tvCity.getText();
 				TextView tvCountryCode = (TextView) view.findViewById(R.id.textViewCountry);
@@ -184,19 +184,8 @@ public class MainActivity extends ActionBarActivity
 				if (list.size() == 3)
 				{
 					Weather meanWeather = new Weather();
-					MeanAsyncTask meanTask = new MeanAsyncTask();
-					meanTask.execute(list);
-					//meanWeather.mergeWeather(list);
-					try {
-						meanWeather = meanTask.get();
-					} catch (InterruptedException e) {
-						Log.v(TAG, "InterruptedException");
-						e.printStackTrace();
-					} catch (ExecutionException e) {
-						Log.v(TAG, "ExecutionException");
-						e.printStackTrace();
-					}
-					
+					meanWeather.mergeWeather(list);
+
 					Intent intent = new Intent(MainActivity.this, MeanActivity.class);
 					intent.putExtra("city_name", city.trim());
 					intent.putExtra("country_code", countryCode.trim());
@@ -209,7 +198,6 @@ public class MainActivity extends ActionBarActivity
 					finish();
 				} else
 				{
-					progressBar.setVisibility(View.GONE);
 					Toast.makeText(MainActivity.this, "It's impossible to retrieve all weathers from websites", Toast.LENGTH_LONG).show();
 				}
 			}
@@ -331,14 +319,17 @@ public class MainActivity extends ActionBarActivity
 			}
 		} catch (InterruptedException e)
 		{
+			// TODO Auto-generated catch block
 			Log.v(TAG, "Interrupted Exception");
 			e.printStackTrace();
 		} catch (ExecutionException e)
 		{
+			// TODO Auto-generated catch block
 			Log.v(TAG, "Execution Exception");
 			e.printStackTrace();
 		} catch (JSONException e)
 		{
+			// TODO Auto-generated catch block
 			Log.v(TAG, "JSON Exception");
 			e.printStackTrace();
 		}

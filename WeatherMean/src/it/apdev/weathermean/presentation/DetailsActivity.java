@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import it.apdev.weathermean.R;
 import it.apdev.weathermean.logic.Weather;
-
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -40,6 +42,8 @@ public class DetailsActivity extends Activity {
 		city = intent.getStringExtra("city_name");
 		getActionBar().setTitle(
 				getString(R.string.details_action_bar_title) + " " + city);
+		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00a2ff")));
+		
 		countryCode = intent.getStringExtra("country_code");
 		currentCity = intent.getStringExtra("current_city");
 		currentCcode = intent.getStringExtra("current_ccode");
@@ -80,9 +84,9 @@ public class DetailsActivity extends Activity {
 		tvDesc2.setText(list.get(1).getDescription());
 		tvDesc3.setText(list.get(2).getDescription());
 
-		tvTemp1.setText(list.get(0).getTemperature() + " °C");
-		tvTemp2.setText(list.get(1).getTemperature() + " °C");
-		tvTemp3.setText(list.get(2).getTemperature() + " °C");
+		tvTemp1.setText(list.get(0).getTemperature() + " ï¿½C");
+		tvTemp2.setText(list.get(1).getTemperature() + " ï¿½C");
+		tvTemp3.setText(list.get(2).getTemperature() + " ï¿½C");
 
 		tvHumidity1.setText(list.get(0).getHumidity() + "%");
 		tvHumidity2.setText(list.get(1).getHumidity() + "%");
