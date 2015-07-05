@@ -1,12 +1,10 @@
 package it.apdev.weathermean.logic;
 
-import it.apdev.weathermean.R;
 import java.util.concurrent.ExecutionException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
 import android.util.Log;
 
 /**
@@ -40,7 +38,7 @@ public class YahooHttpService extends HttpService {
 	 * @param city
 	 * @param codeNation
 	 */
-	public YahooHttpService(String city, String codeNation, Context context) {
+	public YahooHttpService(String city, String codeNation) {
 		this.city = city;
 		this.codeNation = codeNation;
 		

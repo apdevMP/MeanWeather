@@ -2,6 +2,54 @@
 <resources>
 
     <string name="app_name">Mean Weather</string>
-    <string name="action_settings">Settings</string>
-
+    <string name="action_about">About</string>
+    
+    <!-- SplashScreen -->
+    <string name="progressbar_text">Ricerca località </string>
+    <string name="alert_dialog_title">Attenzione</string>
+    <string name="alert_message">Servizio di localizzazione disabilitato. Si prega di abilitarlo.</string>
+    <string name="network_message">Connessione di rete non disponibile. Si prega di abilitarla.</string>
+    <string name="connection_lost">Connessione wifi persa</string>
+    
+    <!-- MainActivity -->
+	<string name="add_city">Aggiungi una nuova città</string>
+	<string name="toast_already_present">Città già presente nella lista!</string>
+	<string name="edit_city_hint">Esempio: Roma</string>
+	<string name="city_name">Città</string>
+	<string name="country_code">Country code</string>
+	<string name="edit_country_hint">Esempio: IT</string>
+	<string name="current_textview"> </string>
+	<string name="current_location"> (Current Location)</string>
+	<string name="button_add_city">Aggiungi</string>
+	<string name="city_list">Città Recenti</string>
+	<string name="warning_edit_text">Inserisci tutti i valore prima di aggiungere una nuova città</string>
+	<string name="warning_edit_contry_length">La lunghezza del Country code deve essere di 2 caratteri</string>
+	
+	<!-- MeanActivity -->
+	<string name="mean_action_bar_title">Meteo per</string>
+	<string name="text_city">Città</string>
+	<string name="text_temperature">Temperatura</string>
+	<string name="text_forecast">Previsione</string>
+	<string name="table_title">Altre Informazioni</string>
+	<string name="table_description">Descrizione</string>
+	<string name="table_wind">Vento</string>
+	<string name="table_humidity">Umidità</string>
+	<string name="table_pressure">Pressione</string>
+	<string name="not_available">ND</string>
+	<string name="details_button">Vedi dettagli</string>
+	
+	<!-- DetailsActivity -->
+	<string name="details_action_bar_title">Dettagli per</string>
+	
+	
+	<!-- AboutActivity -->
+	<string name="tv_version">Versione 1.0</string>
+	<string name="tv_developers">Sviluppatori</string>
+	<string name="tv_team">Team: apdev</string>
+	<string name="tv_dev1">Andrea Alessandro</string>
+	<string name="tv_dev2">Vanessa Perciballi</string>
+	<string name="tv_email1">andrea.alessandro90@gmail.com</string>
+	<string name="tv_email2">v.perciballi@gmail.com</string> 
+	<string name="tv_university">Università di Roma Tor Vergata</string>
+	
 </resources>
