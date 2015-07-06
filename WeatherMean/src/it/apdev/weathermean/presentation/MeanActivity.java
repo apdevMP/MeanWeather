@@ -29,7 +29,7 @@ public class MeanActivity extends Activity
 	private static final String	TAG	= "MeanActivity";
 
 	private String				city, codeNation;
-	private TextView			tvCity, tvTemp, tvForecast, tvWind, tvHumidity, tvPressure;
+	private TextView			tvCity, tvTemp, tvForecast, tvWind, tvHumidity, tvPressure, tvVisibility;
 	private Button				btnDetails;
 
 	private ImageView			imgViewIcon;
@@ -56,6 +56,7 @@ public class MeanActivity extends Activity
 		tvWind = (TextView) findViewById(R.id.textViewWindValue);
 		tvHumidity = (TextView) findViewById(R.id.textViewHumidityValue);
 		tvPressure = (TextView) findViewById(R.id.textViewPressureValue);
+		tvVisibility = (TextView) findViewById(R.id.textViewVisibilityValue);
 		btnDetails = (Button) findViewById(R.id.buttonDetails);
 
 		imgViewIcon = (ImageView) findViewById(R.id.imageViewWeather);
@@ -73,10 +74,11 @@ public class MeanActivity extends Activity
 		currentCcode = intent.getStringExtra("current_ccode");
 
 		tvCity.setText(city + "," + codeNation);
-		tvTemp.setText(meanWeather.getTemperature() + " �C");
+		tvTemp.setText(meanWeather.getTemperature() + " °C");
 		tvHumidity.setText(meanWeather.getHumidity() + "%");
 		tvWind.setText(meanWeather.getWind() + " km/h");
 		tvPressure.setText(meanWeather.getPressure() + " hPa");
+		tvVisibility.setText(meanWeather.getVisibility() + " km");
 		tvForecast.setText(meanWeather.getDescription());
 
 		String meanForecastDescription = meanWeather.getDescription();

@@ -21,6 +21,7 @@ public class DetailsActivity extends Activity {
 	private TextView tvTemp1, tvTemp2, tvTemp3;
 	private TextView tvHumidity1, tvHumidity2, tvHumidity3;
 	private TextView tvPressure1, tvPressure2, tvPressure3;
+	private TextView tvVisibility1, tvVisibility2, tvVisibility3;
 	private TextView tvWind1, tvWind2, tvWind3;
 	private ImageView imgView1, imgView2, imgView3;
 
@@ -66,6 +67,10 @@ public class DetailsActivity extends Activity {
 		tvPressure1 = (TextView) findViewById(R.id.textViewPressure1);
 		tvPressure2 = (TextView) findViewById(R.id.textViewPressure2);
 		tvPressure3 = (TextView) findViewById(R.id.textViewPressure3);
+		
+		tvVisibility1 = (TextView) findViewById(R.id.textViewVisibility1);
+		tvVisibility2 = (TextView) findViewById(R.id.textViewVisibility2);
+		tvVisibility3 = (TextView) findViewById(R.id.textViewVisibility3);
 
 		tvWind1 = (TextView) findViewById(R.id.textViewWind1);
 		tvWind2 = (TextView) findViewById(R.id.textViewWind2);
@@ -83,9 +88,9 @@ public class DetailsActivity extends Activity {
 		tvDesc2.setText(list.get(1).getDescription());
 		tvDesc3.setText(list.get(2).getDescription());
 
-		tvTemp1.setText(list.get(0).getTemperature() + " �C");
-		tvTemp2.setText(list.get(1).getTemperature() + " �C");
-		tvTemp3.setText(list.get(2).getTemperature() + " �C");
+		tvTemp1.setText(list.get(0).getTemperature() + " °C");
+		tvTemp2.setText(list.get(1).getTemperature() + " °C");
+		tvTemp3.setText(list.get(2).getTemperature() + " °C");
 
 		tvHumidity1.setText(list.get(0).getHumidity() + "%");
 		tvHumidity2.setText(list.get(1).getHumidity() + "%");
@@ -94,6 +99,10 @@ public class DetailsActivity extends Activity {
 		tvPressure1.setText(list.get(0).getPressure() + " hPa");
 		tvPressure2.setText(list.get(1).getPressure() + " hPa");
 		tvPressure3.setText(list.get(2).getPressure() + " hPa");
+		
+		tvVisibility1.setText(list.get(0).getVisibility() + " km");
+		tvVisibility2.setText(list.get(1).getVisibility() + " km");
+		tvVisibility3.setText(list.get(2).getVisibility() + " km");
 
 		tvWind1.setText(list.get(0).getWind() + " Km/h");
 		tvWind2.setText(list.get(1).getWind() + " Km/h");

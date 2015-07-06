@@ -34,7 +34,7 @@ public class Weather implements Parcelable {
 		pressure = 0.0;
 		wind = 0.0;
 		humidity = 0.0;
-		visibility = (0.0);
+		visibility = 0.0;
 		forecastCode = 0;
 		idIcon = 0;
 	}

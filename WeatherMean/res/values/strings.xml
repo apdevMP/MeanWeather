@@ -35,6 +35,7 @@
 	<string name="table_wind">Wind</string>
 	<string name="table_humidity">Humidity</string>
 	<string name="table_pressure">Pressure</string>
+	<string name="table_visibility">Visibility</string>
 	<string name="not_available">NA</string>
 	<string name="details_button">View Details</string>
 	

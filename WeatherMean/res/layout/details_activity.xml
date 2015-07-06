@@ -274,6 +274,48 @@
                 android:gravity="center"
                 android:text="@string/not_available" />
         </TableRow>
+        
+        
+        <TextView
+            android:id="@+id/textViewVisibilities"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/light_blue"
+            android:gravity="center"
+             android:layout_marginTop="5dp"
+            android:text="@string/table_visibility" />
+
+        <TableRow
+            android:id="@+id/tableRowVisibilities"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/textViewVisibility1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/not_available" />
+
+            <TextView
+                android:id="@+id/textViewVisibility2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/not_available" />
+
+            <TextView
+                android:id="@+id/textViewVisibility3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/not_available" />
+        </TableRow>
     </TableLayout>
 
 </ScrollView>
