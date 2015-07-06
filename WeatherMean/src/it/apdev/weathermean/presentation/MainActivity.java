@@ -16,12 +16,18 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -178,6 +184,8 @@ public class MainActivity extends Activity
 				final String city = (String) tvCity.getText();
 				TextView tvCountryCode = (TextView) view.findViewById(R.id.textViewCountry);
 				final String countryCode = (String) tvCountryCode.getText();
+				
+				if(isNetworkAvailable()){
 
 				progressDialog = createProgressDialog("Recupero informazioni");
 
@@ -188,6 +196,9 @@ public class MainActivity extends Activity
 					{
 
 						ArrayList<Weather> list = startServices(city.trim(), countryCode.trim());
+						
+
+						
 						Log.v(TAG, "" + list.size());
 						if (list.size() == 3)
 						{
@@ -206,10 +217,30 @@ public class MainActivity extends Activity
 							finish();
 						} else
 						{
-							Toast.makeText(MainActivity.this, "It's impossible to retrieve all weathers from websites", Toast.LENGTH_LONG).show();
+							runOnUiThread(new Runnable() {
+								
+								@Override
+								public void run()
+								{
+									// TODO Auto-generated method stub
+									Toast.makeText(MainActivity.this, "It's impossible to retrieve all weathers from websites", Toast.LENGTH_LONG).show();
+									progressDialog.cancel();
+								}
+							});
 						}
 					}
 				}).start();
+			}
+				else {
+					new AlertDialog.Builder(MainActivity.this).setTitle(R.string.alert_dialog_title).setMessage(R.string.network_message)
+							.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which)
+								{
+									dialog.cancel();
+
+								}
+							}).setIcon(android.R.drawable.ic_dialog_alert).show();
+				}
 			}
 		});
 	}
@@ -331,6 +362,7 @@ public class MainActivity extends Activity
 		{
 			// TODO Auto-generated catch block
 			Log.v(TAG, "Interrupted Exception");
+
 			e.printStackTrace();
 		} catch (ExecutionException e)
 		{
@@ -364,4 +396,12 @@ public class MainActivity extends Activity
 
 		return pd;
 	}
+
+	private boolean isNetworkAvailable()
+	{
+		ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+	}
+
 }

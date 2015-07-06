@@ -34,6 +34,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:maxLines="2"
+                android:singleLine="false"
                 android:text="@string/not_available"
                 android:textStyle="bold" />
 
@@ -43,6 +45,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:maxLines="2"
+                android:singleLine="false"
                 android:text="@string/not_available"
                 android:textStyle="bold" />
         </TableRow>
@@ -115,9 +119,9 @@
             android:id="@+id/textViewTemperatures"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@color/light_blue"
             android:gravity="center"
-            android:layout_marginTop="10dp"
             android:text="@string/text_temperature" />
 
         <TableRow
@@ -156,9 +160,9 @@
             android:id="@+id/textViewWinds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:background="@color/light_blue"
             android:gravity="center"
-             android:layout_marginTop="5dp"
             android:text="@string/table_wind" />
 
         <TableRow
@@ -197,9 +201,9 @@
             android:id="@+id/textViewHumidities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:background="@color/light_blue"
             android:gravity="center"
-             android:layout_marginTop="5dp"
             android:text="@string/table_humidity" />
 
         <TableRow
@@ -238,9 +242,9 @@
             android:id="@+id/textViewPressures"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:background="@color/light_blue"
             android:gravity="center"
-             android:layout_marginTop="5dp"
             android:text="@string/table_pressure" />
 
         <TableRow
@@ -274,15 +278,14 @@
                 android:gravity="center"
                 android:text="@string/not_available" />
         </TableRow>
-        
-        
+
         <TextView
             android:id="@+id/textViewVisibilities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:background="@color/light_blue"
             android:gravity="center"
-             android:layout_marginTop="5dp"
             android:text="@string/table_visibility" />
 
         <TableRow

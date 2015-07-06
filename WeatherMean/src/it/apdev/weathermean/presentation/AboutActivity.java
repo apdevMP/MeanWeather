@@ -45,8 +45,7 @@ public class AboutActivity extends Activity
 		intent.putExtra("current_city", currentCityNameString);
 		intent.putExtra("current_ccode", currentCountryCodeString);
 		startActivity(intent);
-
-		//super.onBackPressed();
+		super.onBackPressed();
 	}
 
 }
