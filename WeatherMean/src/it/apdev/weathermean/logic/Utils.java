@@ -67,6 +67,22 @@ public class Utils {
 		return hpa;
 	}
 	
+	/**
+	 * Converte le miglia in chilometri
+	 * @param miles
+	 * @return
+	 */
+	public static double fromMilesToKm(double miles){
+		double km = miles * 1.609;
+		return km;
+	}
+	
+	/**
+	 * 
+	 * @param measure
+	 * @return
+	 */
+	
 	public static double roundMeasure( double measure){
 	    return Math.round( measure * Math.pow( 10, DECIMAL_PLACES ) )/Math.pow( 10, DECIMAL_PLACES );
 	}

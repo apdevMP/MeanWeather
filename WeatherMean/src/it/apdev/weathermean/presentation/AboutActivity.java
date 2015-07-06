@@ -31,8 +31,7 @@ public class AboutActivity extends Activity
 		setContentView(R.layout.about_activity);
 		
 		
-		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00a2ff")));
-
+		getActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.action_bar_color));
 		Intent intent = getIntent();
 		currentCityNameString = intent.getStringExtra("current_city");
 		currentCountryCodeString = intent.getStringExtra("current_ccode");

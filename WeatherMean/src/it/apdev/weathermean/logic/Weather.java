@@ -22,6 +22,7 @@ public class Weather implements Parcelable {
 	private double pressure;
 	private double wind;
 	private double humidity;
+	private double visibility;
 	private int forecastCode;
 	private int idIcon;
 
@@ -33,6 +34,7 @@ public class Weather implements Parcelable {
 		pressure = 0.0;
 		wind = 0.0;
 		humidity = 0.0;
+		visibility = (0.0);
 		forecastCode = 0;
 		idIcon = 0;
 	}
@@ -145,6 +147,16 @@ public class Weather implements Parcelable {
 		this.humidity = humidity;
 	}
 
+	public double getVisibility()
+	{
+		return visibility;
+	}
+
+	public void setVisibility(double visibility)
+	{
+		this.visibility = visibility;
+	}
+
 	/**
 	 * Get the code of forecast for this application
 	 * 
@@ -176,7 +188,7 @@ public class Weather implements Parcelable {
 
 		String weather = "Weather[Description: " + this.description
 				+ " Temperature: " + this.temperature + " Wind: " + this.wind
-				+ " Pressure: " + this.pressure + " Humidity: " + this.humidity
+				+ " Pressure: " + this.pressure + " Humidity: " + this.humidity + " Visibility: " + this.visibility
 				+ " ForecastCode: " + this.forecastCode + "idIcon: "+ this.idIcon +" ]";
 		return weather;
 	}
@@ -194,6 +206,7 @@ public class Weather implements Parcelable {
 		double sumSpeed = 0;
 		double sumTemp = 0;
 		double sumPressure = 0;
+		double sumVisibility = 0;
 
 		// For each Weather in the list, sum the values
 		for (Weather i : list) {
@@ -201,6 +214,7 @@ public class Weather implements Parcelable {
 			sumSpeed = sumSpeed + i.getWind();
 			sumTemp = sumTemp + i.getTemperature();
 			sumPressure = sumPressure + i.getPressure();
+			sumVisibility = sumVisibility + i.getVisibility();
 		}
 
 		// Divide the sum for the size of list
@@ -208,6 +222,7 @@ public class Weather implements Parcelable {
 		this.wind = Utils.roundMeasure(sumSpeed / list.size());
 		this.temperature = Utils.roundMeasure(sumTemp / list.size());
 		this.pressure = Utils.roundMeasure(sumPressure / list.size());
+		this.visibility = Utils.roundMeasure(sumVisibility / list.size());
 
 		// For the description it is used a private method
 		this.description = mergeDescription(list);
@@ -288,6 +303,7 @@ public class Weather implements Parcelable {
         pressure = in.readDouble();
         wind = in.readDouble();
         humidity = in.readDouble();
+        visibility = in.readDouble();
         forecastCode = in.readInt();
         idIcon = in.readInt();
     }
@@ -305,6 +321,7 @@ public class Weather implements Parcelable {
         dest.writeDouble(pressure);
         dest.writeDouble(wind);
         dest.writeDouble(humidity);
+        dest.writeDouble(visibility);
         dest.writeInt(forecastCode);
         dest.writeInt(idIcon);
     }

@@ -42,8 +42,7 @@ public class DetailsActivity extends Activity {
 		city = intent.getStringExtra("city_name");
 		getActionBar().setTitle(
 				getString(R.string.details_action_bar_title) + " " + city);
-		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00a2ff")));
-		
+		getActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.action_bar_color));		
 		countryCode = intent.getStringExtra("country_code");
 		currentCity = intent.getStringExtra("current_city");
 		currentCcode = intent.getStringExtra("current_ccode");

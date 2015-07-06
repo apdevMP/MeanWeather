@@ -23,6 +23,7 @@ public class OpenWeatherMapHttpService extends HttpService{
 	private static final String MAIN = "main";
 	private static final String HUMIDITY = "humidity";
 	private static final String PRESSURE = "pressure";
+	private static final String VISIBILITY = "visibility";
 	private static final String TEMP = "temp";
 	private static final String WEATHER = "weather";
 	
@@ -79,6 +80,9 @@ public class OpenWeatherMapHttpService extends HttpService{
 		//double tempKelvin = Utils.fromKelvinToCelsius(main.getDouble(TEMP));
 		//weather.setTemperature(Utils.roundMeasure(tempKelvin));
 		weather.setTemperature(main.getDouble(TEMP));
+		
+		double visibilityKm = result.getDouble(VISIBILITY)/1000;
+		weather.setVisibility(visibilityKm);
 		
 		JSONArray condition = result.getJSONArray(WEATHER);
 		JSONObject description = condition.getJSONObject(0);

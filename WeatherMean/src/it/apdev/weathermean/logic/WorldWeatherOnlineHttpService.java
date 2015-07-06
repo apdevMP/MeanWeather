@@ -29,6 +29,7 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 	private static final String TEMP_C = "temp_C";
 	private static final String WEATHER_DESC = "weatherDesc";
 	private static final String WINDSPEED = "windspeedKmph";
+	private static final String VISIBILITY = "visibility";
 	private static final String VALUE = "value";
 	
 	/**
@@ -74,6 +75,7 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 		weather.setPressure(currentCondition.getDouble(PRESSURE));
 		weather.setTemperature(currentCondition.getDouble(TEMP_C));
 		weather.setWind(currentCondition.getDouble(WINDSPEED));
+		weather.setVisibility(currentCondition.getDouble(VISIBILITY));
 
 		JSONArray condition = currentCondition.getJSONArray(WEATHER_DESC);
 		JSONObject description = condition.getJSONObject(0);

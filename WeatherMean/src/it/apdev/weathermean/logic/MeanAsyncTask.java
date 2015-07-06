@@ -25,6 +25,7 @@ public class MeanAsyncTask extends AsyncTask<List<Weather>, Void, Weather> {
 		double sumSpeed = 0;
 		double sumTemp = 0;
 		double sumPressure = 0;
+		double sumVisibility = 0;
 
 		// For each Weather in the list, sum the values
 		for (Weather i : list) {
@@ -32,6 +33,7 @@ public class MeanAsyncTask extends AsyncTask<List<Weather>, Void, Weather> {
 			sumSpeed = sumSpeed + i.getWind();
 			sumTemp = sumTemp + i.getTemperature();
 			sumPressure = sumPressure + i.getPressure();
+			sumVisibility = sumVisibility + i.getVisibility();
 		}
 
 		// Divide the sum for the size of list
@@ -47,6 +49,10 @@ public class MeanAsyncTask extends AsyncTask<List<Weather>, Void, Weather> {
 		double pressure = Utils.roundMeasure(sumPressure / list.size());
 		meanWeather.setPressure(pressure);
 		// For the description it is used a private method
+		
+		double visibility = Utils.roundMeasure(sumVisibility / list.size());
+		meanWeather.setVisibility(visibility);
+		
 		mergeDescription(meanWeather);
 		
 		return meanWeather;

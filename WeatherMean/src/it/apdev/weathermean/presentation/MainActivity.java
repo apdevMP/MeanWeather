@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -27,6 +28,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -51,6 +53,7 @@ public class MainActivity extends Activity
 	private CursorAdapter		adapter;
 	private String				currentCityNameString;
 	private String				currentCountryCodeString;
+	private ProgressDialog		progressDialog;
 
 	private static final String	TAG			= "MainActivity";
 
@@ -61,13 +64,9 @@ public class MainActivity extends Activity
 		Log.v(TAG, "onCreate");
 
 		setContentView(R.layout.activity_main);
-//		if (savedInstanceState == null)
-//		{
-//			getSupportFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
-//		}
 
-		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00a2ff")));
-		
+		getActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.action_bar_color));
+
 		dbManager = new DBManager(this);
 		dbManager.updateCurrentField();
 
@@ -173,33 +172,44 @@ public class MainActivity extends Activity
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{
+
 				Log.v(TAG, "Start onItemClick");
 				TextView tvCity = (TextView) view.findViewById(R.id.textViewCity);
-				String city = (String) tvCity.getText();
+				final String city = (String) tvCity.getText();
 				TextView tvCountryCode = (TextView) view.findViewById(R.id.textViewCountry);
-				String countryCode = (String) tvCountryCode.getText();
+				final String countryCode = (String) tvCountryCode.getText();
 
-				ArrayList<Weather> list = startServices(city.trim(), countryCode.trim());
-				Log.v(TAG, "" + list.size());
-				if (list.size() == 3)
-				{
-					Weather meanWeather = new Weather();
-					meanWeather.mergeWeather(list);
+				progressDialog = createProgressDialog("Recupero informazioni");
 
-					Intent intent = new Intent(MainActivity.this, MeanActivity.class);
-					intent.putExtra("city_name", city.trim());
-					intent.putExtra("country_code", countryCode.trim());
-					intent.putExtra("current_city", currentCityNameString);
-					intent.putExtra("current_ccode", currentCountryCodeString);
-					intent.putParcelableArrayListExtra("weather_list", list);
-					intent.putExtra("weather_mean", meanWeather);
+				new Thread(new Runnable() {
 
-					startActivity(intent);
-					finish();
-				} else
-				{
-					Toast.makeText(MainActivity.this, "It's impossible to retrieve all weathers from websites", Toast.LENGTH_LONG).show();
-				}
+					@Override
+					public void run()
+					{
+
+						ArrayList<Weather> list = startServices(city.trim(), countryCode.trim());
+						Log.v(TAG, "" + list.size());
+						if (list.size() == 3)
+						{
+							Weather meanWeather = new Weather();
+							meanWeather.mergeWeather(list);
+
+							Intent intent = new Intent(MainActivity.this, MeanActivity.class);
+							intent.putExtra("city_name", city.trim());
+							intent.putExtra("country_code", countryCode.trim());
+							intent.putExtra("current_city", currentCityNameString);
+							intent.putExtra("current_ccode", currentCountryCodeString);
+							intent.putParcelableArrayListExtra("weather_list", list);
+							intent.putExtra("weather_mean", meanWeather);
+							progressDialog.cancel();
+							startActivity(intent);
+							finish();
+						} else
+						{
+							Toast.makeText(MainActivity.this, "It's impossible to retrieve all weathers from websites", Toast.LENGTH_LONG).show();
+						}
+					}
+				}).start();
 			}
 		});
 	}
@@ -242,7 +252,7 @@ public class MainActivity extends Activity
 		int id = item.getItemId();
 		if (id == R.id.action_about)
 		{
-			
+
 			Intent intent = new Intent(MainActivity.this, AboutActivity.class);
 			intent.putExtra("current_city", currentCityNameString);
 			intent.putExtra("current_ccode", currentCountryCodeString);
@@ -335,5 +345,23 @@ public class MainActivity extends Activity
 		}
 
 		return list;
+	}
+
+	private ProgressDialog createProgressDialog(String msg)
+	{
+
+		ProgressDialog pd = new ProgressDialog(MainActivity.this);
+
+		pd.requestWindowFeature(Window.FEATURE_PROGRESS);
+		pd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+		pd.show();
+		pd.setContentView(R.layout.custom_pd);
+		pd.setTitle(null);
+		TextView text = (TextView) pd.findViewById(R.id.progress_msg);
+		text.setText(msg);
+		pd.setIndeterminate(true);
+		pd.setCancelable(false);
+
+		return pd;
 	}
 }

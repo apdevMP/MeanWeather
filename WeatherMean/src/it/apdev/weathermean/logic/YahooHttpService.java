@@ -26,6 +26,7 @@ public class YahooHttpService extends HttpService {
 	private static final String ATMOSPHERE = "atmosphere";
 	private static final String HUMIDITY = "humidity";
 	private static final String PRESSURE = "pressure";
+	private static final String VISIBILITY = "visibility";
 	private static final String ITEM = "item";
 	private static final String CONDITION = "condition";
 	private static final String TEMP = "temp";
@@ -79,7 +80,10 @@ public class YahooHttpService extends HttpService {
 		weather.setHumidity(atmosphere.getDouble(HUMIDITY));
 		double hpaPressure = Utils.fromInhgToHpa(atmosphere.getDouble(PRESSURE));
 		weather.setPressure(Utils.roundMeasure(hpaPressure));
-
+		double visibilityKm = Utils.fromMilesToKm(atmosphere.getDouble(VISIBILITY));
+		weather.setVisibility(Utils.roundMeasure(visibilityKm));
+		
+		
 		JSONObject condition = results.getJSONObject(ITEM).getJSONObject(CONDITION);
 		double tempCelsius = Utils.fromFahrenheitToCelsius(condition.getDouble(TEMP));
 		weather.setTemperature(Utils.roundMeasure(tempCelsius));

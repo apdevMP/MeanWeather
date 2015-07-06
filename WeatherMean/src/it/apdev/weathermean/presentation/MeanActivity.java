@@ -64,7 +64,7 @@ public class MeanActivity extends Activity
 		city = intent.getStringExtra("city_name");
 		getActionBar().setTitle(getString(R.string.mean_action_bar_title) + " " + city);
 
-		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00a2ff")));
+		getActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.action_bar_color));
 		codeNation = intent.getStringExtra("country_code");
 		list = intent.getParcelableArrayListExtra("weather_list");
 		meanWeather = intent.getParcelableExtra("weather_mean");
