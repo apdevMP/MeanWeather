@@ -10,6 +10,10 @@
     <string name="alert_message">Localization Provider disabled. Please enable it.</string>
     <string name="network_message">Network connection not available. Please enable it.</string>
     <string name="connection_lost">Wifi connection lost</string>
+    <string name="max_attemps">Max number of attemps reached.\nPlease control your connection</string>
+    <string name="service_not_available">Unable to retrieve location.\nService not available</string>
+    <string name="io_exception">Error while connecting to the server</string>
+    <string name="null_position">Current location not available</string>
     
     <!-- MainActivity -->
 	<string name="add_city">Add a new city</string>
@@ -22,6 +26,8 @@
 	<string name="current_location"> (Current Location)</string>
 	<string name="button_add_city">Add</string>
 	<string name="city_list">Recent Cities</string>
+	<string name="progress_msg">Retrieving information</string>
+	<string name="json_error">Unable to retrieve information from the sources</string>
 	<string name="warning_edit_text">Insert all values before adding a new city</string>
 	<string name="warning_edit_contry_length">Country code length must be of 2 characters</string>
 	

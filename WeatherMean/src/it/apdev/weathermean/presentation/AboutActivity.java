@@ -4,16 +4,15 @@
 package it.apdev.weathermean.presentation;
 
 import it.apdev.weathermean.R;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 
 /**
- * @author Vanessa
+ * @author TEAM apdev
+ * 
+ * Shows some information about the developers and the version of the application.
  *
  */
 public class AboutActivity extends Activity
@@ -29,9 +28,10 @@ public class AboutActivity extends Activity
 		Log.v(TAG, "onCreate");
 
 		setContentView(R.layout.about_activity);
-		
-		
+
 		getActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.action_bar_color));
+		
+		// get the extras from intent to pass them back to the MainActivity
 		Intent intent = getIntent();
 		currentCityNameString = intent.getStringExtra("current_city");
 		currentCountryCodeString = intent.getStringExtra("current_ccode");
@@ -40,12 +40,12 @@ public class AboutActivity extends Activity
 	@Override
 	public void onBackPressed()
 	{
-		// TODO Auto-generated method stub
+		// go to the MainActivity
 		Intent intent = new Intent(AboutActivity.this, MainActivity.class);
 		intent.putExtra("current_city", currentCityNameString);
 		intent.putExtra("current_ccode", currentCountryCodeString);
 		startActivity(intent);
-		super.onBackPressed();
+		finish();
 	}
 
 }
