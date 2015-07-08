@@ -12,6 +12,7 @@ import it.apdev.weathermean.logic.WorldWeatherOnlineHttpService;
 import it.apdev.weathermean.logic.YahooHttpService;
 import it.apdev.weathermean.storage.DBManager;
 import it.apdev.weathermean.storage.DBStrings;
+import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -65,7 +66,8 @@ public class MainActivity extends Activity
 	private ProgressDialog		progressDialog;
 
 	private static final String	TAG			= "MainActivity";
-
+	private static final int N_PROVIDER = 3;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -236,7 +238,7 @@ public class MainActivity extends Activity
 							 * parsing problems, a warning toast is shown to the
 							 * user
 							 */
-							if (list.size() == 3)
+							if (list.size() == N_PROVIDER)
 							{
 								Weather meanWeather = new Weather();
 								meanWeather.mergeWeather(list);
