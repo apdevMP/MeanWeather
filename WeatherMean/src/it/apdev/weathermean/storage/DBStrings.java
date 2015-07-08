@@ -4,7 +4,9 @@
 package it.apdev.weathermean.storage;
 
 /**
- * @author Vanessa
+ * @author TEAM apdev
+ * 
+ * Class containing the definition of the strings of the DB fields
  *
  */
 public class DBStrings

@@ -95,7 +95,7 @@ public class MainActivity extends Activity
 		addCityButton = (Button) findViewById(R.id.buttonAddCity);
 
 		// populate the city list retrieving cities from the database
-		Cursor crs = dbManager.query();
+		Cursor crs = dbManager.getCityList();
 		adapter = new CursorAdapter(this, crs, 0) {
 			@Override
 			public View newView(Context ctx, Cursor arg1, ViewGroup arg2)
@@ -134,7 +134,7 @@ public class MainActivity extends Activity
 
 						//delete the selected city from the database and updates the displayed list 
 						if (dbManager.delete(cityNameString, countryCodeString))
-							adapter.changeCursor(dbManager.query());
+							adapter.changeCursor(dbManager.getCityList());
 
 					}
 				});
@@ -309,7 +309,7 @@ public class MainActivity extends Activity
 		}
 
 		// update the adapter to show the eventual new city in the list
-		adapter.changeCursor(dbManager.query());
+		adapter.changeCursor(dbManager.getCityList());
 	}
 
 	@Override

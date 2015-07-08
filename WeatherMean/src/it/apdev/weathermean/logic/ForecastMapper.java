@@ -11,21 +11,21 @@ import java.util.Arrays;
  * @author Andrea
  * 
  */
-public class ForecastMapper {
+public class ForecastMapper
+{
 
-	private static final String[] forecastMap = { "Not Available", "Sunny",
-			"Cloudy", "Rain", "Storm", "Snow" };
-	
-	private static final int[] idIconMap = { R.drawable.not_available,
-			R.drawable.sunny, R.drawable.cloudy, R.drawable.storm,
-			R.drawable.snow };
-	
-	private static ForecastMapper forecastMapper = null;
+	private static final String[]	forecastMap		= { "Not Available", "Sunny", "Cloudy", "Rain", "Storm", "Snow" };
+
+	private static final int[]		idIconMap		= { R.drawable.not_available, R.drawable.sunny, R.drawable.cloudy, R.drawable.storm,
+			R.drawable.snow						};
+
+	private static ForecastMapper	forecastMapper	= null;
 
 	/**
 	 * Default constructor
 	 */
-	private ForecastMapper() {
+	private ForecastMapper()
+	{
 
 	}
 
@@ -34,8 +34,10 @@ public class ForecastMapper {
 	 * 
 	 * @return
 	 */
-	public static ForecastMapper getIstance() {
-		if (forecastMapper == null) {
+	public static ForecastMapper getIstance()
+	{
+		if (forecastMapper == null)
+		{
 			forecastMapper = new ForecastMapper();
 		}
 
@@ -48,7 +50,8 @@ public class ForecastMapper {
 	 * @param description
 	 * @return
 	 */
-	public int getForecastCode(String description) {
+	public int getForecastCode(String description)
+	{
 		int forecastCode;
 		forecastCode = Arrays.asList(forecastMap).indexOf(description);
 		return forecastCode;
@@ -60,18 +63,20 @@ public class ForecastMapper {
 	 * @param forecastCode
 	 * @return
 	 */
-	public String getForecastDescription(int forecastCode) {
+	public String getForecastDescription(int forecastCode)
+	{
 		String forecastDescription;
 		forecastDescription = forecastMap[forecastCode];
 		return forecastDescription;
 	}
-	
+
 	/**
 	 * 
 	 * @param forecastCode
 	 * @return
 	 */
-	public int getIconId(int forecastCode){
+	public int getIconId(int forecastCode)
+	{
 		return idIconMap[forecastCode];
 	}
 }

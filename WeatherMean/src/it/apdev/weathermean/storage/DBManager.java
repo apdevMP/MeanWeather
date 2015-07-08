@@ -53,7 +53,7 @@ public class DBManager
 
 	}
 
-	public Cursor query()
+	public Cursor getCityList()
 	{
 		Cursor crs = null;
 		try
