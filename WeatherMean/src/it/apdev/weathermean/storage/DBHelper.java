@@ -9,7 +9,10 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * @author Vanessa
+ * @author TEAM apdev
+ * 
+ * This class creates the DB if not exists.
+ * 
  *
  */
 public class DBHelper extends SQLiteOpenHelper
@@ -24,35 +27,19 @@ public class DBHelper extends SQLiteOpenHelper
 		// TODO Auto-generated constructor stub
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * android.database.sqlite.SQLiteOpenHelper#onCreate(android.database.sqlite
-	 * .SQLiteDatabase)
-	 */
+
 	@Override
 	public void onCreate(SQLiteDatabase db)
 	{
-		// TODO Auto-generated method stub
-
 		String q = "CREATE TABLE if not exists " + DBStrings.TBL_NAME + " ( _id INTEGER," + DBStrings.FIELD_CITY + " TEXT," + DBStrings.FIELD_COUNTRY + " TEXT," + DBStrings.FIELD_CURRENT+ " INTEGER," +" PRIMARY KEY ("+DBStrings.FIELD_CITY+", "+ DBStrings.FIELD_COUNTRY+"))";
 		db.execSQL(q);
-
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * android.database.sqlite.SQLiteOpenHelper#onUpgrade(android.database.sqlite
-	 * .SQLiteDatabase, int, int)
-	 */
+
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
 	{
-		// TODO Auto-generated method stub
-
+		// do nothing
 	}
 
 }

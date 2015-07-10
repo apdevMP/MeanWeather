@@ -5,23 +5,43 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.nfc.Tag;
 import android.util.Log;
 
+/**
+ * @author TEAM apdev
+ * 
+ * This class contains all the methods that have to manage the DB.
+ * Through them, it is possible to insert/delete new records, and to query the system.
+ *
+ */
 public class DBManager
 {
-	private DBHelper			dbhelper;
-	private static final String	TAG	= "DBManager";
+	private DBHelper					dbhelper;
+	private static final String	TAG	= 	"DBManager";
 
+	/**
+	 * Constructor
+	 * 
+	 * @param ctx the context
+	 */
 	public DBManager(Context ctx)
 	{
 		dbhelper = new DBHelper(ctx, DBHelper.DBNAME, null, 1);
 	}
 
+	
+	/**
+	 * Save a new record within the database
+	 * 
+	 * @param city
+	 * @param ccode
+	 * @param isCurrent
+	 */
 	public void save(String city, String ccode, Integer isCurrent)
 	{
 		SQLiteDatabase db = dbhelper.getWritableDatabase();
 
+		//check if values are not null
 		if (city != null && ccode != null && isCurrent != null)
 		{
 			ContentValues cv = new ContentValues();
@@ -38,6 +58,14 @@ public class DBManager
 		}
 	}
 
+	
+	/**
+	 * Delete a record from the database, based on the city name and the country code
+	 * 
+	 * @param city
+	 * @param country
+	 * @return			true if the deletion as been successful
+	 */
 	public boolean delete(String city, String country)
 	{
 		SQLiteDatabase db = dbhelper.getWritableDatabase();
@@ -53,12 +81,19 @@ public class DBManager
 
 	}
 
+	/**
+	 * Query the database for the list of all records.
+	 * 
+	 * @return a Cursor object with the records in alphabetical order
+	 */
 	public Cursor getCityList()
 	{
 		Cursor crs = null;
 		try
 		{
 			SQLiteDatabase db = dbhelper.getReadableDatabase();
+			
+			//require alphabetical order
 			crs = db.query(DBStrings.TBL_NAME, null, null, null, null, null, DBStrings.FIELD_CITY, null);
 		} catch (SQLiteException sqle)
 		{
@@ -81,23 +116,34 @@ public class DBManager
 		SQLiteDatabase sqldb = dbhelper.getReadableDatabase();
 		Cursor cursor;
 
-		//cerca il record in base al nome e al ccode
+		//search for the record based on country name and country code
 		String Query = "Select * from " + DBStrings.TBL_NAME + " where " + DBStrings.FIELD_CITY + "=" + "\"" + city + "\"" + " AND "
 				+ DBStrings.FIELD_COUNTRY + "=" + "\"" + ccode + "\"";
 		cursor = sqldb.rawQuery(Query, null);
 
-		//se non ci sono record corrispondenti alla ricerca, allora il record corrente non è un duplicato
+		/*
+		 * if there are no records with the name and the code required, 
+		 * the record is not a duplicate, so return false
+		 */
 		if (cursor.getCount() <= 0)
 		{
 			cursor.close();
 			return false;
 		}
-		//se invece c'è un record corrispondente alla ricerca, allora controlla il campo current
+		/*
+		 * if there's at least one record with the same name and country code
+		 * check the FIELD_CURRENT:
+		 * 
+		 * if it is 0, update the record and set the field to 1,
+		 * because the record we search for is now the current location
+		 * 
+		 * else it is a duplicate, so return true
+		 * 
+		 */
 		else
 		{
-			//se isCUrrent è 1 allora devo fare un update sul campo isCurrent
 			cursor.moveToFirst();
-			Log.v(TAG, city + ",iscurrent vale=" + isCurrent);
+			
 			if (isCurrent == 1)
 			{
 
@@ -108,8 +154,6 @@ public class DBManager
 				sqldb.update(DBStrings.TBL_NAME, cv, DBStrings.FIELD_CITY + "=" + "\"" + city + "\"" + " AND " + DBStrings.FIELD_COUNTRY + "=" + "\""
 						+ ccode + "\"", null);
 			}
-			//altrimenti si tratta di un semplice duplicato e non aggiorno nulla
-
 			cursor.close();
 			return true;
 		}

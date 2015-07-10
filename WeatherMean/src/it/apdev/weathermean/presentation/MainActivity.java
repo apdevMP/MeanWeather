@@ -289,7 +289,7 @@ public class MainActivity extends Activity
 	 * @param cityName the name of the city
 	 * @param countryCode the code of its nation
 	 * @param isCurrent 1 if the city is the current city
-	 * @param debug 1 for new cities added
+	 * @param debug 1 for new cities added by the user
 	 */
 	public void addRecordToDB(String cityName, String countryCode, Integer isCurrent, boolean debug)
 	{
