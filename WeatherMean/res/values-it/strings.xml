@@ -20,7 +20,7 @@
     <string name="toast_already_present">Città già presente nella lista!</string>
     <string name="edit_city_hint">Esempio: Roma</string>
     <string name="city_name">Città</string>
-    <string name="country_code">Country code</string>
+    <string name="country_code">Codice Nazione</string>
     <string name="edit_country_hint">Esempio: IT</string>
     <string name="current_textview"></string>
     <string name="current_location"> (Posizione corrente)</string>
@@ -41,6 +41,7 @@
     <string name="table_wind">Vento</string>
     <string name="table_humidity">Umidità</string>
     <string name="table_pressure">Pressione</string>
+    <string name="table_visibility">Visibilità</string>
     <string name="not_available">ND</string>
     <string name="details_button">Vedi dettagli</string>
 

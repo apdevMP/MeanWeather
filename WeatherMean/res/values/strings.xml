@@ -12,7 +12,7 @@
     <string name="connection_lost">Wifi connection lost</string>
     <string name="max_attemps">Max number of attemps reached.\nPlease control your connection</string>
     <string name="service_not_available">Unable to retrieve location.\nService not available</string>
-    <string name="io_exception">Error while connecting to the server</string>
+    <string name="io_exception">Error while connecting to the server. New retryng..</string>
     <string name="null_position">Current location not available</string>
     
     <!-- MainActivity -->
