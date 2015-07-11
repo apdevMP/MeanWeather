@@ -25,6 +25,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/not_available"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="bold" />
 
             <TextView
@@ -37,6 +38,7 @@
                 android:maxLines="2"
                 android:singleLine="false"
                 android:text="@string/not_available"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="bold" />
 
             <TextView
@@ -48,6 +50,7 @@
                 android:maxLines="2"
                 android:singleLine="false"
                 android:text="@string/not_available"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -96,6 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
 
             <TextView
@@ -104,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
 
             <TextView
@@ -112,6 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
         </TableRow>
 
@@ -122,6 +128,7 @@
             android:layout_marginTop="10dp"
             android:background="@color/light_blue"
             android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/text_temperature" />
 
         <TableRow
@@ -137,6 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
 
             <TextView
@@ -145,6 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
 
             <TextView
@@ -153,6 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
         </TableRow>
 
@@ -163,6 +173,7 @@
             android:layout_marginTop="5dp"
             android:background="@color/light_blue"
             android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/table_wind" />
 
         <TableRow
@@ -178,6 +189,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
 
             <TextView
@@ -186,6 +198,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
 
             <TextView
@@ -194,6 +207,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
         </TableRow>
 
@@ -204,6 +218,7 @@
             android:layout_marginTop="5dp"
             android:background="@color/light_blue"
             android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/table_humidity" />
 
         <TableRow
@@ -219,6 +234,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
 
             <TextView
@@ -227,6 +243,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
 
             <TextView
@@ -235,6 +252,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
         </TableRow>
 
@@ -245,6 +263,7 @@
             android:layout_marginTop="5dp"
             android:background="@color/light_blue"
             android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/table_pressure" />
 
         <TableRow
@@ -260,6 +279,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
 
             <TextView
@@ -268,6 +288,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
 
             <TextView
@@ -276,6 +297,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
         </TableRow>
 
@@ -286,6 +308,7 @@
             android:layout_marginTop="5dp"
             android:background="@color/light_blue"
             android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/table_visibility" />
 
         <TableRow
@@ -293,7 +316,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp" >
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp" >
 
             <TextView
                 android:id="@+id/textViewVisibility1"
@@ -301,6 +325,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
 
             <TextView
@@ -309,6 +334,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
 
             <TextView
@@ -317,6 +343,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/not_available" />
         </TableRow>
     </TableLayout>

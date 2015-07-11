@@ -110,7 +110,7 @@ public class DetailsActivity extends Activity
 		tvPressure3.setText(list.get(2).getPressure() + " hPa");
 
 		tvVisibility1.setText(list.get(0).getVisibility() + " km");
-		tvVisibility2.setText(list.get(1).getVisibility() + " km");
+		tvVisibility2.setText(list.get(1).getVisibility()>0?(list.get(1).getVisibility()+" km"):("NA"));
 		tvVisibility3.setText(list.get(2).getVisibility() + " km");
 
 		tvWind1.setText(list.get(0).getWind() + " Km/h");

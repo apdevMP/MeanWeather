@@ -10,6 +10,8 @@ public class MeanAsyncTask extends AsyncTask<List<Weather>, Void, Weather> {
 
 	private static final String TAG = "MeanAsyncTask";
 	private List<Weather> list;
+	int visibility_number = 0;
+	double nullValue = 0.0;
 	
 	@Override
 	protected Weather doInBackground(List<Weather>... params) {
@@ -19,21 +21,27 @@ public class MeanAsyncTask extends AsyncTask<List<Weather>, Void, Weather> {
 		list = params[0];
 		
 		Weather meanWeather = new Weather();
-		Log.v(TAG, "Start to merge Weather");
+		//Log.v(TAG, "Start to merge Weather");
 		// Set the temporary variables for the sum to 0-value
 		double sumHumidity = 0;
 		double sumSpeed = 0;
 		double sumTemp = 0;
 		double sumPressure = 0;
 		double sumVisibility = 0;
+		
+		
+		Log.v(TAG, "sono prima del for");
 
 		// For each Weather in the list, sum the values
 		for (Weather i : list) {
+			
+			Log.v(TAG, "sono nel for");
 			sumHumidity = sumHumidity + i.getHumidity();
 			sumSpeed = sumSpeed + i.getWind();
 			sumTemp = sumTemp + i.getTemperature();
 			sumPressure = sumPressure + i.getPressure();
 			sumVisibility = sumVisibility + i.getVisibility();
+		
 		}
 
 		// Divide the sum for the size of list
@@ -50,7 +58,7 @@ public class MeanAsyncTask extends AsyncTask<List<Weather>, Void, Weather> {
 		meanWeather.setPressure(pressure);
 		// For the description it is used a private method
 		
-		double visibility = Utils.roundMeasure(sumVisibility / list.size());
+		double visibility = Utils.roundMeasure(sumVisibility / visibility_number);
 		meanWeather.setVisibility(visibility);
 		
 		mergeDescription(meanWeather);
@@ -59,7 +67,7 @@ public class MeanAsyncTask extends AsyncTask<List<Weather>, Void, Weather> {
 	}
 	
 	private void mergeDescription(Weather mean) {
-
+		
 		ForecastMapper mapper = ForecastMapper.getIstance();
 		// Initialize merge string
 		String merge = "";

@@ -183,6 +183,7 @@ public class Weather implements Parcelable {
 		this.idIcon = idIcon;
 	}
 
+
 	@Override
 	public String toString() {
 
@@ -207,6 +208,7 @@ public class Weather implements Parcelable {
 		double sumTemp = 0;
 		double sumPressure = 0;
 		double sumVisibility = 0;
+		int visibility_num = 0;
 
 		// For each Weather in the list, sum the values
 		for (Weather i : list) {
@@ -214,7 +216,10 @@ public class Weather implements Parcelable {
 			sumSpeed = sumSpeed + i.getWind();
 			sumTemp = sumTemp + i.getTemperature();
 			sumPressure = sumPressure + i.getPressure();
+			if(i.getVisibility() > 0){
 			sumVisibility = sumVisibility + i.getVisibility();
+			visibility_num++;
+			}
 		}
 
 		// Divide the sum for the size of list
@@ -222,7 +227,7 @@ public class Weather implements Parcelable {
 		this.wind = Utils.roundMeasure(sumSpeed / list.size());
 		this.temperature = Utils.roundMeasure(sumTemp / list.size());
 		this.pressure = Utils.roundMeasure(sumPressure / list.size());
-		this.visibility = Utils.roundMeasure(sumVisibility / list.size());
+		this.visibility = Utils.roundMeasure(sumVisibility / visibility_num);
 
 		// For the description it is used a private method
 		this.description = mergeDescription(list);

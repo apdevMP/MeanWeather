@@ -108,7 +108,7 @@ public class SplashScreenActivity extends Activity implements LocationListener
 		 * if the maximum number of attemps has not been already reached, try to
 		 * get the coordinates of the current location
 		 */
-		if (location != null && attemps < 1)
+		if (location != null && attemps < 2)
 		{
 			double latitude = location.getLatitude();
 			double longitude = location.getLongitude();

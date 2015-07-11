@@ -16,7 +16,7 @@ import android.util.Log;
 public class OpenWeatherMapHttpService extends HttpService{
 
 	private static final String TAG = "OpenWeatherMapHttpService";
-	private static final String SOURCE = "Open Weather Map";
+	private static final String SOURCE = "Open Weather\nMap";
 	
 	private static final String WIND = "wind";
 	private static final String SPEED ="speed";
@@ -26,6 +26,7 @@ public class OpenWeatherMapHttpService extends HttpService{
 	private static final String VISIBILITY = "visibility";
 	private static final String TEMP = "temp";
 	private static final String WEATHER = "weather";
+	double null_value = -1.0;
 	
 	
 	/**
@@ -81,7 +82,14 @@ public class OpenWeatherMapHttpService extends HttpService{
 		//weather.setTemperature(Utils.roundMeasure(tempKelvin));
 		weather.setTemperature(main.getDouble(TEMP));
 		
-		double visibilityKm = result.getDouble(VISIBILITY)/1000;
+		double visibilityKm;
+		try
+		{
+			visibilityKm = result.getDouble(VISIBILITY)/1000;
+		} catch (JSONException e)
+		{
+			visibilityKm = null_value;
+		}
 		weather.setVisibility(visibilityKm);
 		
 		JSONArray condition = result.getJSONArray(WEATHER);
