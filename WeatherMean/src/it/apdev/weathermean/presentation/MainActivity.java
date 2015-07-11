@@ -241,7 +241,15 @@ public class MainActivity extends Activity
 							if (list.size() == N_PROVIDER)
 							{
 								Weather meanWeather = new Weather();
-								meanWeather.mergeWeather(list);
+								try {
+									meanWeather.mergeWeather(list);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (ExecutionException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 
 								//go to the MeanActivity
 								Intent intent = new Intent(MainActivity.this, MeanActivity.class);

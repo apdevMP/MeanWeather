@@ -1,6 +1,5 @@
 package it.apdev.weathermean.logic;
 
-
 import java.util.List;
 
 import android.os.AsyncTask;
@@ -10,64 +9,64 @@ public class MeanAsyncTask extends AsyncTask<List<Weather>, Void, Weather> {
 
 	private static final String TAG = "MeanAsyncTask";
 	private List<Weather> list;
-	int visibility_number = 0;
-	double nullValue = 0.0;
 	
+	
+
 	@Override
 	protected Weather doInBackground(List<Weather>... params) {
-		if (params.length != 1 && params[0].size() !=3 )
+		if (params.length != 1 && params[0].size() != 3)
 			return null;
 
 		list = params[0];
-		
+
 		Weather meanWeather = new Weather();
-		//Log.v(TAG, "Start to merge Weather");
+		// Log.v(TAG, "Start to merge Weather");
 		// Set the temporary variables for the sum to 0-value
 		double sumHumidity = 0;
 		double sumSpeed = 0;
 		double sumTemp = 0;
 		double sumPressure = 0;
 		double sumVisibility = 0;
-		
-		
-		Log.v(TAG, "sono prima del for");
+		int visibility_num = 0;
 
 		// For each Weather in the list, sum the values
 		for (Weather i : list) {
-			
-			Log.v(TAG, "sono nel for");
+
 			sumHumidity = sumHumidity + i.getHumidity();
 			sumSpeed = sumSpeed + i.getWind();
 			sumTemp = sumTemp + i.getTemperature();
 			sumPressure = sumPressure + i.getPressure();
-			sumVisibility = sumVisibility + i.getVisibility();
-		
+			if (i.getVisibility() > 0) {
+				sumVisibility = sumVisibility + i.getVisibility();
+				visibility_num++;
+			}
 		}
 
 		// Divide the sum for the size of list
 		double humidity = Utils.roundMeasure(sumHumidity / list.size());
 		meanWeather.setHumidity(humidity);
-		
+
 		double wind = Utils.roundMeasure(sumSpeed / list.size());
 		meanWeather.setWind(wind);
-		
+
 		double temperature = Utils.roundMeasure(sumTemp / list.size());
 		meanWeather.setTemperature(temperature);
-		
+
 		double pressure = Utils.roundMeasure(sumPressure / list.size());
 		meanWeather.setPressure(pressure);
-		// For the description it is used a private method
-		
-		double visibility = Utils.roundMeasure(sumVisibility / visibility_number);
+
+		Log.v(	TAG,""+visibility_num);
+		double visibility = Utils.roundMeasure(sumVisibility / visibility_num);
 		meanWeather.setVisibility(visibility);
-		
+
+		//For the description it used a private method
 		mergeDescription(meanWeather);
-		
+
 		return meanWeather;
 	}
-	
+
 	private void mergeDescription(Weather mean) {
-		
+
 		ForecastMapper mapper = ForecastMapper.getIstance();
 		// Initialize merge string
 		String merge = "";
@@ -82,15 +81,15 @@ public class MeanAsyncTask extends AsyncTask<List<Weather>, Void, Weather> {
 			int forecastCode = list.get(0).getForecastCode();
 			mean.setForecastCode(forecastCode);
 			mean.setIdIcon(mapper.getIconId(forecastCode));
-			
+
 		} else if (weather1.equalsIgnoreCase(weather3)) {
 			mean.setDescription(weather1);
-			int forecastCode =list.get(0).getForecastCode();
+			int forecastCode = list.get(0).getForecastCode();
 			mean.setForecastCode(forecastCode);
 			mean.setIdIcon(mapper.getIconId(forecastCode));
 		} else if (weather2.equalsIgnoreCase(weather3)) {
 			mean.setDescription(weather2);
-			int forecastCode =list.get(1).getForecastCode();
+			int forecastCode = list.get(1).getForecastCode();
 			mean.setForecastCode(forecastCode);
 			mean.setIdIcon(mapper.getIconId(forecastCode));
 		}
@@ -99,7 +98,7 @@ public class MeanAsyncTask extends AsyncTask<List<Weather>, Void, Weather> {
 		if (merge.equalsIgnoreCase("")) {
 			int count = 0;
 			int sumDesc = 0;
-			
+
 			for (Weather w : list) {
 				// not sum if forecast code corresponds to "Not Available"
 				if (w.getForecastCode() != 0) {

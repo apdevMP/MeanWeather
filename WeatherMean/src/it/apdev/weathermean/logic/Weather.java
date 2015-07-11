@@ -1,6 +1,7 @@
 package it.apdev.weathermean.logic;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -198,11 +199,22 @@ public class Weather implements Parcelable {
 	 * This method realize the merge of a list of weather
 	 * 
 	 * @param list
+	 * @throws ExecutionException 
+	 * @throws InterruptedException 
 	 */
-	public void mergeWeather(List<Weather> list) {
+	@SuppressWarnings("unchecked")
+	public void mergeWeather(List<Weather> list) throws InterruptedException, ExecutionException {
 
 		Log.v(TAG, "Start to merge Weather");
+		MeanAsyncTask task = new MeanAsyncTask();
+		task.execute(list);
+		
+		Weather mean = task.get(); 
+		this.copy(mean);
+		
+		
 		// Set the temporary variables for the sum to 0-value
+		/*
 		double sumHumidity = 0;
 		double sumSpeed = 0;
 		double sumTemp = 0;
@@ -230,7 +242,19 @@ public class Weather implements Parcelable {
 		this.visibility = Utils.roundMeasure(sumVisibility / visibility_num);
 
 		// For the description it is used a private method
-		this.description = mergeDescription(list);
+		this.description = mergeDescription(list);*/
+	}
+
+	private void copy(Weather mean) {
+		this.setDescription(mean.getDescription());
+		this.setForecastCode(mean.getForecastCode());
+		this.setHumidity(mean.getHumidity());
+		this.setIdIcon(mean.getIdIcon());
+		this.setPressure(mean.getPressure());
+		this.setTemperature(mean.getTemperature());
+		this.setVisibility(mean.getVisibility());
+		this.setWind(mean.getWind());
+		
 	}
 
 	/**
