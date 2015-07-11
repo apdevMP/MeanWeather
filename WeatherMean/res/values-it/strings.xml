@@ -10,9 +10,9 @@
     <string name="alert_message">Servizio di localizzazione disabilitato. Si prega di abilitarlo.</string>
     <string name="network_message">Connessione di rete non disponibile. Si prega di abilitarla.</string>
     <string name="connection_lost">Connessione wifi persa</string>
-    <string name="max_attemps">Numero massimo di tentativi raggiunto.\nControllare la connessione di rete.</string>
+    <string name="max_attemps">Numero massimo di tentativi raggiunto.\nControllare la connessione di rete e riprovare.</string>
     <string name="service_not_available">Impossibile recuperare la posizione.\nServizio non disponibile</string>
-    <string name="io_exception">Errore di connessione al server</string>
+    <string name="io_exception">Errore di connessione al server.\nNuovo tentativo in corso..</string>
     <string name="null_position">Posizione corrente non disponibile</string>
 
     <!-- MainActivity -->
