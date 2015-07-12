@@ -8,7 +8,7 @@ import java.util.Arrays;
  * This class is a Singleton and its scope is to map forecast from website to
  * forecast of this application
  * 
- * @author Andrea
+ * @author TEAM apdev
  * 
  */
 public class ForecastMapper
@@ -54,6 +54,7 @@ public class ForecastMapper
 	{
 		int forecastCode;
 		forecastCode = Arrays.asList(forecastMap).indexOf(description);
+		
 		return forecastCode;
 	}
 
@@ -71,7 +72,7 @@ public class ForecastMapper
 	}
 
 	/**
-	 * 
+	 * Return the id of icon from a forecast code
 	 * @param forecastCode
 	 * @return
 	 */

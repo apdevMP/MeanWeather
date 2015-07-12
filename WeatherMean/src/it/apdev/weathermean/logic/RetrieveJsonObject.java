@@ -14,9 +14,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 /**
- * This class extends AsyncTask and it retrieve a JSONObject from an url
+ * This class extends AsyncTask and it retrieves a JSONObject from an url
  * 
- * @author Andrea
+ * @author TEAM apdev
  * 
  */
 public class RetrieveJsonObject extends AsyncTask<String, Void, JSONObject> {
@@ -25,7 +25,9 @@ public class RetrieveJsonObject extends AsyncTask<String, Void, JSONObject> {
 
 	@Override
 	protected JSONObject doInBackground(String... params) {
-		//Log.v(TAG, "Star retrieve JSONObject " + params[0]);
+
+		Log.v(TAG, "Star retrieve JSONObject " + params[0]);
+
 		// Occurs one string(url)
 		if (params.length != 1) {
 			return null;
@@ -54,23 +56,20 @@ public class RetrieveJsonObject extends AsyncTask<String, Void, JSONObject> {
 			object = new JSONObject(stringBuilder.toString());
 
 			return object;
-			
+
 		} catch (MalformedURLException e) {
 			Log.v(TAG, "Malformed URL" + params[0]);
-			//e.printStackTrace();
+			// e.printStackTrace();
 			return null;
-		}
-		 catch (IOException e) {
+		} catch (IOException e) {
 			Log.v(TAG, "Error while opening connection");
-			//e.printStackTrace();
+			// e.printStackTrace();
 			return null;
 		} catch (JSONException e) {
 			Log.v(TAG, "Error while parsing JSONObject");
-			//e.printStackTrace();
+			// e.printStackTrace();
 			return null;
 		}
-
-		
 
 	}
 

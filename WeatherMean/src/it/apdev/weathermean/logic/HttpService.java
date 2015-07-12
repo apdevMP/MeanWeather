@@ -5,31 +5,30 @@ import java.util.concurrent.ExecutionException;
 import org.json.JSONException;
 
 /**
- * Classe astratta relativa al servizio di richiesta HTTP per il recupero del
- * meteo da una data piattaforma Per estendere tale classe occorre indicare un
- * url specifico in base alla piattaforma scelta e occorre effettuare l'override
- * del metodo retrieveWeather()
+ * Abstract class related to service of HTTP request for retrieving weather from
+ * given platform.To extend this class,it must provide the specific URL of the
+ * given API and it must override retrieveWeather() and
+ * getForecastCodeForService()
  * 
- * @author Andrea
+ * @author TEAM apdev
  * 
  */
 
 public abstract class HttpService {
 
-	protected String urlString; 	// Url specifico della piattaforma dalla quale
-									// prelevare i dati
-	protected String city; 			// Città da monitorare
-	protected String codeNation; 	// Codice della nazione
+	protected String urlString; // specific url of given platform
+	protected String city;
+	protected String codeNation;
 
 	/**
-	 * Costruttore di default
+	 * Default Constructor
 	 */
 	public HttpService() {
 
 	}
 
 	/**
-	 * Restituisce l'url del servizio HTTP
+	 * Return the string contains url
 	 * 
 	 * @return
 	 */
@@ -38,7 +37,7 @@ public abstract class HttpService {
 	}
 
 	/**
-	 * Imposta con urlString l'url del servizio HTTP
+	 * Set urlString with url of HTTP service
 	 * 
 	 * @param urlString
 	 */
@@ -47,7 +46,7 @@ public abstract class HttpService {
 	}
 
 	/**
-	 * Restituisce la città da monitorare
+	 * Return the city
 	 * 
 	 * @return
 	 */
@@ -56,7 +55,7 @@ public abstract class HttpService {
 	}
 
 	/**
-	 * Imposta la città da monitorare
+	 * Set the city
 	 * 
 	 * @param city
 	 */
@@ -65,7 +64,7 @@ public abstract class HttpService {
 	}
 
 	/**
-	 * Restituisce il codice della nazione da monitorare
+	 * Return the country code
 	 * 
 	 * @return
 	 */
@@ -74,7 +73,7 @@ public abstract class HttpService {
 	}
 
 	/**
-	 * Imposta il codice della nazione da monitorare
+	 * Set the country code
 	 * 
 	 * @param codeNation
 	 */
@@ -83,15 +82,17 @@ public abstract class HttpService {
 	}
 
 	/**
-	 * Recupera il meteo relativo alla città voluta tramite l'utilizzo di una
-	 * connessione HTTP all'url desiderato
+	 * Retrieve weather related to the given city through an HTTP connection. It
+	 * must parse an JSONObject
 	 * 
 	 * @return
 	 * @throws Exception
 	 */
-	public abstract Weather retrieveWeather() throws InterruptedException, ExecutionException, JSONException ;
-	
+	public abstract Weather retrieveWeather() throws InterruptedException,
+			ExecutionException, JSONException;
+
 	/**
+	 * Associate a forecast code to the string of description
 	 * 
 	 * @param forecastDescription
 	 * @return

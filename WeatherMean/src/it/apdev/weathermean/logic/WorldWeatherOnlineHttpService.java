@@ -9,11 +9,10 @@ import org.json.JSONObject;
 import android.util.Log;
 
 /**
- * Classe che recupera i dati mediante una connessione HTTP alla piattaforma
- * WorldWeatherOnline. La formula "free" prevede un massimo di 250 query al
- * giorno
+ * It extends HttpService and serves to open an HTTP connection with World
+ * Weather Online
  * 
- * @author Andrea
+ * @author TEAM apdev
  */
 
 public class WorldWeatherOnlineHttpService extends HttpService {
@@ -31,10 +30,10 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 	private static final String WINDSPEED = "windspeedKmph";
 	private static final String VISIBILITY = "visibility";
 	private static final String VALUE = "value";
-	
+
 	/**
-	 * Costruttore che imposta la citt� e il codice della nazione, costruendo
-	 * l'url
+	 * Constructor that sets city and country code and constructs with them an
+	 * url
 	 * 
 	 * @param city
 	 * @param codeNation
@@ -43,7 +42,8 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 		this.city = city;
 		this.codeNation = codeNation;
 		String cityUrl = city.replaceAll(" ", "%20");
-		// Costruisce l'url
+
+		// construct url for World Weather Online
 		this.urlString = "http://api.worldweatheronline.com/free/v2/weather.ashx?q="
 				+ cityUrl
 				+ "%2C"
@@ -52,22 +52,23 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 	}
 
 	@Override
-	public Weather retrieveWeather() throws InterruptedException, ExecutionException, JSONException{
+	public Weather retrieveWeather() throws InterruptedException,
+			ExecutionException, JSONException {
 
-		// Istanzia l'asyncTask relativo al recupero del JSON dalla piattaforma
-		// e lo avvia
+		// Istantiate the AsyncTask related to retrieve of JSONObject and start
+		// it
 		RetrieveJsonObject retrieve = new RetrieveJsonObject();
 		retrieve.execute(urlString).toString();
 
-		// Istanzia la classe weather e recupera il JSON dall'asyncTask
+		// Instantiate weather and retrieve JSONObject from AsyncTask
 		Weather weather = new Weather();
 		JSONObject result = retrieve.get();
-		if(result == null){
-			Log.v(TAG,"Error while retrieving weather");
+		if (result == null) {
+			Log.v(TAG, "Error while retrieving weather");
 			return null;
 		}
-		
-		// Imposta i campi della classe Weather con i valori recuperati dal JSON
+
+		// Set field of weather with retrieved values
 		JSONObject currentCondition = result.getJSONObject(DATA)
 				.getJSONArray(CURRENT_CONDITION).getJSONObject(0);
 
@@ -81,11 +82,13 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 		JSONObject description = condition.getJSONObject(0);
 		String descriptionText = description.getString(VALUE);
 		weather.setDescription(descriptionText);
+
+		// for the forecast code it occurs to call getForecastCodeForService()
 		int code = getForecastCodeForService(descriptionText);
 		weather.setForecastCode(code);
 		ForecastMapper mapper = ForecastMapper.getIstance();
 		weather.setIdIcon(mapper.getIconId(code));
-		
+
 		weather.setSource(SOURCE);
 
 		Log.v(TAG, weather.toString());
@@ -96,24 +99,23 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 	public int getForecastCodeForService(String forecastDescription) {
 		ForecastMapper mapper = ForecastMapper.getIstance();
 		String desc = forecastDescription.toLowerCase();
-		
-		if(desc.contains("ice") || desc.contains("thunder") || desc.contains("torrential")){
+
+		if (desc.contains("ice") || desc.contains("thunder")
+				|| desc.contains("torrential")) {
 			return mapper.getForecastCode("Storm");
-		}
-		else if(desc.contains("rain") || desc.contains("drizzle") || desc.contains("shower")){
+		} else if (desc.contains("rain") || desc.contains("drizzle")
+				|| desc.contains("shower")) {
 			return mapper.getForecastCode("Rain");
-		}
-		else if (desc.contains("snow") || desc.contains("blizzard") || desc.contains("sleet")) {
+		} else if (desc.contains("snow") || desc.contains("blizzard")
+				|| desc.contains("sleet")) {
 			return mapper.getForecastCode("Snow");
-		}
-		else if(desc.contains("clear")||desc.contains("sunny")){
+		} else if (desc.contains("clear") || desc.contains("sunny")) {
 			return mapper.getForecastCode("Sunny");
-		}
-		else if(desc.contains("cloudy") || desc.contains("overcast")){
+		} else if (desc.contains("cloudy") || desc.contains("overcast")) {
 			return mapper.getForecastCode("Cloudy");
 		}
 		return 0;
-		
+
 	}
 
 }

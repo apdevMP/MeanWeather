@@ -5,12 +5,17 @@ import java.util.List;
 import android.os.AsyncTask;
 import android.util.Log;
 
+/**
+ * This class extends AsyncTask and execute a merge of a list of weather. It
+ * returns a weather that it is a mean of others weather
+ * 
+ * @author TEAM apdev
+ * 
+ */
 public class MeanAsyncTask extends AsyncTask<List<Weather>, Void, Weather> {
 
 	private static final String TAG = "MeanAsyncTask";
 	private List<Weather> list;
-	
-	
 
 	@Override
 	protected Weather doInBackground(List<Weather>... params) {
@@ -55,16 +60,25 @@ public class MeanAsyncTask extends AsyncTask<List<Weather>, Void, Weather> {
 		double pressure = Utils.roundMeasure(sumPressure / list.size());
 		meanWeather.setPressure(pressure);
 
-		Log.v(	TAG,""+visibility_num);
+		Log.v(TAG, "" + visibility_num);
 		double visibility = Utils.roundMeasure(sumVisibility / visibility_num);
 		meanWeather.setVisibility(visibility);
 
-		//For the description it used a private method
+		// For the description it used a private method
 		mergeDescription(meanWeather);
 
 		return meanWeather;
 	}
 
+	/**
+	 * Return the description that is the merge of description of the list. The
+	 * policies are: 1) if 2 descriptions of 3 are the same,so these strings are
+	 * the merge description; 2) it does the mean of forecast code of this
+	 * application and the result number corresponds to the merge description
+	 * 
+	 * @param list
+	 * @return
+	 */
 	private void mergeDescription(Weather mean) {
 
 		ForecastMapper mapper = ForecastMapper.getIstance();

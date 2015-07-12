@@ -148,11 +148,19 @@ public class Weather implements Parcelable {
 		this.humidity = humidity;
 	}
 
+	/**
+	 * 	Return the visibility
+	 * @return
+	 */
 	public double getVisibility()
 	{
 		return visibility;
 	}
 
+	/**
+	 * Set the visibility 
+	 * @param visibility
+	 */
 	public void setVisibility(double visibility)
 	{
 		this.visibility = visibility;
@@ -196,7 +204,7 @@ public class Weather implements Parcelable {
 	}
 
 	/**
-	 * This method realize the merge of a list of weather
+	 * This method realize the merge of a list of weathers, it calls MeanAsyncTask
 	 * 
 	 * @param list
 	 * @throws ExecutionException 
@@ -211,40 +219,13 @@ public class Weather implements Parcelable {
 		
 		Weather mean = task.get(); 
 		this.copy(mean);
-		
-		
-		// Set the temporary variables for the sum to 0-value
-		/*
-		double sumHumidity = 0;
-		double sumSpeed = 0;
-		double sumTemp = 0;
-		double sumPressure = 0;
-		double sumVisibility = 0;
-		int visibility_num = 0;
-
-		// For each Weather in the list, sum the values
-		for (Weather i : list) {
-			sumHumidity = sumHumidity + i.getHumidity();
-			sumSpeed = sumSpeed + i.getWind();
-			sumTemp = sumTemp + i.getTemperature();
-			sumPressure = sumPressure + i.getPressure();
-			if(i.getVisibility() > 0){
-			sumVisibility = sumVisibility + i.getVisibility();
-			visibility_num++;
-			}
-		}
-
-		// Divide the sum for the size of list
-		this.humidity = Utils.roundMeasure(sumHumidity / list.size());
-		this.wind = Utils.roundMeasure(sumSpeed / list.size());
-		this.temperature = Utils.roundMeasure(sumTemp / list.size());
-		this.pressure = Utils.roundMeasure(sumPressure / list.size());
-		this.visibility = Utils.roundMeasure(sumVisibility / visibility_num);
-
-		// For the description it is used a private method
-		this.description = mergeDescription(list);*/
+				
 	}
 
+	/**
+	 * This private method copies a weather to another one, field by field
+	 * @param mean
+	 */
 	private void copy(Weather mean) {
 		this.setDescription(mean.getDescription());
 		this.setForecastCode(mean.getForecastCode());
@@ -257,73 +238,6 @@ public class Weather implements Parcelable {
 		
 	}
 
-	/**
-	 * Return the description that is the merge of description of the list. The
-	 * policies are: 1) if 2 descriptions of 3 are the same,so these strings are
-	 * the merge description; 2) it does the mean of forecast code of this
-	 * application and the result number corresponds to the merge description
-	 * 
-	 * @param list
-	 * @return
-	 */
-	private String mergeDescription(List<Weather> list) {
-
-		ForecastMapper mapper = ForecastMapper.getIstance();
-		// Initialize merge string
-		String merge = "";
-
-		String weather1 = list.get(0).getDescription();
-		String weather2 = list.get(1).getDescription();
-		String weather3 = list.get(2).getDescription();
-
-		// if 2/3 description are the same,choose these
-		if (weather1.equalsIgnoreCase(weather2)) {
-			merge = weather1;
-			this.forecastCode = list.get(0).getForecastCode();
-			this.idIcon = mapper.getIconId(this.forecastCode);
-			
-		} else if (weather1.equalsIgnoreCase(weather3)) {
-			merge = weather1;
-			this.forecastCode = list.get(0).getForecastCode();
-			this.idIcon = mapper.getIconId(this.forecastCode);
-		} else if (weather2.equalsIgnoreCase(weather3)) {
-			merge = weather2;
-			this.forecastCode = list.get(1).getForecastCode();
-			this.idIcon = mapper.getIconId(this.forecastCode);
-		}
-
-		// mean of the forecast code
-		if (merge.equalsIgnoreCase("")) {
-			int count = 0;
-			int sumDesc = 0;
-			
-			for (Weather w : list) {
-				// not sum if forecast code corresponds to "Not Available"
-				if (w.getForecastCode() != 0) {
-					count++;
-				}
-				sumDesc = sumDesc + w.getForecastCode();
-			}
-
-			if (sumDesc == 0) {
-				// if sumDesc is zero,it means that merge description is not
-				// avaliable
-				this.forecastCode = 0;
-				merge = mapper.getForecastDescription(sumDesc);
-				this.idIcon = mapper.getIconId(this.forecastCode);
-			} else {
-				// mean of the forecast code
-				double mean = (double) sumDesc / (double) count;
-				Log.v(TAG, "mean: " + mean);
-				this.forecastCode = (int) Math.round(mean);
-				Log.v(TAG, "round: " + this.forecastCode);
-				merge = mapper.getForecastDescription(this.forecastCode);
-				this.idIcon = mapper.getIconId(this.forecastCode);
-			}
-		}
-
-		return merge;
-	}
 
 	protected Weather(Parcel in) {
         source = in.readString();
