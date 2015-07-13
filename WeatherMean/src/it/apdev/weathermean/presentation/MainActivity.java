@@ -12,7 +12,6 @@ import it.apdev.weathermean.logic.WorldWeatherOnlineHttpService;
 import it.apdev.weathermean.logic.YahooHttpService;
 import it.apdev.weathermean.storage.DBManager;
 import it.apdev.weathermean.storage.DBStrings;
-import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -82,7 +81,6 @@ public class MainActivity extends Activity
 		// create an instance for the database manager
 		dbManager = new DBManager(this);
 
-		//TODO
 		dbManager.updateCurrentField();
 
 		// get extras from the intent
@@ -149,12 +147,8 @@ public class MainActivity extends Activity
 		cityListView.setAdapter(adapter);
 
 		//add some test cities to the list, including the current one
-		addRecordToDB(currentCityNameString, currentCountryCodeString, 1, false);
-		addRecordToDB("Milano", "IT", 0, false);
-		addRecordToDB("Torino", "IT", 0, false);
-		addRecordToDB("Bari", "IT", 0, false);
-		addRecordToDB("Veroli", "IT", 0, false);
-		addRecordToDB("Ripi", "IT", 0, false);
+		addRecordToDB(currentCityNameString.toUpperCase(), currentCountryCodeString.toUpperCase(), 1, false);
+
 
 		// listener addCityButton, to add a new city in the database
 		addCityButton.setOnClickListener(new OnClickListener() {
@@ -162,8 +156,8 @@ public class MainActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				String cityString = cityEditText.getText().toString();
-				String countryCodeString = countryCodeEditText.getText().toString();
+				String cityString = cityEditText.getText().toString().toUpperCase();
+				String countryCodeString = countryCodeEditText.getText().toString().toUpperCase();
 
 				/*
 				 * verify that the edittext has been filled. If not, show a
@@ -244,10 +238,8 @@ public class MainActivity extends Activity
 								try {
 									meanWeather.mergeWeather(list);
 								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								} catch (ExecutionException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 

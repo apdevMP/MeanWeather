@@ -16,7 +16,7 @@ public class ForecastMapper
 
 	private static final String[]	forecastMap		= { "Not Available", "Sunny", "Cloudy", "Rain", "Storm", "Snow" };
 
-	private static final int[]		idIconMap		= { R.drawable.not_available, R.drawable.sunny, R.drawable.cloudy, R.drawable.storm,
+	private static final int[]		idIconMap		= { R.drawable.not_available, R.drawable.sunny, R.drawable.cloudy,R.drawable.rain, R.drawable.storm,
 			R.drawable.snow						};
 
 	private static ForecastMapper	forecastMapper	= null;
