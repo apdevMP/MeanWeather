@@ -48,7 +48,7 @@ public class OpenWeatherMapHttpService extends HttpService {
 		this.city = city;
 		this.codeNation = codeNation;
 
-		String cityUrl = city.replaceAll(" ", "%20");
+		String cityUrl = city.replaceAll(" ", "%20").replaceAll("'", "");
 
 		// construct url for Open Weather Map
 		this.urlString = "http://api.openweathermap.org/data/2.5/weather?q="

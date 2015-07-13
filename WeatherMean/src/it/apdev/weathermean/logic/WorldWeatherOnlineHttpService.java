@@ -41,7 +41,7 @@ public class WorldWeatherOnlineHttpService extends HttpService {
 	public WorldWeatherOnlineHttpService(String city, String codeNation) {
 		this.city = city;
 		this.codeNation = codeNation;
-		String cityUrl = city.replaceAll(" ", "%20");
+		String cityUrl = city.replaceAll(" ", "%20").replaceAll("'","%20");
 
 		// construct url for World Weather Online
 		this.urlString = "http://api.worldweatheronline.com/free/v2/weather.ashx?q="
